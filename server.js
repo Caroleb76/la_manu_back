@@ -1,18 +1,24 @@
 // const express = require("express");  ancienne syntaxe
+// importation des librairies et des fichiers utiles
 import express, { Router } from "express";
 import routes from "./src/controllers/routes.js";
-import bodyParser from "body-parser";
+import dotenv from "dotenv";
+import db from "./src/database/connection.js";
+dotenv.config({ path: ".env" });
+// initialisation de l'appli express
 const app = express();
-const port = 3000;
-const router = Router();
+const port = process.env.PORT ?? 3000; // definition du port
+const router = Router(); // initialisation du router
 
-// router.get("/", (req, res) => {
-//   res.send("hello word");
-// });
+// formater les réponses de l'api en json
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+// on passe le router dans les routes
 routes(router);
+//ajouter le prefixe /api/v1 à toutes les routes
 app.use("/api/v1", router);
-// app.use(bodyParser.json());
-// app.use(express.urlencoded({ extended: true }));
+// associer le port à notre application
 app.listen(port, () => {
   console.log("listening on port " + port);
+  db();
 });
