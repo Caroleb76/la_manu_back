@@ -1,7 +1,9 @@
 import Sequelize from "sequelize";
 
+let sequelizeInstance = null;
 export default async () => {
-  const sequelize = new Sequelize({
+  if (sequelizeInstance) return sequelizeInstance;
+  sequelizeInstance = new Sequelize({
     dialect: process.env.DB_DIALECT,
     host: process.env.DB_HOST,
     database: process.env.DB_NAME,
@@ -11,9 +13,10 @@ export default async () => {
   });
 
   try {
-    await sequelize.authenticate();
+    await sequelizeInstance.authenticate();
     console.log("Connection has been established successfully.");
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }
+  return sequelizeInstance;
 };

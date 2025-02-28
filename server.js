@@ -4,6 +4,7 @@ import express, { Router } from "express";
 import routes from "./src/controllers/routes.js";
 import dotenv from "dotenv";
 import db from "./src/database/connection.js";
+import modelsLoader from "./src/database/modelsLoader.js";
 dotenv.config({ path: ".env" });
 // initialisation de l'appli express
 const app = express();
@@ -20,5 +21,7 @@ app.use("/api/v1", router);
 // associer le port à notre application
 app.listen(port, () => {
   console.log("listening on port " + port);
-  db();
+  db().then(() => {
+    modelsLoader(false);
+  });
 });
