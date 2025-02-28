@@ -22,5 +22,8 @@ export default (sequelize) => {
       timestamps: false, //created at updated at
     }
   );
+  extraCost.associate = (database) => {
+    extraCost.belongsTo(database.intervention, {});
+  };
   return extraCost;
 };

@@ -1,8 +1,8 @@
 import { DataTypes } from "sequelize";
 
 export default (sequelize) => {
-  const users = sequelize.define(
-    "users",
+  const user = sequelize.define(
+    "user",
     {
       id: {
         type: DataTypes.UUID,
@@ -69,8 +69,9 @@ export default (sequelize) => {
       timestamps: true, //created at updated at
     }
   );
-  users.associate = (database) => {
-    users.belongsTo(database.role, {});
+  user.associate = (database) => {
+    user.belongsTo(database.role, {});
+    user.belongsTo(database.address, {});
   };
-  return users;
+  return user;
 };

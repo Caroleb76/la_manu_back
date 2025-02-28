@@ -22,5 +22,9 @@ export default (sequelize) => {
       timestamps: false, //created at updated at
     }
   );
+  file.associate = (database) => {
+    file.belongsTo(database.extraCost, { allowNull: true });
+    file.belongsTo(database.user, {});
+  };
   return file;
 };

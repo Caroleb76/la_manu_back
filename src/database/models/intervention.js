@@ -38,8 +38,10 @@ export default (sequelize) => {
       timestamps: true, //created at updated at
     }
   );
-  //   users.associate = (database) => {
-  //     users.belongsTo(database.role, {});
-  //   };
+  intervention.associate = (database) => {
+    intervention.belongsTo(database.contract, {});
+    intervention.belongsTo(database.interventionCategory, {});
+    intervention.belongsTo(database.moduleFormation, {});
+  };
   return intervention;
 };
