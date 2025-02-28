@@ -22,6 +22,6 @@ app.use("/api/v1", router);
 app.listen(port, () => {
   console.log("listening on port " + port);
   db().then(() => {
-    modelsLoader(false);
+    modelsLoader(true);
   });
 });
