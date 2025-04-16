@@ -1,0 +1,10 @@
+model Formation {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+
+  // Add back-relations here if needed later (e.g. Sessions)
+
+  @@map("Formation") // Optional: maps to table name if needed
+  SessionFormation SessionFormation[]
+}

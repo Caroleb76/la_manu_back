@@ -1,0 +1,15 @@
+model SessionFormation {
+  id            String     @id @default(uuid())
+  serialNumber  String
+  startDate     DateTime?
+  endDate       DateTime?
+
+  formationId   String?
+  addressId     String?
+
+  Formation     Formation? @relation(fields: [formationId], references: [id])
+  Address       Address?   @relation(fields: [addressId], references: [id])
+
+  @@map("SessionFormation") // Optional: maps to table name if needed
+  Contract Contract[]
+}

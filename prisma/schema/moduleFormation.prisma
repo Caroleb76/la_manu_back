@@ -1,0 +1,9 @@
+model ModuleFormation {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+
+  Interventions Intervention[]
+
+  @@map("ModuleFormation") // Optional: maps to table name if needed
+}

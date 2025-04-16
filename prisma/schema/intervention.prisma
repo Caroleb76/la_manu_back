@@ -1,0 +1,21 @@
+model Intervention {
+  id                   String   @id @default(uuid())
+  dateIntervention     DateTime
+  hours                Decimal
+  shift                String
+  description          String?
+  validatedByFormateur Boolean
+  validatedByAdmin     Boolean
+
+  contractId             String?
+  interventionCategoryId String?
+  moduleFormationId      String?
+
+  Contract             Contract?             @relation(fields: [contractId], references: [id])
+  InterventionCategory InterventionCategory? @relation(fields: [interventionCategoryId], references: [id])
+  ModuleFormation      ModuleFormation?      @relation(fields: [moduleFormationId], references: [id])
+
+  ExtraCosts ExtraCost[]
+
+  @@map("Intervention") // Optional: maps to table name if needed
+}

@@ -1,0 +1,15 @@
+model ExtraCost {
+  id             String       @id @default(uuid())
+  category       CategoryEnum
+  val            String?
+
+  interventionId String?
+  Intervention   Intervention? @relation(fields: [interventionId], references: [id])
+
+  @@map("ExtraCost") // Optional: match DB table name if needed
+  File File[]
+}
+
+enum CategoryEnum {
+  frais_de_repas
+}

@@ -1,0 +1,8 @@
+model Role {
+    id   String  @id @default(uuid())
+    name String?
+
+    Users User[]
+
+    @@map("Role") // Optional: maps to the actual DB table if it's named "Role"
+}

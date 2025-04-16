@@ -1,0 +1,9 @@
+model InterventionCategory {
+  id    String   @id @default(uuid())
+  name  String
+  rate  Decimal
+
+  Interventions Intervention[]
+
+  @@map("InterventionCategory") // Optional: maps to table name if needed
+}

@@ -1,0 +1,12 @@
+model Address {
+  id         String   @id @default(uuid())
+  address    String
+  city       String
+  postalCode String
+
+  // Relations (from your User model)
+  Users      User[]
+
+  @@map("Address") // Ensures Prisma maps to the correct DB table if needed
+  SessionFormation SessionFormation[]
+}

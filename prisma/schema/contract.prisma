@@ -1,0 +1,11 @@
+model Contract {
+  id                  String            @id @default(uuid())
+  startDate           DateTime
+  endDate             DateTime
+
+  sessionFormationId  String?
+  SessionFormation    SessionFormation? @relation(fields: [sessionFormationId], references: [id])
+
+  @@map("Contract") // Optional: if your DB table name is actually "Contract"
+  Intervention Intervention[]
+}

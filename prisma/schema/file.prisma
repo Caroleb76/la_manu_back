@@ -1,0 +1,13 @@
+model File {
+  id           String      @id @default(uuid())
+  name         String
+  url          String?
+
+  extraCostId  String?
+  userId       String
+
+  ExtraCost    ExtraCost?  @relation(fields: [extraCostId], references: [id])
+  User         User        @relation(fields: [userId], references: [id])
+
+  @@map("File") // Optional, if your DB table is named exactly "File"
+}

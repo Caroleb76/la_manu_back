@@ -1,0 +1,10 @@
+model Notification {
+  id        String   @id @default(uuid())
+  title     String
+  content   String?
+  priority  Int      @default(1)
+  startDate DateTime?
+  endDate   DateTime?
+
+  @@map("Notification") // Optional: maps to table name if needed
+}
