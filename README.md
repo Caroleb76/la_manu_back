@@ -4,5 +4,5 @@
 - NodeJS
 - Express
 - Postgres
-- Sequelize
+- Prisma ORM
 - CSS modules
