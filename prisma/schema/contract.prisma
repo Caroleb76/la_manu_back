@@ -6,6 +6,9 @@ model Contract {
   sessionFormationId  String?
   SessionFormation    SessionFormation? @relation(fields: [sessionFormationId], references: [id])
 
+  userId   String?
+  User     User @relation(fields: [userId], references: [id]) 
+
   @@map("Contract") // Optional: if your DB table name is actually "Contract"
   Intervention Intervention[]
 }

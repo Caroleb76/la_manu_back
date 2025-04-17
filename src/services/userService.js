@@ -1,8 +1,11 @@
-import Prisma from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 import passwordUtils from "../utils/utils.js";
+import RoleService from "./roleService.js";
+import { ROLES } from '../utils/constants.js';
 
-const { PrismaClient } = Prisma;
 const prisma = new PrismaClient();
+
+
 
 const getUsers = async () => {
   try {
@@ -22,6 +25,9 @@ const getUserById = async (id) => {
       where: {
         id: id,
       },
+      include:{
+        role: true
+      }
     });
     if (!user) {
       throw new Error("aucun utilisateur trouvé");
@@ -36,6 +42,11 @@ const getUserById = async (id) => {
 
 const createUser = async (data) => {
   try {
+    // add the role FORMATEUR to created users by default
+    let formateurRole= await RoleService.getRoleByName(ROLES.FORMATEUR);
+    // if the role FORMATEUR doesn't exist create it
+    if(!formateurRole) formateurRole = await RoleService.createRole({name: ROLES.FORMATEUR});
+    data.roldId= formateurRole.id;
     if (!data.password) {
       throw new Error("mot de passe manquant");
     }

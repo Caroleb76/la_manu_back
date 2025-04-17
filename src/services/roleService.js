@@ -1,8 +1,8 @@
-import { prismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
 
-const prisma = new prismaClient();
 
-const getRolees = async () => {
+const getRoles = async () => {
   try {
     const roles = await prisma.role.findMany();
 
@@ -19,6 +19,22 @@ const getRoleById = async (id) => {
     const role = await prisma.role.findUnique({
       where: {
         id: id,
+      },
+    });
+    console.log(role);
+    return role;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+
+const getRoleByName = async (roleName) => {
+  try {
+    const role = await prisma.role.findUnique({
+      where: {
+        name: roleName,
       },
     });
     console.log(role);
@@ -73,9 +89,10 @@ const deleteRoleById = async (id) => {
 };
 
 export default {
-  getRolees,
+  getRoles,
   getRoleById,
   updateRole,
   createRole,
   deleteRoleById,
+  getRoleByName
 };
