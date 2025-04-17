@@ -1,8 +1,7 @@
-import pkg from "@prisma/client";
+import Prisma from "@prisma/client";
 import passwordUtils from "../utils/utils.js";
 
-const { PrismaClient } = pkg;
-
+const { PrismaClient } = Prisma;
 const prisma = new PrismaClient();
 
 const getUsers = async () => {
