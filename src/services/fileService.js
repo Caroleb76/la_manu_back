@@ -61,7 +61,7 @@ const getFileById = async (id) => {
     }
 };
 
-const updateFile = async (id, data) => {
+const updateFileById = async (id, data) => {
     try {
         const updated = await prisma.file.update({
             where: { id },
@@ -109,7 +109,7 @@ export default {
     getFilesByUserId,
     getFilesByExtraCostId,
     getFileById,
-    updateFile,
+    updateFileById,
     createFile,
     deleteFileById,
 };

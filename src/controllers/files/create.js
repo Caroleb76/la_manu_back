@@ -1,9 +1,9 @@
-import ApiResponse from "../../utils/apiResponse.js";
-import userService from "../../services/userService.js";
+import { ApiResponse } from "../../utils/apiResponse.js";
+import fileService from "../../services/fileService.js";
 export default async (req, res) => {
   try {
     const data = req.body;
-    const payload = await userService.createUser(data);
+    const payload = await fileService.createFile(data);
     return ApiResponse.success(res, payload, "Resource created");
   } catch (error) {
     console.log(error);

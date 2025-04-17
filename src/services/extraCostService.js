@@ -45,7 +45,7 @@ const getExtraCostById = async (id) => {
     }
 };
 
-const updateExtraCost = async (id, data) => {
+const updateExtraCostById = async (id, data) => {
     try {
         const updated = await prisma.extraCost.update({
             where: { id },
@@ -92,7 +92,7 @@ export default {
     getExtraCosts,
     getExtraCostsByInterventionId,
     getExtraCostById,
-    updateExtraCost,
+    updateExtraCostById,
     createExtraCost,
     deleteExtraCostById,
 };
