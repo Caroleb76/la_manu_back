@@ -68,16 +68,16 @@ const createUser = async (data) => {
 
 const deleteUserById = async (id) => {
   try {
-    const user = await prisma.user.delete({
+    const deleted = await prisma.user.delete({
       where: {
         id: id,
       },
     });
-    if (!user) {
+    if (!deleted) {
       throw new Error("aucun utilisateur trouvé");
     }
-    console.log(user);
-    return user;
+    console.log(deleted);
+    return deleted;
   } catch (error) {
     console.error(error);
     throw error;

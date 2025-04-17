@@ -12,10 +12,12 @@ const router = Router(); // initialisation du router
 // formater les réponses de l'api en json
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 // on passe le router dans les routes
 routes(router);
 //ajouter le prefixe /api/v1 à toutes les routes
 app.use("/api/v1", router);
+
 // associer le port à notre application
 app.listen(port, () => {
     console.log("listening on port " + port);
