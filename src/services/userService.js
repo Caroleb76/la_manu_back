@@ -46,7 +46,7 @@ const createUser = async (data) => {
     let formateurRole= await RoleService.getRoleByName(ROLES.FORMATEUR);
     // if the role FORMATEUR doesn't exist create it
     if(!formateurRole) formateurRole = await RoleService.createRole({name: ROLES.FORMATEUR});
-    data.roldId= formateurRole.id;
+    data.roleId= formateurRole.id;
     if (!data.password) {
       throw new Error("mot de passe manquant");
     }

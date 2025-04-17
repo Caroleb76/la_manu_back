@@ -73,8 +73,11 @@ const validateIntervention = async (interventionId, userId) => {
         if (!intervention) throw new Error("C'est impossible de mettre à jour une intervention qui n'existe pas");
         const user = await userService.getUserById(userId);
         if (user.role !== ROLES.ADMIN && user.role !== ROLES.FORMATEUR) throw new Error("vous n'avez pas les droits");
-        intervention.validatedByAdmin = user.role == ROLES.ADMIN;
-        intervention.validatedByFormateur = user.role == ROLES.FORMATEUR;
+        if (user.role == ROLES.ADMIN) {
+            intervention.validatedByAdmin = user.role == ROLES.ADMIN;
+        } else if (user.role == ROLES.FORMATEUR) {
+            intervention.validatedByFormateur = user.role == ROLES.FORMATEUR;
+        }
         const interventionUpdated = await prisma.intervention.update({
             where: {
                 id: interventionId
