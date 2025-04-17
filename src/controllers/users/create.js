@@ -1,4 +1,4 @@
-import { ApiResponse } from "../../utils/apiResponse";
+import {ApiResponse} from "../../utils/apiResponse.js";
 export default (req, res) => {
     try {
       const body = req.body;
