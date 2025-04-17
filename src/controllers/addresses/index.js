@@ -6,22 +6,20 @@ import getById from "./getById.js";
 import { Router } from "express";
 import authMiddleware from "../../middlewares/authMiddleware.js";
 
+//récupération du routeur pour lui associer les différentes routes
 const router = Router();
+// liste de toutes les routes pour le dossier
 
-// Get all users
+
 router.get("/",authMiddleware, getAll);
 
-//Get 1 user from their ID
 router.get("/:id",authMiddleware, getById);
 
-//Create 1 user
 router.post("/",authMiddleware, create);
 
-//Update 1 user
-router.put("/:id",authMiddleware, update);
-
-//Delete 1 user
 router.delete("/:id",authMiddleware, deleteUser); 
+
+router.put("/:id",authMiddleware, update);
 
 export default router;
 

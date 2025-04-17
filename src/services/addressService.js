@@ -29,7 +29,7 @@ const getAddressById = async (id) => {
   }
 };
 
-const updateAddress = async (id, data) => {
+const updateAddressById = async (id, data) => {
   try {
     const updated = await prisma.address.update({
       where: { id },
@@ -75,7 +75,7 @@ const deleteAddressById = async (id) => {
 export default {
   getAddresses,
   getAddressById,
-  updateAddress,
+  updateAddressById,
   createAddress,
   deleteAddressById,
 };

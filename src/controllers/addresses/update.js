@@ -1,9 +1,10 @@
 import { ApiResponse } from "../../utils/apiResponse.js";
-import userService from "../../services/userService.js";
+import addressService from "../../services/addressService.js";
 export default async (req, res) => {
   try {
+    const id = req.params.id;
     const data = req.body;
-    const payload = await userService.createUser(data);
+    const payload = await addressService.updateAddressById(id, data);
     return ApiResponse.success(res, payload, "Resource created");
   } catch (error) {
     console.log(error);
