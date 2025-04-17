@@ -2,9 +2,9 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const getModuleFormations = async () => {
+const getmoduleFormations = async () => {
   try {
-    const moduleFormations = await prisma.moduleFormation.findMany();
+    const moduleFormations = await prisma.moduleFormations.findMany();
 
     console.log(moduleFormations);
     return moduleFormations;
@@ -14,13 +14,16 @@ const getModuleFormations = async () => {
   }
 };
 
-const getModuleFormationById = async (id) => {
+const getmoduleFormationById = async (id) => {
   try {
     const moduleFormation = await prisma.moduleFormation.findUnique({
       where: {
         id: id,
       },
     });
+    if (!moduleFormation) {
+      throw new Error("aucun moduleFormation trouvé");
+    }
     console.log(moduleFormation);
     return moduleFormation;
   } catch (error) {
@@ -29,13 +32,13 @@ const getModuleFormationById = async (id) => {
   }
 };
 
-const updateModuleFormation = async (id, data) => {
+const updatemoduleFormation = async (id, data) => {
   try {
     const updated = await prisma.moduleFormation.update({
       where: { id },
       data,
     });
-    console.log("Module de formation mis à jour :", updated);
+    console.log("moduleFormation mise à jour :", updated);
     return updated;
   } catch (error) {
     console.error("Erreur lors de la mise à jour :", error);
@@ -43,7 +46,7 @@ const updateModuleFormation = async (id, data) => {
   }
 };
 
-const createModuleFormation = async (data) => {
+const createmoduleFormation = async (data) => {
   try {
     const moduleFormation = await prisma.moduleFormation.create({
       data,
@@ -57,7 +60,7 @@ const createModuleFormation = async (data) => {
   }
 };
 
-const deleteModuleFormationById = async (id) => {
+const deletemoduleFormationById = async (id) => {
   try {
     const moduleFormation = await prisma.moduleFormation.delete({
       where: {
@@ -73,9 +76,9 @@ const deleteModuleFormationById = async (id) => {
 };
 
 export default {
-  getModuleFormations,
-  getModuleFormationById,
-  updateModuleFormation,
-  createModuleFormation,
-  deleteModuleFormationById,
+  getmoduleFormations,
+  getmoduleFormationById,
+  updatemoduleFormation,
+  createmoduleFormation,
+  deletemoduleFormationById,
 };
