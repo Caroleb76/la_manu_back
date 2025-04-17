@@ -3,7 +3,7 @@ model InterventionCategory {
   name  String
   rate  Decimal
 
-  Interventions Intervention[]
+  interventions Intervention[]
 
   @@map("InterventionCategory") // Optional: maps to table name if needed
 }

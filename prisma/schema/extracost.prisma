@@ -6,8 +6,8 @@ model ExtraCost {
   interventionId String?
   Intervention   Intervention? @relation(fields: [interventionId], references: [id])
 
+  files File[]
   @@map("ExtraCost") // Optional: match DB table name if needed
-  File File[]
 }
 
 enum CategoryEnum {

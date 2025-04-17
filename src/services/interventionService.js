@@ -102,8 +102,6 @@ const validateCreation = (data) => {
     if (!data.hours) throw new Error("c'est pas possible de créer une intervention sans heures");
     if (!data.shift) throw new Error("c'est pas possible de créer une intervention sans shift");
 
-
-
 }
 
 export default {

@@ -3,7 +3,7 @@ model ModuleFormation {
   name        String
   description String?
 
-  Interventions Intervention[]
+  interventions Intervention[]
 
   @@map("ModuleFormation") // Optional: maps to table name if needed
 }

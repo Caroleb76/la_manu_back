@@ -16,12 +16,17 @@ model User {
     diploma    String?
 
     // Relations
-    roleId   String?
+    roleId   String
     adressId String?
 
-    Role   Role?   @relation(fields: [roleId], references: [id])
+    Role   Role   @relation(fields: [roleId], references: [id])
     Adress Address? @relation(fields: [adressId], references: [id])
 
-    @@map("Users") // Optional if your DB table is plural
-    File File[]
+    files File[]
+
+    contracts Contract[]
+
+    @@map("Users") 
+    
+
 }

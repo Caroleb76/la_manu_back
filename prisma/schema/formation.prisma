@@ -5,6 +5,6 @@ model Formation {
 
   // Add back-relations here if needed later (e.g. Sessions)
 
+  sessions SessionFormation[]
   @@map("Formation") // Optional: maps to table name if needed
-  SessionFormation SessionFormation[]
 }

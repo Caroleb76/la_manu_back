@@ -15,7 +15,7 @@ model Intervention {
   InterventionCategory InterventionCategory? @relation(fields: [interventionCategoryId], references: [id])
   ModuleFormation      ModuleFormation?      @relation(fields: [moduleFormationId], references: [id])
 
-  ExtraCosts ExtraCost[]
+  extraCosts ExtraCost[]
 
   @@map("Intervention") // Optional: maps to table name if needed
 }
