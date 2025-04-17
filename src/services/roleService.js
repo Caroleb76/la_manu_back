@@ -2,7 +2,7 @@ import { prismaClient } from "@prisma/client";
 
 const prisma = new prismaClient();
 
-const getRolees = async () => {
+const getRoles = async () => {
   try {
     const roles = await prisma.role.findMany();
 
@@ -73,7 +73,7 @@ const deleteRoleById = async (id) => {
 };
 
 export default {
-  getRolees,
+  getRoles,
   getRoleById,
   updateRole,
   createRole,
