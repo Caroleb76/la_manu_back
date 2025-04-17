@@ -39,6 +39,26 @@ const getUserById = async (id) => {
     throw error;
   }
 };
+const getUserByEmail = async (email) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+      include:{
+        role: true
+      }
+    });
+    if (!user) {
+      throw new Error("aucun utilisateur trouvé");
+    }
+    console.log(user);
+    return user;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
 
 const createUser = async (data) => {
   try {
@@ -112,6 +132,7 @@ const updateUserById = async (id, data) => {
 export default {
   getUsers,
   getUserById,
+  getUserByEmail,
   createUser,
   deleteUserById,
   updateUserById,

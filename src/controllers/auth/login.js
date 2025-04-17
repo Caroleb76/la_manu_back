@@ -1,0 +1,13 @@
+import authService from "../../services/authService.js";
+import { ApiResponse } from "../../utils/apiResponse.js";
+
+export default async (req, res) => {
+    try {
+        const [email, password] = req.body;
+        if(!email || !password) throw new Error("Il manque des champs");
+        const token = await authService.login(email, password);
+        ApiResponse.success(res, {token});
+    }catch (error) {
+        ApiResponse.error(res, error);
+    }
+}
