@@ -5,7 +5,7 @@ const { PrismaClient } = pkg;
 
 const prisma = new PrismaClient();
 
-const getUsers = async (data) => {
+const getUsers = async () => {
   try {
     const users = await prisma.user.findMany();
 
@@ -13,6 +13,7 @@ const getUsers = async (data) => {
     return users;
   } catch (error) {
     console.error(error);
+    throw error;
   }
 };
 
