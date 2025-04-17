@@ -15,7 +15,7 @@ const create = async (data) => {
     }
 }
 
-const getSessionsByFormationId = async (formationId) => {
+const getByFormationId = async (formationId) => {
     try {
         const sessions = await prisma.sessionFormation.findMany({
             where: {
@@ -32,7 +32,7 @@ const getSessionsByFormationId = async (formationId) => {
     }
 }
 
-const getSessionById = async (id) => {
+const getById = async (id) => {
     try {
         const session = await prisma.sessionFormation.findUnique({
             where: {
@@ -49,7 +49,7 @@ const getSessionById = async (id) => {
     }
 }
 
-const updateSessionById = async (id, data) => {
+const update = async (id, data) => {
     try {
         const session = await prisma.sessionFormation.update({
             where: {
@@ -66,7 +66,7 @@ const updateSessionById = async (id, data) => {
 
 
 
-const deleteSessionById = async (id) => {
+const destroy = async (id) => {
     try {
         const session = await prisma.sessionFormation.delete({
             where: {
@@ -92,8 +92,8 @@ const validateSessionFormation = (data) => {
 
 export default {
     create,
-    getSessionsByFormationId,
-    getSessionById,
-    updateSessionById,
-    deleteSessionById
+    getByFormationId,
+    getById,
+    update,
+    destroy
 }

@@ -1,7 +1,7 @@
 
 import { PrismaClient } from '@prisma/client';
-import userService from './userService';
-import { ROLES } from '../utils/constants';
+import userService from './userService.js';
+import { ROLES } from '../utils/constants.js';
 const prisma = new PrismaClient();
 
 const getByContractId = async (contractId) => {
