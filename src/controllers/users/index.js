@@ -12,6 +12,7 @@ const router = Router();
  * @swagger
  * /users:
  *   get:
+ *     tags: [Users]
  *     summary: Get all users
  *     security:
  *       - bearerAuth: []
