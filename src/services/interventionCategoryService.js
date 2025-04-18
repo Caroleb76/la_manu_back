@@ -19,6 +19,21 @@ const create = async (data) => {
     }
 };
 
+const destroy = async (id) => {
+    try {
+        const interventionCategory = await prisma.interventionCategory.delete({
+            where: {
+                id: id
+            }
+        });
+        console.log(`[+] A interventionCategory has been deleted: ${interventionCategory}`);
+        return interventionCategory;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
 const getAll = async () => {
     try {
         const interventionCategories = await prisma.interventionCategory.findMany();
@@ -33,5 +48,6 @@ const getAll = async () => {
 
 export default {
     create,
+    destroy,
     getAll
 }
