@@ -6,9 +6,8 @@ import getById from "./getById.js";
 import { Router } from "express";
 import authMiddleware from "../../middlewares/authMiddleware.js";
 
-//récupération du routeur pour lui associer les différentes routes
 const router = Router();
-// liste de toutes les routes pour le dossier
+
 /**
  * @swagger
  * /addresses:
@@ -18,7 +17,13 @@ const router = Router();
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Success
+ *         description: List of addresses
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Address'
  *       401:
  *         description: Unauthorized
  *       500:
@@ -38,10 +43,15 @@ router.get("/", authMiddleware, getAll);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
+ *           format: uuid
  *     responses:
  *       200:
- *         description: Success
+ *         description: Address found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Address'
  *       401:
  *         description: Unauthorized
  *       404:
@@ -50,6 +60,7 @@ router.get("/", authMiddleware, getAll);
  *         description: Internal Server Error
  */
 router.get("/:id", authMiddleware, getById);
+
 /**
  * @swagger
  * /addresses:
@@ -62,22 +73,26 @@ router.get("/:id", authMiddleware, getById);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Notification'
+ *             $ref: '#/components/schemas/Address'
  *     responses:
  *       201:
- *         description: Resource created
+ *         description: Address created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Address'
  *       401:
  *         description: Unauthorized
  *       500:
  *         description: Internal Server Error
  */
-
 router.post("/", authMiddleware, create);
+
 /**
  * @swagger
  * /addresses/{id}:
  *   delete:
- *     summary: Delete an existing address
+ *     summary: Delete an address
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -85,22 +100,23 @@ router.post("/", authMiddleware, create);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
+ *           format: uuid
  *     responses:
  *       204:
- *         description: Resource deleted
+ *         description: Address deleted
  *       401:
  *         description: Unauthorized
  *       404:
  *         description: Not Found
  *       500:
  *         description: Internal Server Error
- *
  */
 router.delete("/:id", authMiddleware, destroy);
+
 /**
  * @swagger
- * /addresses:
+ * /addresses/{id}:
  *   put:
  *     summary: Update an existing address
  *     security:
@@ -110,29 +126,28 @@ router.delete("/:id", authMiddleware, destroy);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
+ *           format: uuid
  *     requestBody:
  *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Address'
  *     responses:
  *       200:
- *         description: Resource updated
+ *         description: Address updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Address'
  *       401:
  *         description: Unauthorized
  *       404:
  *         description: Not Found
  *       500:
  *         description: Internal Server Error
- *
  */
-
-router.get("/", authMiddleware, getAll);
-
-router.get("/:id", authMiddleware, getById);
-
-router.post("/", authMiddleware, create);
-
-router.delete("/:id", authMiddleware, destroy);
-
 router.put("/:id", authMiddleware, update);
 
 export default router;
