@@ -59,7 +59,7 @@ const createAddress = async (data) => {
 
 const deleteAddressById = async (id) => {
   try {
-    const address = await prisma.address.delete({
+    const address = await prisma.address.destroy({
       where: {
         id: id,
       },

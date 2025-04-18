@@ -62,7 +62,7 @@ const createNotification = async (data) => {
 
 const deleteNotificationById = async (id) => {
   try {
-    const notification = await prisma.notification.delete({
+    const notification = await prisma.notification.destroy({
       where: {
         id: id,
       },

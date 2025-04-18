@@ -62,7 +62,7 @@ const createFormation = async (data) => {
 
 const deleteFormationById = async (id) => {
   try {
-    const formation = await prisma.formation.delete({
+    const formation = await prisma.formation.destroy({
       where: {
         id: id,
       },

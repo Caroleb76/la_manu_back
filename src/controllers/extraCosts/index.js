@@ -1,5 +1,5 @@
 import getAll from "./getAll.js";
-import deleteUser from "./delete.js";
+import destroy from "./destroy.js";
 import create from "./create.js";
 import update from "./update.js";
 import getById from "./getById.js";
@@ -8,15 +8,14 @@ import authMiddleware from "../../middlewares/authMiddleware.js";
 
 const router = Router();
 
-router.get("/",authMiddleware, getAll);
+router.get("/", authMiddleware, getAll);
 
-router.get("/:id",authMiddleware, getById);
+router.get("/:id", authMiddleware, getById);
 
-router.post("/",authMiddleware, create);
+router.post("/", authMiddleware, create);
 
-router.delete("/:id",authMiddleware, deleteUser); 
+router.delete("/:id", authMiddleware, destroy);
 
-router.put("/:id",authMiddleware, update);
+router.put("/:id", authMiddleware, update);
 
 export default router;
-
