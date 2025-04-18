@@ -149,3 +149,5 @@ router.post("/", authMiddleware, create);
  */
 // put = remplacer tous les champs et patch = modifier un seul champ
 router.put("/", authMiddleware, update);
+
+export default router;

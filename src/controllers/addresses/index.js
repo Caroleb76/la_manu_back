@@ -13,6 +13,7 @@ const router = Router();
  * /addresses:
  *   get:
  *     summary: Get all addresses
+ *     tags: [Addresses]
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -36,6 +37,7 @@ router.get("/", authMiddleware, getAll);
  * /addresses/{id}:
  *   get:
  *     summary: Get an address by ID
+ *     tags: [Addresses]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -66,6 +68,7 @@ router.get("/:id", authMiddleware, getById);
  * /addresses:
  *   post:
  *     summary: Create a new address
+ *     tags: [Addresses]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -93,6 +96,7 @@ router.post("/", authMiddleware, create);
  * /addresses/{id}:
  *   delete:
  *     summary: Delete an address
+ *     tags: [Addresses]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -119,6 +123,7 @@ router.delete("/:id", authMiddleware, destroy);
  * /addresses/{id}:
  *   put:
  *     summary: Update an existing address
+ *     tags: [Addresses]
  *     security:
  *       - bearerAuth: []
  *     parameters:

@@ -12,6 +12,7 @@ const router = Router();
  * /roles:
  *   get:
  *     summary: Get all roles
+ *     tags: [Roles]
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -35,6 +36,7 @@ router.get("/", authMiddleware, getAll);
  * /roles/{id}:
  *   get:
  *     summary: Get a role by ID
+ *     tags: [Roles]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -65,6 +67,7 @@ router.get("/:id", authMiddleware, getById);
  * /roles:
  *   post:
  *     summary: Create a new role
+ *     tags: [Roles]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -92,6 +95,7 @@ router.post("/", authMiddleware, create);
  * /roles/{id}:
  *   delete:
  *     summary: Delete a role
+ *     tags: [Roles]
  *     security:
  *       - bearerAuth: []
  *     parameters:
