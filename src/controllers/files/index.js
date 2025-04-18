@@ -13,6 +13,7 @@ const router = Router();
  * /files:
  *   get:
  *     summary: Get all files
+ *     tags: [Files]
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -36,6 +37,7 @@ router.get("/", authMiddleware, getAll);
  * /files/{id}:
  *   get:
  *     summary: Get a file by ID
+ *     tags: [Files]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -66,6 +68,7 @@ router.get("/:id", authMiddleware, getById);
  * /files:
  *   post:
  *     summary: Upload a new file
+ *     tags: [Files]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -93,6 +96,7 @@ router.post("/", authMiddleware, create);
  * /files/{id}:
  *   put:
  *     summary: Update file information
+ *     tags: [Files]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -129,6 +133,7 @@ router.put("/:id", authMiddleware, update);
  * /files/{id}:
  *   delete:
  *     summary: Delete a file
+ *     tags: [Files]
  *     security:
  *       - bearerAuth: []
  *     parameters:

@@ -12,6 +12,7 @@ const router = Router();
  * @swagger
  * /notifications:
  *   get:
+ *     tags : [notification]
  *     summary: Get all notifications
  *     security:
  *       - bearerAuth: []
@@ -29,6 +30,7 @@ router.get("/", authMiddleware, getAll);
  * @swagger
  * /notifications/{id}:
  *   delete:
+ *     tags : [notification]
  *     summary: Delete a notification by ID
  *     security:
  *       - bearerAuth: []
@@ -55,6 +57,7 @@ router.delete("/:id", authMiddleware, destroy); //"api/v1/notifications/123jksdh
  * @swagger
  * /notifications:
  *   post:
+ *     tags : [notification]
  *     summary: Create a new notification
  *     security:
  *       - bearerAuth: []
@@ -86,6 +89,7 @@ router.post("/", authMiddleware, create);
  * @swagger
  * /notifications:
  *   put:
+ *     tags : [notification]
  *     summary: Update an existing notification
  *     security:
  *       - bearerAuth: []

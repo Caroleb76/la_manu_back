@@ -12,8 +12,8 @@ const router = Router();
  * @swagger
  * /users:
  *   get:
- *     tags: [Users]
  *     summary: Get all users
+ *     tags: [Users]
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -31,6 +31,7 @@ router.get("/", authMiddleware, getAll);
  * /users/{id}:
  *   get:
  *     summary: Get a user by ID
+ *     tags: [Users]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -56,6 +57,7 @@ router.get("/:id", authMiddleware, getById);
  * /users:
  *   post:
  *     summary: Create a new user
+ *     tags: [Users]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -90,6 +92,7 @@ router.post("/", authMiddleware, create);
  * /users/{id}:
  *   put:
  *     summary: Update a user by ID
+ *     tags: [Users]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -132,6 +135,7 @@ router.put("/:id", authMiddleware, update);
  * /users/{id}:
  *   delete:
  *     summary: Delete a user by ID
+ *     tags: [Users]
  *     security:
  *       - bearerAuth: []
  *     parameters:

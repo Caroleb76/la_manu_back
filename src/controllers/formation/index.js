@@ -15,6 +15,7 @@ const router = Router();
  * * @swagger
  * /formations:
  *   get:
+ *     tags : [formation]
  *     summary: Get all formations
  *     security:
  *       - bearerAuth: []
@@ -32,6 +33,7 @@ router.get("/", authMiddleware, getAll);
  * @swagger
  * /formations/{id}:
  *   get:
+ *     tags : [formation]
  *     summary: Get a formation by ID
  *     security:
  *       - bearerAuth: []
@@ -57,6 +59,7 @@ router.get("/:id", authMiddleware, getById);
  * @swagger
  * /formations/{id}:
  *   delete:
+ *     tags : [formation]
  *     summary: Delete a formation by ID
  *     security:
  *       - bearerAuth: []
@@ -83,6 +86,7 @@ router.delete("/:id", authMiddleware, destroy); //"api/v1/formations/"
  * @swagger
  * /formations:
  *   post:
+ *     tags : [formation]
  *     summary: Create a new formation
  *     security:
  *       - bearerAuth: []
@@ -114,6 +118,7 @@ router.post("/", authMiddleware, create);
  * @swagger
  * /formations:
  *   put:
+ *     tags : [formation]
  *     summary: Update an existing formation
  *     security:
  *       - bearerAuth: []
