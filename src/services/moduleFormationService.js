@@ -62,7 +62,7 @@ const createmoduleFormation = async (data) => {
 
 const deletemoduleFormationById = async (id) => {
   try {
-    const moduleFormation = await prisma.moduleFormation.delete({
+    const moduleFormation = await prisma.moduleFormation.destroy({
       where: {
         id: id,
       },

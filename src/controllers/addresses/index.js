@@ -1,5 +1,5 @@
 import getAll from "./getAll.js";
-import deleteUser from "./delete.js";
+import destroy from "./destroy.js";
 import create from "./create.js";
 import update from "./update.js";
 import getById from "./getById.js";
@@ -97,7 +97,7 @@ router.post("/", authMiddleware, create);
  *         description: Internal Server Error
  *
  */
-router.delete("/:id", authMiddleware, deleteUser);
+router.delete("/:id", authMiddleware, destroy);
 /**
  * @swagger
  * /addresses:
@@ -124,7 +124,15 @@ router.delete("/:id", authMiddleware, deleteUser);
  *         description: Internal Server Error
  *
  */
+
+router.get("/", authMiddleware, getAll);
+
+router.get("/:id", authMiddleware, getById);
+
+router.post("/", authMiddleware, create);
+
+router.delete("/:id", authMiddleware, destroy);
+
 router.put("/:id", authMiddleware, update);
 
 export default router;
-

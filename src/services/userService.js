@@ -1,11 +1,9 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client";
 import passwordUtils from "../utils/utils.js";
 import RoleService from "./roleService.js";
-import { ROLES } from '../utils/constants.js';
+import { ROLES } from "../utils/constants.js";
 
 const prisma = new PrismaClient();
-
-
 
 const getUsers = async () => {
   try {
@@ -25,9 +23,9 @@ const getUserById = async (id) => {
       where: {
         id: id,
       },
-      include:{
-        role: true
-      }
+      include: {
+        role: true,
+      },
     });
     if (!user) {
       throw new Error("aucun utilisateur trouvé");
@@ -45,9 +43,9 @@ const getUserByEmail = async (email) => {
       where: {
         email,
       },
-      include:{
-        role: true
-      }
+      include: {
+        role: true,
+      },
     });
     if (!user) {
       throw new Error("aucun utilisateur trouvé");
@@ -63,10 +61,11 @@ const getUserByEmail = async (email) => {
 const createUser = async (data) => {
   try {
     // add the role FORMATEUR to created users by default
-    let formateurRole= await RoleService.getRoleByName(ROLES.FORMATEUR);
+    let formateurRole = await RoleService.getRoleByName(ROLES.FORMATEUR);
     // if the role FORMATEUR doesn't exist create it
-    if(!formateurRole) formateurRole = await RoleService.createRole({name: ROLES.FORMATEUR});
-    data.roleId= formateurRole.id;
+    if (!formateurRole)
+      formateurRole = await RoleService.createRole({ name: ROLES.FORMATEUR });
+    data.roleId = formateurRole.id;
     if (!data.password) {
       throw new Error("mot de passe manquant");
     }
@@ -88,7 +87,7 @@ const createUser = async (data) => {
 
 const deleteUserById = async (id) => {
   try {
-    const deleted = await prisma.user.delete({
+    const deleted = await prisma.user.destroy({
       where: {
         id: id,
       },

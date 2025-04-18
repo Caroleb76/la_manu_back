@@ -1,6 +1,5 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
-
 
 const getRoles = async () => {
   try {
@@ -28,7 +27,6 @@ const getRoleById = async (id) => {
     throw error;
   }
 };
-
 
 const getRoleByName = async (roleName) => {
   try {
@@ -75,7 +73,7 @@ const createRole = async (data) => {
 
 const deleteRoleById = async (id) => {
   try {
-    const role = await prisma.role.delete({
+    const role = await prisma.role.destroy({
       where: {
         id: id,
       },
@@ -94,5 +92,5 @@ export default {
   updateRole,
   createRole,
   deleteRoleById,
-  getRoleByName
+  getRoleByName,
 };
