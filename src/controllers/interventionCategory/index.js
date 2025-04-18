@@ -22,7 +22,7 @@ const router = Router();
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/InterventionCategory'
+ *                 $ref: '#/docs/schemas/InterventionCategory'
  *       401:
  *         description: Unauthorized
  *       500:
@@ -43,14 +43,14 @@ router.get("/", authMiddleware, getAll);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/InterventionCategory'
+ *             $ref: '#/docs/schemas/InterventionCategory'
  *     responses:
  *       201:
  *         description: Category created
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/InterventionCategory'
+ *               $ref: '#/docs/schemas/InterventionCategory'
  *       400:
  *         description: Invalid input
  *       401:
@@ -83,6 +83,5 @@ router.post("/", authMiddleware, create);
  *         description: Unauthorized
  */
 router.delete("/:id", authMiddleware, destroy);
-
 
 export default router;

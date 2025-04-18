@@ -1,0 +1,41 @@
+SessionFormation:
+    type: object
+    properties:
+        id:
+            type: string
+            format: uuid
+            example: "d41fcd1e-7b8a-4d9b-b876-987654321abc"
+        serialNumber:
+            type: string
+            example: "SF-2025-001"
+        startDate:
+            type: string
+            format: date-time
+            nullable: true
+            example: "2025-05-01T08:00:00Z"
+        endDate:
+            type: string
+            format: date-time
+            nullable: true
+            example: "2025-07-01T17:00:00Z"
+        formationId:
+            type: string
+            nullable: true
+            example: "f123"
+        addressId:
+            type: string
+            nullable: true
+            example: "a456"
+        Formation:
+            $ref: "#/docs/schemas/Formation"
+            nullable: true
+        Address:
+            $ref: "#/docs/schemas/Address"
+            nullable: true
+        contracts:
+            type: array
+            items:
+                $ref: "#/docs/schemas/Contract"
+    required:
+        - id
+        - serialNumber

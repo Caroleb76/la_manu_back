@@ -1,0 +1,27 @@
+ExtraCost:
+    type: object
+    properties:
+        id:
+            type: string
+            format: uuid
+            description: Unique identifier for the extra cost
+        category:
+            $ref: "#/docs/schemas/CategoryEnum"
+        val:
+            type: string
+            nullable: true
+            description: Optional value or note related to the extra cost
+        interventionId:
+            type: string
+            nullable: true
+            description: Optional ID linking to the intervention
+        Intervention:
+            $ref: "#/docs/schemas/Intervention"
+        files:
+            type: array
+            items:
+                $ref: "#/docs/schemas/File"
+            description: Files associated with this extra cost
+    required:
+        - id
+        - category

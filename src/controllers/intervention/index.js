@@ -31,7 +31,7 @@ const router = Router();
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Intervention'
+ *                 $ref: '#/docs/schemas/Intervention'
  *       404:
  *         description: No interventions found
  *       401:
@@ -52,14 +52,14 @@ router.get("contract/:id", authMiddleware, getByContractId);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Intervention'
+ *             $ref: '#/docs/schemas/Intervention'
  *     responses:
  *       201:
  *         description: Intervention created
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Intervention'
+ *               $ref: '#/docs/schemas/Intervention'
  *       400:
  *         description: Invalid input
  *       401:
@@ -88,14 +88,14 @@ router.post("/", authMiddleware, create);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Intervention'
+ *             $ref: '#/docs/schemas/Intervention'
  *     responses:
  *       200:
  *         description: Intervention updated
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Intervention'
+ *               $ref: '#/docs/schemas/Intervention'
  *       404:
  *         description: Intervention not found
  *       401:
@@ -128,6 +128,5 @@ router.put("/:id", authMiddleware, update);
  *         description: Unauthorized
  */
 router.delete("/:id", authMiddleware, destroy);
-
 
 export default router;

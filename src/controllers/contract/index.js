@@ -46,7 +46,7 @@ const router = Router();
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Contract'
+ *                 $ref: '#/docs/schemas/Contract'
  *       401:
  *         description: Unauthorized
  *       500:
@@ -74,7 +74,7 @@ router.get("/", authMiddleware, getAll);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Contract'
+ *               $ref: '#/docs/schemas/Contract'
  *       404:
  *         description: Contract not found
  *       401:
@@ -105,7 +105,7 @@ router.get("/:id", authMiddleware, getByContractId);
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Contract'
+ *                 $ref: '#/docs/schemas/Contract'
  *       401:
  *         description: Unauthorized
  */
@@ -134,7 +134,7 @@ router.get("/session/:id", authMiddleware, getBySessionId);
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Contract'
+ *                 $ref: '#/docs/schemas/Contract'
  *       401:
  *         description: Unauthorized
  */
@@ -153,14 +153,14 @@ router.get("/session/:id", authMiddleware, getBySessionId);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Contract'
+ *             $ref: '#/docs/schemas/Contract'
  *     responses:
  *       201:
  *         description: Contract created
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Contract'
+ *               $ref: '#/docs/schemas/Contract'
  *       400:
  *         description: Bad request
  *       401:
@@ -188,14 +188,14 @@ router.post("/", authMiddleware, create);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Contract'
+ *             $ref: '#/docs/schemas/Contract'
  *     responses:
  *       200:
  *         description: Contract updated
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Contract'
+ *               $ref: '#/docs/schemas/Contract'
  *       404:
  *         description: Contract not found
  *       401:
@@ -227,6 +227,5 @@ router.put("/:id", authMiddleware, update);
  *         description: Unauthorized
  */
 router.delete("/:id", authMiddleware, destroy);
-
 
 export default router;

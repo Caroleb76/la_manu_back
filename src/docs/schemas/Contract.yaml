@@ -1,0 +1,36 @@
+Contract:
+    type: object
+    properties:
+        id:
+            type: string
+            format: uuid
+            example: "e6f3b55b-c3f0-4c87-a1f0-123456789abc"
+        startDate:
+            type: string
+            format: date-time
+            example: "2025-04-18T09:00:00Z"
+        endDate:
+            type: string
+            format: date-time
+            example: "2025-06-18T17:00:00Z"
+        sessionFormationId:
+            type: string
+            nullable: true
+            example: "s123"
+        SessionFormation:
+            $ref: "#/docs/schemas/SessionFormation"
+            nullable: true
+        userId:
+            type: string
+            example: "u456"
+        User:
+            $ref: "#/docs/schemas/User"
+        interventions:
+            type: array
+            items:
+                $ref: "#/docs/schemas/Intervention"
+    required:
+        - id
+        - startDate
+        - endDate
+        - userId

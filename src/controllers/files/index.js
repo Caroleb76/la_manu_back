@@ -24,7 +24,7 @@ const router = Router();
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/File'
+ *                 $ref: '#/docs/schemas/File'
  *       401:
  *         description: Unauthorized
  *       500:
@@ -53,7 +53,7 @@ router.get("/", authMiddleware, getAll);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/File'
+ *               $ref: '#/docs/schemas/File'
  *       401:
  *         description: Unauthorized
  *       404:
@@ -76,14 +76,14 @@ router.get("/:id", authMiddleware, getById);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/File'
+ *             $ref: '#/docs/schemas/File'
  *     responses:
  *       201:
  *         description: File uploaded
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/File'
+ *               $ref: '#/docs/schemas/File'
  *       401:
  *         description: Unauthorized
  *       500:
@@ -111,14 +111,14 @@ router.post("/", authMiddleware, create);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/File'
+ *             $ref: '#/docs/schemas/File'
  *     responses:
  *       200:
  *         description: File updated
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/File'
+ *               $ref: '#/docs/schemas/File'
  *       401:
  *         description: Unauthorized
  *       404:

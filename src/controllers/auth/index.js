@@ -15,14 +15,14 @@ const router = Router();
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Login'
+ *             $ref: '#/docs/schemas/Login'
  *     responses:
  *       200:
  *         description: Successfully logged in
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Login'
+ *               $ref: '#/docs/schemas/Login'
  *       400:
  *         description: Bad Request (e.g., invalid email/password)
  *       401:

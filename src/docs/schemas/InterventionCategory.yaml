@@ -1,0 +1,22 @@
+InterventionCategory:
+    type: object
+    properties:
+        id:
+            type: string
+            format: uuid
+            example: "3e5b70d2-fbd3-4e64-89d4-abc123def456"
+        name:
+            type: string
+            example: "Cours présentiel"
+        rate:
+            type: number
+            format: float
+            example: 45.5
+        interventions:
+            type: array
+            items:
+                $ref: "#/docs/schemas/Intervention"
+    required:
+        - id
+        - name
+        - rate

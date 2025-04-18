@@ -1,11 +1,11 @@
 import { Router } from "express";
 import authMiddleware from "../../middlewares/authMiddleware.js";
-import getByFormationId  from "./getByFormationId.js";
+import getByFormationId from "./getByFormationId.js";
 import create from "./create.js";
 import update from "./update.js";
 import destroy from "./destroy.js";
 import getById from "./getById.js";
-const router= Router();
+const router = Router();
 
 /**
  * @swagger
@@ -31,7 +31,7 @@ const router= Router();
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/SessionFormation'
+ *                 $ref: '#/docs/schemas/SessionFormation'
  *       401:
  *         description: Unauthorized
  */
@@ -58,7 +58,7 @@ router.get("/formation/:id", authMiddleware, getByFormationId);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/SessionFormation'
+ *               $ref: '#/docs/schemas/SessionFormation'
  *       404:
  *         description: Module formation not found
  *       401:
@@ -79,14 +79,14 @@ router.get("/:id", authMiddleware, getById);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/SessionFormation'
+ *             $ref: '#/docs/schemas/SessionFormation'
  *     responses:
  *       201:
  *         description: Module formation created
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/SessionFormation'
+ *               $ref: '#/docs/schemas/SessionFormation'
  *       400:
  *         description: Invalid input
  *       401:
@@ -114,14 +114,14 @@ router.post("/", authMiddleware, create);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/SessionFormation'
+ *             $ref: '#/docs/schemas/SessionFormation'
  *     responses:
  *       200:
  *         description: Module formation updated
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/SessionFormation'
+ *               $ref: '#/docs/schemas/SessionFormation'
  *       404:
  *         description: Not found
  *       401:
@@ -153,7 +153,5 @@ router.put("/:id", authMiddleware, update);
  *         description: Unauthorized
  */
 router.delete("/:id", authMiddleware, destroy);
-
-
 
 export default router;
