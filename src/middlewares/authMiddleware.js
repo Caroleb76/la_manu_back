@@ -16,6 +16,6 @@ export default async (req, res, next) => {
         next();
 
     } catch (error) {
-        return ApiResponse.error(res, error);
+        return ApiResponse.error(res, error, 401);
     }
 }

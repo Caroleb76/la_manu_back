@@ -4,6 +4,7 @@ import contract from "./controllers/contract/index.js";
 import intervention from "./controllers/intervention/index.js";
 import interventionCategory from "./controllers/interventionCategory/index.js";
 import sessionFormation from "./controllers/sessionFormation/index.js";
+import addresses from "./controllers/addresses/index.js";
 
 export default (router) => {
   router.use("/users", users); // une route pour chaque répertoire ex users contrats ...
@@ -12,4 +13,5 @@ export default (router) => {
   router.use("/interventions", intervention);
   router.use("/interventionCategories", interventionCategory);
   router.use("/sessionFormations", sessionFormation);
+  router.use("/addresses", addresses);
 };

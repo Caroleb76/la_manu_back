@@ -1,0 +1,29 @@
+Address:
+  type: object
+  properties:
+    id:
+      type: string
+      format: uuid
+      example: "d290f1ee-6c54-4b01-90e6-d701748f0851"
+    address:
+      type: string
+      example: "123 Main Street"
+    city:
+      type: string
+      example: "Paris"
+    postalCode:
+      type: string
+      example: "75001"
+    Users:
+      type: array
+      items:
+        $ref: '#/components/schemas/User'
+    sessions:
+      type: array
+      items:
+        $ref: '#/components/schemas/SessionFormation'
+  required:
+    - id
+    - address
+    - city
+    - postalCode

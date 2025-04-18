@@ -1,8 +1,9 @@
-// const express = require("express");  ancienne syntaxe
-// importation des librairies et des fichiers utiles
 import express, { Router } from "express";
 import routes from "./src/routes.js";
 import dotenv from "dotenv";
+import swaggerSpec from "./src/docs/swagger.js";
+import swaggerUi from "swagger-ui-express";
+
 dotenv.config({ path: ".env" });
 // initialisation de l'appli express
 const app = express();
@@ -17,7 +18,8 @@ app.use(express.urlencoded({ extended: true }));
 routes(router);
 //ajouter le prefixe /api/v1 à toutes les routes
 app.use("/api/v1", router);
-
+//swagger endpoint
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 // associer le port à notre application
 app.listen(port, () => {
     console.log("listening on port " + port);

@@ -1,0 +1,32 @@
+Notification:
+  type: object
+  properties:
+    id:
+      type: string
+      format: uuid
+      example: "a4b1c23e-df4a-4b2d-9a2e-c234cde5678f"
+    title:
+      type: string
+      example: "Server Maintenance"
+    content:
+      type: string
+      nullable: true
+      example: "The server will be down for maintenance at midnight."
+    priority:
+      type: integer
+      default: 1
+      example: 2
+    startDate:
+      type: string
+      format: date-time
+      nullable: true
+      example: "2025-04-18T00:00:00Z"
+    endDate:
+      type: string
+      format: date-time
+      nullable: true
+      example: "2025-04-19T00:00:00Z"
+  required:
+    - id
+    - title
+    - priority

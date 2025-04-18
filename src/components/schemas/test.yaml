@@ -1,0 +1,18 @@
+ /addresses:
+    post:
+      summary: Create a new address
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'src\components\schemas\Notification'
+      responses:
+        201:
+          description: Resource created
+        401:
+          description: Unauthorized
+        500:
+          description: Internal Server Error
