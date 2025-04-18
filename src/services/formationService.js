@@ -1,8 +1,8 @@
-import { prismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
-const prisma = new prismaClient();
+const prisma = new PrismaClient();
 
-const getformations = async () => {
+const getFormations = async () => {
   try {
     const formations = await prisma.formations.findMany();
 
@@ -14,7 +14,7 @@ const getformations = async () => {
   }
 };
 
-const getformationById = async (id) => {
+const getFormationById = async (id) => {
   try {
     const formation = await prisma.formation.findUnique({
       where: {
@@ -32,7 +32,7 @@ const getformationById = async (id) => {
   }
 };
 
-const updateformation = async (id, data) => {
+const updateFormation = async (id, data) => {
   try {
     const updated = await prisma.formation.update({
       where: { id },
@@ -46,7 +46,7 @@ const updateformation = async (id, data) => {
   }
 };
 
-const createformation = async (data) => {
+const createFormation = async (data) => {
   try {
     const formation = await prisma.formation.create({
       data,
@@ -60,7 +60,7 @@ const createformation = async (data) => {
   }
 };
 
-const deleteformationById = async (id) => {
+const deleteFormationById = async (id) => {
   try {
     const formation = await prisma.formation.delete({
       where: {
@@ -76,9 +76,9 @@ const deleteformationById = async (id) => {
 };
 
 export default {
-  getformations,
-  getformationById,
-  updateformation,
-  createformation,
-  deleteformationById,
+  getFormations,
+  getFormationById,
+  updateFormation,
+  createFormation,
+  deleteFormationById,
 };
