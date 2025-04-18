@@ -47,6 +47,21 @@ const getAllContractsBySessionId = async (id) => {
     }
 }
 
+const getAll = async (filter={},offset=0,limit=10) => {
+    try {
+        const contracts = await prisma.contract.findMany(
+            {
+                where: filter,
+                skip: offset,
+                take: limit
+            }
+        );
+        return contracts;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
 
 const create = async (data) => {
     try {
@@ -125,6 +140,7 @@ const validateContract = (contractData) => {
 export default {
     getByContractId,
     getAllContractsBySessionId,
+    getAll,
     create,
     update,
     destroy,

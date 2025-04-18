@@ -1,4 +1,4 @@
-import { ApiResponse } from "../../utils/apiResponse.js";
+import ApiResponse from "../../utils/apiResponse.js";
 import notificationService from "../../services/notificationService.js";
 
 export default async (req, res) => {
