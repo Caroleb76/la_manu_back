@@ -13,6 +13,7 @@ const router = Router();
  * /extra-costs:
  *   get:
  *     summary: Get all extra costs
+ *     tags: [ExtraCosts]
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -36,6 +37,7 @@ router.get("/", authMiddleware, getAll);
  * /extra-costs/{id}:
  *   get:
  *     summary: Get an extra cost by ID
+ *     tags: [ExtraCosts]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -66,6 +68,7 @@ router.get("/:id", authMiddleware, getById);
  * /extra-costs:
  *   post:
  *     summary: Create a new extra cost
+ *     tags: [ExtraCosts]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -93,6 +96,7 @@ router.post("/", authMiddleware, create);
  * /extra-costs/{id}:
  *   delete:
  *     summary: Delete an extra cost
+ *     tags: [ExtraCosts]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -119,6 +123,7 @@ router.delete("/:id", authMiddleware, destroy);
  * /extra-costs/{id}:
  *   put:
  *     summary: Update an existing extra cost
+ *     tags: [ExtraCosts]
  *     security:
  *       - bearerAuth: []
  *     parameters:
