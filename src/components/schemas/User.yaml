@@ -1,0 +1,70 @@
+User:
+  type: object
+  tableName: Users
+  properties:
+    id:
+      type: string
+      format: uuid
+      primaryKey: true
+      default: uuid()
+    email:
+      type: string
+    password:
+      type: string
+    birthDate:
+      type: string
+      format: date-time
+      nullable: true
+    birthName:
+      type: string
+      nullable: true
+    birthPlace:
+      type: string
+      nullable: true
+    permisB:
+      type: boolean
+    mutuelle:
+      type: boolean
+    employer:
+      type: string
+      nullable: true
+    occupation:
+      type: string
+      nullable: true
+    FirstName:
+      type: string
+      nullable: true
+    lastName:
+      type: string
+      nullable: true
+    phone:
+      type: string
+      nullable: true
+    gender:
+      type: boolean
+    diploma:
+      type: string
+      nullable: true
+    roleId:
+      type: string
+    adressId:
+      type: string
+      nullable: true
+  relations:
+    role:
+      model: Role
+      type: one-to-one
+      fields: [roleId]
+      references: [id]
+    address:
+      model: Address
+      type: one-to-one
+      fields: [adressId]
+      references: [id]
+      nullable: true
+    files:
+      model: File
+      type: one-to-many
+    contracts:
+      model: Contract
+      type: one-to-many
