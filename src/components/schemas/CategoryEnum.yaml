@@ -1,0 +1,5 @@
+CategoryEnum:
+  type: string
+  enum:
+    - frais_de_repas
+  description: Category of the extra cost

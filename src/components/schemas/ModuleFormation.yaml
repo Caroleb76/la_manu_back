@@ -1,0 +1,18 @@
+ModuleFormation:
+  type: object
+  tableName: ModuleFormation
+  properties:
+    id:
+      type: string
+      format: uuid
+      primaryKey: true
+      default: uuid()
+    name:
+      type: string
+    description:
+      type: string
+      nullable: true
+  relations:
+    interventions:
+      model: Intervention
+      type: one-to-many

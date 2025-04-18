@@ -1,0 +1,18 @@
+Formation:
+  type: object
+  tableName: Formation
+  properties:
+    id:
+      type: string
+      format: uuid
+      primaryKey: true
+      default: uuid()
+    name:
+      type: string
+    description:
+      type: string
+      nullable: true
+  relations:
+    sessions:
+      model: SessionFormation
+      type: one-to-many
