@@ -15,7 +15,7 @@ const router = Router();
  * @swagger
  * /moduleFormations:
  *   get:
- *     tags : [ModuleFormation]
+ *     tags : [ModuleFormations]
  *     summary: Get all module formations
  *     security:
  *       - bearerAuth: []
@@ -33,7 +33,7 @@ router.get("/", authMiddleware, getAll);
  * @swagger
  * /moduleFormations/{id}:
  *   get:
- *     tags : [ModuleFormation]
+ *     tags : [ModuleFormations]
  *     summary: Get a module formation by ID
  *     security:
  *       - bearerAuth: []
@@ -59,7 +59,7 @@ router.get("/:id", authMiddleware, getById);
  * @swagger
  * /moduleFormations/{id}:
  *   delete:
- *     tags : [ModuleFormation]
+ *     tags : [ModuleFormations]
  *     summary: Delete a module formation by ID
  *     security:
  *       - bearerAuth: []
@@ -86,7 +86,7 @@ router.delete("/:id", authMiddleware, destroy); //"api/v1/moduleFormations/"
  * @swagger
  * /moduleFormations:
  *   post:
- *     tags : [ModuleFormation]
+ *     tags : [ModuleFormations]
  *     summary: Create a new module formation
  *     security:
  *       - bearerAuth: []
@@ -118,7 +118,7 @@ router.post("/", authMiddleware, create);
  * @swagger
  * /moduleFormations:
  *   put:
- *     tags : [ModuleFormation]
+ *     tags : [ModuleFormations]
  *     summary: Update an existing module formation
  *     security:
  *       - bearerAuth: []
