@@ -62,7 +62,7 @@ router.get("/:id", authMiddleware, getById);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Notification.yaml'
+ *             $ref: '#/components/schemas/Notification'
  *     responses:
  *       201:
  *         description: Resource created
