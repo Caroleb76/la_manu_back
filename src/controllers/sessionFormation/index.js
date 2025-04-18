@@ -9,10 +9,10 @@ const router= Router();
 
 /**
  * @swagger
- * /moduleFormation/formation/{id}:
+ * /SessionFormation/formation/{id}:
  *   get:
  *     summary: Get module formations by formation ID
- *     tags: [ModuleFormations]
+ *     tags: [SessionFormations]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -31,7 +31,7 @@ const router= Router();
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/ModuleFormation'
+ *                 $ref: '#/components/schemas/SessionFormation'
  *       401:
  *         description: Unauthorized
  */
@@ -39,10 +39,10 @@ router.get("/formation/:id", authMiddleware, getByFormationId);
 
 /**
  * @swagger
- * /moduleFormation/{id}:
+ * /SessionFormation/{id}:
  *   get:
  *     summary: Get a module formation by ID
- *     tags: [ModuleFormations]
+ *     tags: [SessionFormations]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -58,7 +58,7 @@ router.get("/formation/:id", authMiddleware, getByFormationId);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ModuleFormation'
+ *               $ref: '#/components/schemas/SessionFormation'
  *       404:
  *         description: Module formation not found
  *       401:
@@ -68,10 +68,10 @@ router.get("/:id", authMiddleware, getById);
 
 /**
  * @swagger
- * /moduleFormation:
+ * /SessionFormation:
  *   post:
  *     summary: Create a new module formation
- *     tags: [ModuleFormations]
+ *     tags: [SessionFormations]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -79,14 +79,14 @@ router.get("/:id", authMiddleware, getById);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/ModuleFormation'
+ *             $ref: '#/components/schemas/SessionFormation'
  *     responses:
  *       201:
  *         description: Module formation created
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ModuleFormation'
+ *               $ref: '#/components/schemas/SessionFormation'
  *       400:
  *         description: Invalid input
  *       401:
@@ -96,10 +96,10 @@ router.post("/", authMiddleware, create);
 
 /**
  * @swagger
- * /moduleFormation/{id}:
+ * /SessionFormation/{id}:
  *   put:
  *     summary: Update a module formation
- *     tags: [ModuleFormations]
+ *     tags: [SessionFormations]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -114,14 +114,14 @@ router.post("/", authMiddleware, create);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/ModuleFormation'
+ *             $ref: '#/components/schemas/SessionFormation'
  *     responses:
  *       200:
  *         description: Module formation updated
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ModuleFormation'
+ *               $ref: '#/components/schemas/SessionFormation'
  *       404:
  *         description: Not found
  *       401:
@@ -131,10 +131,10 @@ router.put("/:id", authMiddleware, update);
 
 /**
  * @swagger
- * /moduleFormation/{id}:
+ * /SessionFormation/{id}:
  *   delete:
  *     summary: Delete a module formation
- *     tags: [ModuleFormations]
+ *     tags: [SessionFormations]
  *     security:
  *       - bearerAuth: []
  *     parameters:
