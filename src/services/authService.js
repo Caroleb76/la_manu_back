@@ -19,6 +19,6 @@ const login = async (email, password) => {
 
 
 export default {
-    // login, token{"asd2313axc2314asdaxc2212asd2313axc2314asdaxc2212"} 
+     login, 
     // authMe user:{name:"Pedrito",lastName:"Escobar"}
 }

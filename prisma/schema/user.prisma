@@ -5,14 +5,14 @@ model User {
     birthDate  DateTime? // Note: Prisma does not have DATEONLY, only full DateTime
     birthName  String?
     birthPlace String?
-    permisB    Boolean
-    mutuelle   Boolean
+    permisB    Boolean?
+    mutuelle   Boolean?
     employer   String?
     occupation String?
     FirstName  String?
     lastName   String?
     phone      String?
-    gender     Boolean
+    gender     Boolean?
     diploma    String?
 
     // Relations

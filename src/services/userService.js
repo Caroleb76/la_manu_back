@@ -19,7 +19,7 @@ const getUsers = async () => {
 
 const getUserById = async (id) => {
   try {
-    const user = await prisma.user.findUnique({
+    const user = await prisma.user.findFirst({
       where: {
         id: id,
       },
@@ -39,7 +39,7 @@ const getUserById = async (id) => {
 };
 const getUserByEmail = async (email) => {
   try {
-    const user = await prisma.user.findUnique({
+    const user = await prisma.user.findFirst({
       where: {
         email,
       },
@@ -69,11 +69,14 @@ const createUser = async (data) => {
     if (!data.password) {
       throw new Error("mot de passe manquant");
     }
-    const hashedPassword = passwordUtils.hashPassword(data.password);
+    const hashedPassword =await passwordUtils.hashPassword(data.password);
+    console.log("We have got ",hashedPassword);
+    
     const user = await prisma.user.create({
       data: {
         email: data.email,
         password: hashedPassword,
+        roleId: formateurRole.id
       },
     });
 

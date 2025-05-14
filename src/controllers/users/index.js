@@ -85,7 +85,7 @@ router.get("/:id", authMiddleware, getById);
  *       500:
  *         description: Internal Server Error
  */
-router.post("/", authMiddleware, create);
+router.post("/", create);
 
 /**
  * @swagger
