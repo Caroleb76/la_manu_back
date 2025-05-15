@@ -1,5 +1,7 @@
 import { Router } from "express";
 import login from "./login.js";
+import authMe from "./authMe.js";
+import authMiddleware from "../../middlewares/authMiddleware.js";
 
 const router = Router();
 
@@ -33,5 +35,23 @@ const router = Router();
  *       - bearerAuth: []
  */
 router.post("/login", login);
+
+/**
+ * @swagger
+ * /auth:
+ *   get:
+ *     summary: Authenticate a user
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Success
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Internal Server Error
+ */
+router.get("/authMe", authMiddleware, authMe);
 
 export default router;

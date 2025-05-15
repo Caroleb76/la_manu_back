@@ -1,5 +1,7 @@
-import ApiResponse from "../utils/apiResponse.js"
+import ApiResponse from "../utils/apiResponse.js";
 import userService from "../services/userService.js";
+import jwt from "jsonwebtoken";
+
 export default async (req, res, next) => {
     try {
         const token = req.headers.authorization?.split(" ")[1];
