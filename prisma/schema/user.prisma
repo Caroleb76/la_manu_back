@@ -9,7 +9,7 @@ model User {
     mutuelle   Boolean?
     employer   String?
     occupation String?
-    FirstName  String?
+    firstName  String?
     lastName   String?
     phone      String?
     gender     Boolean?

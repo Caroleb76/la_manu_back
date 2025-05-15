@@ -56,7 +56,8 @@ async function createUsersByRole(role,email,password){
             create: {
                 email: email,
                 password:password,
-                roleId: role
+                roleId: role,
+                firstName: email.split("@")[0],
             },
         });
 }
