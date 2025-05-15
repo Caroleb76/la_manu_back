@@ -1,8 +1,7 @@
 model Role {
-    id   String  @id @default(uuid())
-    name String?
+  id    String  @id @default(uuid())
+  name  String? @unique
+  users User[]
 
-    users User[]
-
-    @@map("Role") // Optional: maps to the actual DB table if it's named "Role"
+  @@map("Role")
 }
