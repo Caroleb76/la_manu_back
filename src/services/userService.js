@@ -5,11 +5,15 @@ import { ROLES } from "../utils/constants.js";
 
 const prisma = new PrismaClient();
 
-const getUsers = async () => {
-  try {
-    const users = await prisma.user.findMany();
-
-    console.log(users);
+const getUsers = async (offset=0,limit=10) => {
+  try {   
+    const users = await prisma.user.findMany({
+      skip: offset,
+      take: limit,
+      include: {
+        role: true,
+      },
+    });
     return users;
   } catch (error) {
     console.error(error);
@@ -30,7 +34,7 @@ const getUserById = async (id) => {
     if (!user) {
       throw new Error("aucun utilisateur trouvé");
     }
-    console.log(user);
+    // console.log("BY ID");
     return user;
   } catch (error) {
     console.error(error);
@@ -50,7 +54,7 @@ const getUserByEmail = async (email) => {
     if (!user) {
       throw new Error("aucun utilisateur trouvé");
     }
-    console.log(user);
+    // console.log(user);
     return user;
   } catch (error) {
     console.error(error);
