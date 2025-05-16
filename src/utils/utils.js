@@ -1,8 +1,7 @@
 import { scrypt, randomBytes } from "node:crypto";
 
-const hashPassword = async (password) => {
-  const salt = randomBytes(16).toString("hex");
-  console.log(password,salt);
+const hashPassword = async (password,oldSalt=null) => {
+  const salt = oldSalt ||  randomBytes(16).toString("hex");
   let hashedPassword=null;
   await new Promise((resolve,reject)=>{
     scrypt(password, salt, 64, (err, derivedKey) => {
@@ -10,7 +9,6 @@ const hashPassword = async (password) => {
         reject();
       }    
       password = derivedKey.toString('hex')  // '3745e48...08d59ae'
-      console.log(password);
        hashedPassword = `${salt}:${password}`;
       resolve(hashedPassword);
     });
@@ -20,10 +18,11 @@ const hashPassword = async (password) => {
 
 };
 
-const verifyPassword =async (password, hashedPassword) => {
-  const [salt, hash] = hashedPassword.split(":");
-  const newHash = await hashPassword(password);
-  return newHash === hash // true or false;
+const verifyPassword =async (inputPassword, dbPassword) => {
+  const [salt, hash] = dbPassword.split(":");
+  const newHash = await hashPassword(inputPassword,salt);
+  
+  return newHash.split(":")[1] === hash // true or false;
 }
 export default {
   hashPassword,
