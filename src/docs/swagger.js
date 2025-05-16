@@ -19,7 +19,7 @@ fs.readdirSync(path.join(__dirname, "../docs/schemas")).forEach((file) => {
         schemas[schemaRootName] = schema[schemaRootName];
     }
 });
-console.log(schemas);
+// console.log(schemas);
 
 const options = {
     definition: {
