@@ -23,8 +23,7 @@ const router = Router();
  *           application/json:
  *             schema:
  *               type: array
- *               items:
- *                 $ref: '#/docs/schemas/Address'
+ *               $ref: '#/components/schemas/Address'
  *       401:
  *         description: Unauthorized
  *       500:
@@ -53,7 +52,7 @@ router.get("/", authMiddleware, getAll);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/docs/schemas/Address'
+ *               $ref: '#/components/schemas/Address'
  *       401:
  *         description: Unauthorized
  *       404:
@@ -76,14 +75,14 @@ router.get("/:id", authMiddleware, getById);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/docs/schemas/Address'
+ *             $ref: '#/components/schemas/Address'
  *     responses:
  *       201:
  *         description: Address created
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/docs/schemas/Address'
+ *               $ref: '#/components/schemas/Address'
  *       401:
  *         description: Unauthorized
  *       500:
@@ -138,14 +137,14 @@ router.delete("/:id", authMiddleware, destroy);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/docs/schemas/Address'
+ *             $ref: '#/components/schemas/Address'
  *     responses:
  *       200:
  *         description: Address updated
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/docs/schemas/Address'
+ *               $ref: '#/components/schemas/Address'
  *       401:
  *         description: Unauthorized
  *       404:

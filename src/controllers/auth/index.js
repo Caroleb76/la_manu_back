@@ -4,10 +4,9 @@ import authMe from "./authMe.js";
 import authMiddleware from "../../middlewares/authMiddleware.js";
 
 const router = Router();
-
 /**
  * @swagger
- * /login:
+ * /auth/login:
  *   post:
  *     summary: User login
  *     tags: [Auth]
@@ -16,15 +15,18 @@ const router = Router();
  *       required: true
  *       content:
  *         application/json:
- *           schema:
- *             $ref: '#/docs/schemas/Login'
+ *           schema:                # ✅ Not 'items'
+ *             $ref: '#/components/schemas/Login'
  *     responses:
  *       200:
  *         description: Successfully logged in
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/docs/schemas/Login'
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
  *       400:
  *         description: Bad Request (e.g., invalid email/password)
  *       401:

@@ -31,7 +31,7 @@ const router = Router();
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/docs/schemas/SessionFormation'
+ *                 $ref: '#/components/schemas/SessionFormation'
  *       401:
  *         description: Unauthorized
  */
@@ -58,7 +58,7 @@ router.get("/formation/:id", authMiddleware, getByFormationId);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/docs/schemas/SessionFormation'
+ *               $ref: '#/components/schemas/SessionFormation'
  *       404:
  *         description: Module formation not found
  *       401:
@@ -79,14 +79,14 @@ router.get("/:id", authMiddleware, getById);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/docs/schemas/SessionFormation'
+ *             $ref: '#/components/schemas/SessionFormation'
  *     responses:
  *       201:
  *         description: Module formation created
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/docs/schemas/SessionFormation'
+ *               $ref: '#/components/schemas/SessionFormation'
  *       400:
  *         description: Invalid input
  *       401:
@@ -114,14 +114,14 @@ router.post("/", authMiddleware, create);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/docs/schemas/SessionFormation'
+ *             $ref: '#/components/schemas/SessionFormation'
  *     responses:
  *       200:
  *         description: Module formation updated
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/docs/schemas/SessionFormation'
+ *               $ref: '#/components/schemas/SessionFormation'
  *       404:
  *         description: Not found
  *       401:

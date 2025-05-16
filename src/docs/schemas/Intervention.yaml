@@ -39,18 +39,18 @@ Intervention:
             nullable: true
             example: "mf789"
         Contract:
-            $ref: "#/docs/schemas/Contract"
+            $ref: "#/components/schemas/Contract"
             nullable: true
         InterventionCategory:
-            $ref: "#/docs/schemas/InterventionCategory"
+            $ref: "#/components/schemas/InterventionCategory"
             nullable: true
         ModuleFormation:
-            $ref: "#/docs/schemas/ModuleFormation"
+            $ref: "#/components/schemas/ModuleFormation"
             nullable: true
         extraCosts:
             type: array
             items:
-                $ref: "#/docs/schemas/ExtraCost"
+                $ref: "#/components/schemas/ExtraCost"
     required:
         - id
         - dateIntervention

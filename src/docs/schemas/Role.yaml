@@ -12,7 +12,7 @@ Role:
         users:
             type: array
             items:
-                $ref: "#/docs/schemas/User"
+                $ref: "#/components/schemas/User"
             description: Users that belong to this role
     required:
         - id

@@ -6,7 +6,7 @@ ExtraCost:
             format: uuid
             description: Unique identifier for the extra cost
         category:
-            $ref: "#/docs/schemas/CategoryEnum"
+            $ref: "#/components/schemas/CategoryEnum"
         val:
             type: string
             nullable: true
@@ -16,11 +16,11 @@ ExtraCost:
             nullable: true
             description: Optional ID linking to the intervention
         Intervention:
-            $ref: "#/docs/schemas/Intervention"
+            $ref: "#/components/schemas/Intervention"
         files:
             type: array
             items:
-                $ref: "#/docs/schemas/File"
+                $ref: "#/components/schemas/File"
             description: Files associated with this extra cost
     required:
         - id

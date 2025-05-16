@@ -18,17 +18,16 @@ Contract:
             nullable: true
             example: "s123"
         SessionFormation:
-            $ref: "#/docs/schemas/SessionFormation"
+            $ref: "#/components/schemas/SessionFormation"
             nullable: true
         userId:
             type: string
             example: "u456"
         User:
-            $ref: "#/docs/schemas/User"
+            $ref: "#/components/schemas/User"
         interventions:
             type: array
-            items:
-                $ref: "#/docs/schemas/Intervention"
+            $ref: "#/components/schemas/Intervention"
     required:
         - id
         - startDate

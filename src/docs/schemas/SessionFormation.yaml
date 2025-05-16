@@ -27,15 +27,15 @@ SessionFormation:
             nullable: true
             example: "a456"
         Formation:
-            $ref: "#/docs/schemas/Formation"
+            $ref: "#/components/schemas/Formation"
             nullable: true
         Address:
-            $ref: "#/docs/schemas/Address"
+            $ref: "#/components/schemas/Address"
             nullable: true
         contracts:
             type: array
             items:
-                $ref: "#/docs/schemas/Contract"
+                $ref: "#/components/schemas/Contract"
     required:
         - id
         - serialNumber

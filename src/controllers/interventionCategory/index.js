@@ -22,7 +22,7 @@ const router = Router();
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/docs/schemas/InterventionCategory'
+ *                 $ref: '#/components/schemas/InterventionCategory'
  *       401:
  *         description: Unauthorized
  *       500:
@@ -43,14 +43,14 @@ router.get("/", authMiddleware, getAll);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/docs/schemas/InterventionCategory'
+ *             $ref: '#/components/schemas/InterventionCategory'
  *     responses:
  *       201:
  *         description: Category created
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/docs/schemas/InterventionCategory'
+ *               $ref: '#/components/schemas/InterventionCategory'
  *       400:
  *         description: Invalid input
  *       401:

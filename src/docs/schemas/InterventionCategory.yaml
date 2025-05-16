@@ -15,7 +15,7 @@ InterventionCategory:
         interventions:
             type: array
             items:
-                $ref: "#/docs/schemas/Intervention"
+                $ref: "#/components/schemas/Intervention"
     required:
         - id
         - name
