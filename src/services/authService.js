@@ -4,7 +4,7 @@ import jsonwebtoken from "jsonwebtoken";
 const login = async (email, password) => {
     try {
         const user= await userService.getUserByEmail(email);
-        const passwordValid = passwordUtils.verifyPassword(password, user.password);
+        const passwordValid = await passwordUtils.verifyPassword(password, user.password);
         if(!passwordValid) throw new Error("Mot de passe incorrect");
         const secret = process.env.JWT_SECRET_KEY;
         const token = jsonwebtoken.sign({userId: user.id}, secret, {expiresIn: "3h"});

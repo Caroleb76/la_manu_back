@@ -23,7 +23,7 @@ const router = Router();
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/docs/schemas/Role'
+ *                 $ref: '#/components/schemas/Role'
  *       401:
  *         description: Unauthorized
  *       500:
@@ -52,7 +52,7 @@ router.get("/", authMiddleware, getAll);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/docs/schemas/Role'
+ *               $ref: '#/components/schemas/Role'
  *       401:
  *         description: Unauthorized
  *       404:
@@ -75,14 +75,14 @@ router.get("/:id", authMiddleware, getById);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/docs/schemas/Role'
+ *             $ref: '#/components/schemas/Role'
  *     responses:
  *       201:
  *         description: Role created
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/docs/schemas/Role'
+ *               $ref: '#/components/schemas/Role'
  *       401:
  *         description: Unauthorized
  *       500:

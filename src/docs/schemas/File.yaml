@@ -20,9 +20,9 @@ File:
             type: string
             description: ID of the user who uploaded the file
         ExtraCost:
-            $ref: "#/docs/schemas/ExtraCost"
+            $ref: "#/components/schemas/ExtraCost"
         User:
-            $ref: "#/docs/schemas/User"
+            $ref: "#/components/schemas/User"
     required:
         - id
         - name

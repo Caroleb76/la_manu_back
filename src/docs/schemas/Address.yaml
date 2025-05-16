@@ -14,16 +14,6 @@ Address:
         postalCode:
             type: string
             description: Postal code
-        Users:
-            type: array
-            items:
-                $ref: "#/docs/schemas/User"
-            description: List of users linked to this address
-        sessions:
-            type: array
-            items:
-                $ref: "#/docs/schemas/SessionFormation"
-            description: List of session formations linked to this address
     required:
         - id
         - address

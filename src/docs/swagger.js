@@ -19,6 +19,7 @@ fs.readdirSync(path.join(__dirname, "../docs/schemas")).forEach((file) => {
         schemas[schemaRootName] = schema[schemaRootName];
     }
 });
+// console.log(schemas);
 
 const options = {
     definition: {
@@ -36,7 +37,7 @@ const options = {
             },
         ],
     },
-    apis: ["./src/controllers/*/index.js", "./docs/schemas/*.yaml"],
+    apis: [path.join(__dirname, "../../src/controllers/*/index.js"), path.join(__dirname, "../docs/schemas/*.yaml")],
 };
 
 const swaggerSpec = swaggerJSDoc(options);
