@@ -15,7 +15,7 @@ const router = Router();
  *       required: true
  *       content:
  *         application/json:
- *           schema:                # ✅ Not 'items'
+ *           schema:                
  *             $ref: '#/components/schemas/Login'
  *     responses:
  *       200:
