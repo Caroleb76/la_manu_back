@@ -2,9 +2,12 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const getNotifications = async () => {
+const getNotifications = async (offset=0,limit=10) => {
   try {
-    const notifications = await prisma.notifications.findMany();
+    const notifications = await prisma.notification.findMany({
+      skip: offset,
+      take: limit,
+    });
 
     console.log(notifications);
     return notifications;

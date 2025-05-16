@@ -2,6 +2,8 @@ model Contract {
   id                  String            @id @default(uuid())
   startDate           DateTime
   endDate             DateTime
+  signed              Boolean
+  declared            Boolean
 
   sessionFormationId  String?
   SessionFormation    SessionFormation? @relation(fields: [sessionFormationId], references: [id])
