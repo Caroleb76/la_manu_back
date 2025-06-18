@@ -1,7 +1,27 @@
 import { ROLES } from "../../src/utils/constants.js";
 import utils from "../../src/utils/utils.js";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, GenderEnum } from "@prisma/client";
+
 const prisma = new PrismaClient();
+const globalPassword = "password";
+const hashedPassword = await utils.hashPassword(globalPassword);
+let userTemplate = {
+    email: 'formateur_test@demo.com',
+    password: hashedPassword,
+    birthDate: new Date('1990-01-01'),
+    birthName: 'Dupont',
+    birthPlace: 'Le Havre',
+    permisB: true,
+    mutuelle: true,
+    employer: 'ifen',
+    occupation: 'secrétaire',
+    firstName: 'Carole',
+    lastName: 'Durand',
+    phone: '06 22 36 39 38',
+    gender: GenderEnum.femme,
+    diploma: 'BAC+3',
+
+}
 
 async function createUsers(roles) {
     let superAdminsEmails = [
@@ -21,22 +41,32 @@ async function createUsers(roles) {
     ];
     const globalPassword = "password";
     const hashedPassword = await utils.hashPassword(globalPassword);
+    userTemplate.password = hashedPassword
     // creation de SUPER_ADMIN
     for (let email of superAdminsEmails) {
         let currentRole = roles[ROLES.SUPER_ADMIN];
-        await createUsersByRole(currentRole.id, email, hashedPassword);
+        userTemplate.email = email
+        userTemplate.roleId = currentRole.id
+
+        await createUsersWithRole(userTemplate);
     }
 
     // creation de ADMIN
     for (let email of adminsEmails) {
         let currentRole = roles[ROLES.ADMIN];
-        await createUsersByRole(currentRole.id, email, hashedPassword);
+       userTemplate.email = email
+        userTemplate.roleId = currentRole.id
+
+        await createUsersWithRole(userTemplate);
     }
 
     // creation de FORMATEUR
     for (let email of formateurEmails) {
         let currentRole = roles[ROLES.FORMATEUR];
-        await createUsersByRole(currentRole.id, email, hashedPassword);
+        userTemplate.email = email
+        userTemplate.roleId = currentRole.id
+
+        await createUsersWithRole(userTemplate);
     }
 }
 
@@ -50,7 +80,18 @@ export async function createUsersByRole(role, email, password) {
             roleId: role,
             firstName: email.split("@")[0],
         },
+
     });
 }
+
+export async function createUsersWithRole(user) {
+    await prisma.user.upsert({
+        where: { email: user.email },
+        update: {},
+        create: {...user,firstName: user.email.split("@")[0],},
+
+    });
+}
+
 
 export default createUsers;
