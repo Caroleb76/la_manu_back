@@ -12,15 +12,15 @@ model User {
     firstName  String?
     lastName   String?
     phone      String?
-    gender     Boolean?
+    gender     GenderEnum?
     diploma    String?
 
     // Relations
     roleId   String
-    adressId String?
+    addressId String?
 
     role   Role   @relation(fields: [roleId], references: [id])
-    address Address? @relation(fields: [adressId], references: [id])
+    address Address? @relation(fields: [addressId], references: [id])
 
     files File[]
 
@@ -28,4 +28,9 @@ model User {
 
     @@map("Users") 
     
+}
+
+enum GenderEnum {
+    homme
+    femme
 }
