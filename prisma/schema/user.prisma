@@ -14,6 +14,7 @@ model User {
     phone      String?
     gender     GenderEnum?
     diploma    String?
+    blocked Boolean @default(false)
 
     // Relations
     roleId   String

@@ -5,6 +5,7 @@ import update from "./update.js";
 import getById from "./getById.js";
 import { Router } from "express";
 import authMiddleware from "../../middlewares/authMiddleware.js";
+import block from "./block.js";
 
 const router = Router();
 
@@ -130,6 +131,48 @@ router.post("/", create);
  */
 router.put("/:id", authMiddleware, update);
 
+/**
+ * @swagger
+ * /users/{id}:
+ *   put:
+ *     summary: Block a user by ID
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               firstName:
+ *                 type: string
+ *               lastName:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Updated
+ *       400:
+ *         description: Bad Request
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: Not Found
+ *       500:
+ *         description: Internal Server Error
+ */
+router.put("/block/:id", authMiddleware, block);
 /**
  * @swagger
  * /users/{id}:

@@ -139,6 +139,28 @@ const updateUserById = async (id, data) => {
     throw error;
   }
 };
+
+const blockUserById = async (id, data) => {
+  try {
+    
+    const user = await prisma.user.update({
+      where: {
+        id: id,
+      },
+      data: {
+        blocked : data.blocked
+      },
+    });
+    if (!user) {
+      throw new Error("aucun utilisateur trouvé");
+    }
+    console.log(user);
+    return user;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
 export default {
   getUsers,
   getUserById,
@@ -146,4 +168,5 @@ export default {
   createUser,
   deleteUserById,
   updateUserById,
+  blockUserById,
 };
