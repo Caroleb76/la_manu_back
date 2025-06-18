@@ -44,7 +44,7 @@ const update = async (id, data) => {
 
     return intervention;
   } catch (error) {
-    log.error(error);
+    console.error(error);
     throw error;
   }
 };
