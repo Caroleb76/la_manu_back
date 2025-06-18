@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import { ROLES } from "../../src/utils/constants.js";
-import utils from "../../src/utils/utils.js";
 import createNotifications from "./notificationSeed.js";
 import createUsers  from "./userSeed.js";
 
