@@ -1,9 +1,5 @@
-import { ROLES } from "../../src/utils/constants.js";
-import utils from "../../src/utils/utils.js";
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
 
-async function createUsers(roles) {
+ async function createUsers(roles) {
     let superAdminsEmails = [
         "kenan@demo.com",
         "loic@demo.com",
@@ -52,5 +48,25 @@ export async function createUsersByRole(role, email, password) {
         },
     });
 }
+
+let formateurTest = {
+    email: "formateurTest@demo.com",
+    password: hashedPassword,
+    birthDate: new Date("1990-01-01"),
+    birthName: "Smith",
+    birthPlace: "Paris",
+    permisB: true,
+    mutuelle: true,
+    employer: "La Manu",
+    occupation: "Formateur",
+    firstName: "John",
+    lastName: "Smith",
+    phone: "1234567890",
+    gender: true,
+    diploma: "BAC+2",
+    addressId: "1",
+    roleId: roles[ROLES.FORMATEUR],
+};
+
 
 export default createUsers;
