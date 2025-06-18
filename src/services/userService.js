@@ -5,8 +5,8 @@ import { ROLES } from "../utils/constants.js";
 
 const prisma = new PrismaClient();
 
-const getUsers = async (offset=0,limit=10) => {
-  try {   
+const getUsers = async (offset = 0, limit = 10) => {
+  try {
     const users = await prisma.user.findMany({
       skip: offset,
       take: limit,
@@ -65,22 +65,26 @@ const getUserByEmail = async (email) => {
 const createUser = async (data) => {
   try {
     // add the role FORMATEUR to created users by default
-    let formateurRole = await RoleService.getRoleByName(ROLES.FORMATEUR);
-    // if the role FORMATEUR doesn't exist create it
-    if (!formateurRole)
-      formateurRole = await RoleService.createRole({ name: ROLES.FORMATEUR });
-    data.roleId = formateurRole.id;
+    if (!data.role) {
+      let formateurRole = await RoleService.getRoleByName(ROLES.FORMATEUR);
+      // if the role FORMATEUR doesn't exist create it
+      if (!formateurRole)
+        formateurRole = await RoleService.createRole({ name: ROLES.FORMATEUR });
+      data.role = formateurRole.id;
+    }
     if (!data.password) {
       throw new Error("mot de passe manquant");
     }
-    const hashedPassword =await passwordUtils.hashPassword(data.password);
-    console.log("We have got ",hashedPassword);
-    
+    const hashedPassword = await passwordUtils.hashPassword(data.password);
+    console.log("We have got ", hashedPassword);
+
     const user = await prisma.user.create({
       data: {
         email: data.email,
         password: hashedPassword,
-        roleId: formateurRole.id
+        firstName: data.firstName,
+        lastName: data.lastName,
+        roleId: data.role
       },
     });
 
