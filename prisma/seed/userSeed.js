@@ -1,5 +1,5 @@
-import { ROLES } from "../../src/utils/constants";
-import utils from "../../src/utils/utils";
+import { ROLES } from "../../src/utils/constants.js";
+import utils from "../../src/utils/utils.js";
 
  async function createUsers(roles) {
     let superAdminsEmails = [
