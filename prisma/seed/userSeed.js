@@ -1,7 +1,9 @@
-import { ROLES } from "../../src/utils/constants";
-import utils from "../../src/utils/utils";
+import { ROLES } from "../../src/utils/constants.js";
+import utils from "../../src/utils/utils.js";
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
- async function createUsers(roles) {
+async function createUsers(roles) {
     let superAdminsEmails = [
         "kenan@demo.com",
         "loic@demo.com",
