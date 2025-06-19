@@ -13,8 +13,10 @@ const getUsers = async (offset = 0, limit = 10) => {
       include: {
         role: true,
       },
-    });
-    return users;
+    })
+    const total = await  prisma.user.count()
+
+    return {users, total};
   } catch (error) {
     console.error(error);
     throw error;
