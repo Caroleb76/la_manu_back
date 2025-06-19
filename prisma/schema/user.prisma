@@ -1,6 +1,6 @@
 model User {
-    id         String    @id @default(uuid())
-    email      String   @unique
+    id         String      @id @default(uuid())
+    email      String      @unique
     password   String
     birthDate  DateTime? // Note: Prisma does not have DATEONLY, only full DateTime
     birthName  String?
@@ -14,24 +14,25 @@ model User {
     phone      String?
     gender     GenderEnum?
     diploma    String?
-    blocked Boolean @default(false)
+    blocked    Boolean     @default(false)
 
     // Relations
-    roleId   String
+    roleId    String
     addressId String?
 
-    role   Role   @relation(fields: [roleId], references: [id])
+    role    Role     @relation(fields: [roleId], references: [id])
     address Address? @relation(fields: [addressId], references: [id])
 
     files File[]
 
     contracts Contract[]
 
-    @@map("Users") 
-    
+    @@map("Users")
 }
 
 enum GenderEnum {
+    monsieur
+    madame
     homme
     femme
 }

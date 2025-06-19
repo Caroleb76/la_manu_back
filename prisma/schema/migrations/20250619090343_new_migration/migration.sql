@@ -2,7 +2,7 @@
 CREATE TYPE "CategoryEnum" AS ENUM ('frais_de_repas');
 
 -- CreateEnum
-CREATE TYPE "GenderEnum" AS ENUM ('homme', 'femme');
+CREATE TYPE "GenderEnum" AS ENUM ('monsieur', 'madame', 'homme', 'femme');
 
 -- CreateTable
 CREATE TABLE "Address" (
@@ -140,11 +140,15 @@ CREATE TABLE "Users" (
     "phone" TEXT,
     "gender" "GenderEnum",
     "diploma" TEXT,
+    "blocked" BOOLEAN NOT NULL DEFAULT false,
     "roleId" TEXT NOT NULL,
     "addressId" TEXT,
 
     CONSTRAINT "Users_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Address_address_key" ON "Address"("address");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Role_name_key" ON "Role"("name");

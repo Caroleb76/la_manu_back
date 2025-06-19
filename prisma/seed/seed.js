@@ -19,8 +19,18 @@ async function main() {
         });
         createdRoles[currentKey] = createdRole;
     }
+
+    let createdAddress = await prisma.address.upsert({
+        where: {  address: '11 place leon meyer', },
+        update: {},
+        create: {
+            address: '11 place leon meyer',
+            postalCode: '76600',
+            city: 'Le Havre',
+        },
+    })
     //create users
-    await createUsers(createdRoles);
+    await createUsers(createdRoles, createdAddress);
     console.log("users seeded");
 
     await createNotifications();

@@ -29,6 +29,7 @@ const getUserById = async (id) => {
       },
       include: {
         role: true,
+        address: true,
       },
     });
     if (!user) {

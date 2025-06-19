@@ -18,12 +18,14 @@ let userTemplate = {
     firstName: 'Carole',
     lastName: 'Durand',
     phone: '06 22 36 39 38',
-    gender: GenderEnum.femme,
+    gender: GenderEnum.madame,
     diploma: 'BAC+3',
 
 }
 
-async function createUsers(roles) {
+
+
+async function createUsers(roles, address) {
     let superAdminsEmails = [
         "kenan@demo.com",
         "loic@demo.com",
@@ -47,6 +49,7 @@ async function createUsers(roles) {
         let currentRole = roles[ROLES.SUPER_ADMIN];
         userTemplate.email = email
         userTemplate.roleId = currentRole.id
+        userTemplate.addressId = address.id
 
         await createUsersWithRole(userTemplate);
     }
@@ -54,8 +57,9 @@ async function createUsers(roles) {
     // creation de ADMIN
     for (let email of adminsEmails) {
         let currentRole = roles[ROLES.ADMIN];
-       userTemplate.email = email
+        userTemplate.email = email
         userTemplate.roleId = currentRole.id
+        userTemplate.addressId = address.id
 
         await createUsersWithRole(userTemplate);
     }
@@ -65,8 +69,9 @@ async function createUsers(roles) {
         let currentRole = roles[ROLES.FORMATEUR];
         userTemplate.email = email
         userTemplate.roleId = currentRole.id
+        userTemplate.addressId = address.id
 
-        await createUsersWithRole(userTemplate);
+        await createUsersWithRole(userTemplate,);
     }
 }
 
@@ -88,7 +93,12 @@ export async function createUsersWithRole(user) {
     await prisma.user.upsert({
         where: { email: user.email },
         update: {},
-        create: {...user,firstName: user.email.split("@")[0],},
+        create: {
+            ...user,
+            firstName: user.email.split("@")[0],
+          
+
+        },
 
     });
 }
