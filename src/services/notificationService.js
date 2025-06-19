@@ -8,9 +8,9 @@ const getNotifications = async (offset=0,limit=10) => {
       skip: offset,
       take: limit,
     });
-
+    const total = await prisma.notification.count();
     console.log(notifications);
-    return notifications;
+    return { notifications, total };
   } catch (error) {
     console.error(error);
     throw error;
