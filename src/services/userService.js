@@ -50,6 +50,7 @@ const getUserByEmail = async (email) => {
       },
       include: {
         role: true,
+        address: true,
       },
     });
     if (!user) {

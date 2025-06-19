@@ -1,6 +1,6 @@
 import { ROLES } from "../../src/utils/constants.js";
 import utils from "../../src/utils/utils.js";
-import { PrismaClient, GenderEnum } from "@prisma/client";
+import { PrismaClient} from "@prisma/client";
 
 const prisma = new PrismaClient();
 const globalPassword = "password";
@@ -18,7 +18,7 @@ let userTemplate = {
     firstName: 'Carole',
     lastName: 'Durand',
     phone: '06 22 36 39 38',
-    gender: GenderEnum.madame,
+    gender: 'madame',
     diploma: 'BAC+3',
 
 }
