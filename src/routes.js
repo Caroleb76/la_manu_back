@@ -18,7 +18,7 @@ export default (router) => {
   router.use("/contracts", contract);
   router.use("/interventions", intervention);
   router.use("/interventionCategories", interventionCategory);
-  router.use("/sessionFormations", sessionFormation);
+  router.use("/sessionFormation", sessionFormation);
   router.use("/files", files);
   router.use("/addresses", addresses);
   router.use("/roles", roles);
