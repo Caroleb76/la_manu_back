@@ -16,6 +16,11 @@ app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
+//Test route
+app.get("/", (req, res) => {
+    res.send("The api is running");
+})
+
 // on passe le router dans les routes
 routes(router);
 //ajouter le prefixe /api/v1 à toutes les routes
@@ -24,5 +29,5 @@ app.use("/api/v1", router);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 // associer le port à notre application
 app.listen(port, () => {
-    console.log("listening on port " + port);
+    console.log(`listening on port http://localhost:${port}`);
 });

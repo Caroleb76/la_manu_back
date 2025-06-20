@@ -1,9 +1,3 @@
--- CreateEnum
-CREATE TYPE "CategoryEnum" AS ENUM ('frais_de_repas');
-
--- CreateEnum
-CREATE TYPE "GenderEnum" AS ENUM ('monsieur', 'madame', 'homme', 'femme');
-
 -- CreateTable
 CREATE TABLE "Address" (
     "id" TEXT NOT NULL,
@@ -30,7 +24,7 @@ CREATE TABLE "Contract" (
 -- CreateTable
 CREATE TABLE "ExtraCost" (
     "id" TEXT NOT NULL,
-    "category" "CategoryEnum" NOT NULL,
+    "category" TEXT NOT NULL,
     "val" TEXT,
     "interventionId" TEXT,
 
@@ -138,7 +132,7 @@ CREATE TABLE "Users" (
     "firstName" TEXT,
     "lastName" TEXT,
     "phone" TEXT,
-    "gender" "GenderEnum",
+    "gender" TEXT,
     "diploma" TEXT,
     "blocked" BOOLEAN NOT NULL DEFAULT false,
     "roleId" TEXT NOT NULL,

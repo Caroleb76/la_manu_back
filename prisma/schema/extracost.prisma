@@ -1,6 +1,6 @@
 model ExtraCost {
   id             String       @id @default(uuid())
-  category       CategoryEnum
+  category       String
   val            String?
 
   interventionId String?
@@ -10,6 +10,3 @@ model ExtraCost {
   @@map("ExtraCost") // Optional: match DB table name if needed
 }
 
-enum CategoryEnum {
-  frais_de_repas
-}
