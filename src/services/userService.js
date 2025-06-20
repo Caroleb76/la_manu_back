@@ -5,7 +5,7 @@ import { ROLES } from "../utils/constants.js";
 
 const prisma = new PrismaClient();
 
-const getUsers = async (offset = 0, limit = 10) => {
+const getUsers = async (offset = 0, limit = 10,searchText=null) => {
   try {
     const users = await prisma.user.findMany({
       skip: offset,
@@ -13,6 +13,25 @@ const getUsers = async (offset = 0, limit = 10) => {
       include: {
         role: true,
       },
+      where: searchText ? {
+        OR: [
+          {
+            email: {
+              contains: searchText,
+            },
+          },
+          {
+            firstName: {
+              contains: searchText,
+            },
+          },
+          {
+            lastName: {
+              contains: searchText,
+            },
+          },
+        ],
+      } : {},
     })
     const total = await  prisma.user.count()
 
