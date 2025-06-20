@@ -5,8 +5,32 @@ import create from "./create.js";
 import update from "./update.js";
 import destroy from "./destroy.js";
 import getById from "./getById.js";
+import getAll from "./getAll.js";
 const router = Router();
 
+
+
+/**
+ * @swagger
+ * /SessionFormation:
+ *   get:
+ *     summary: Get all module formations
+ *     tags: [SessionFormations]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of module formations
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/SessionFormation'
+ *       401:
+ *         description: Unauthorized
+ */
+router.get("/", authMiddleware, getAll);
 /**
  * @swagger
  * /SessionFormation/formation/{id}:

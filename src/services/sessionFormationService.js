@@ -1,6 +1,26 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
+
+
+const getSessions = async (offset=0,limit=10) => {
+  try {
+    const sessionFormations = await prisma.sessionFormation.findMany({
+      skip: offset,
+      take: limit,
+      include:{
+        Address: true,
+        Formation: true
+      }
+    });
+    const total = await prisma.sessionFormation.count();
+    console.log(`[+] Got the formations sessiosn length ${sessionFormations.length} total ${total}`);
+    return { sessionFormations, total };
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
 const create = async (data) => {
   try {
     validateSessionFormation(data);
@@ -85,6 +105,7 @@ const validateSessionFormation = (data) => {
 };
 
 export default {
+  getSessions,
   create,
   getByFormationId,
   getById,

@@ -51,8 +51,20 @@ const getAll = async (filter = {}, offset = 0, limit = 10) => {
       where: filter,
       skip: offset,
       take: limit,
+      include: {
+        User: true,
+        SessionFormation: {
+          include: {
+            Formation: true,
+          },
+        },
+      },
+      orderBy: {
+        endDate: "desc",
+      }
     });
-    return contracts;
+    const total= await prisma.contract.count();
+    return { contracts, total };
   } catch (error) {
     console.error(error);
     throw error;
