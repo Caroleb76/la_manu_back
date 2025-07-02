@@ -2,14 +2,30 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const getNotifications = async (offset=0,limit=10) => {
+const getNotifications = async (offset=0,limit=10,searchText=null) => {
   try {
     const notifications = await prisma.notification.findMany({
       skip: offset,
       take: limit,
+      where: searchText? {
+        OR: [
+          {
+            title: {
+              contains: searchText,
+              mode: "insensitive",
+            },
+          },
+          {
+            content: {
+              contains: searchText,
+              mode: "insensitive",
+            },
+          },
+        ],
+      }: {},
     });
     const total = await prisma.notification.count();
-    console.log(notifications);
+    // console.log(notifications);
     return { notifications, total };
   } catch (error) {
     console.error(error);
@@ -65,7 +81,7 @@ const createNotification = async (data) => {
 
 const deleteNotificationById = async (id) => {
   try {
-    const notification = await prisma.notification.destroy({
+    const notification = await prisma.notification.delete({
       where: {
         id: id,
       },

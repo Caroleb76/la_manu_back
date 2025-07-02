@@ -18,16 +18,19 @@ const getUsers = async (offset = 0, limit = 10,searchText=null) => {
           {
             email: {
               contains: searchText,
+              mode: "insensitive",
             },
           },
           {
             firstName: {
               contains: searchText,
+              mode: "insensitive",
             },
           },
           {
             lastName: {
               contains: searchText,
+              mode: "insensitive",
             },
           },
         ],

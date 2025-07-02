@@ -45,19 +45,77 @@ const getAllContractsBySessionId = async (id) => {
   }
 };
 
-const getAll = async (filter = {}, offset = 0, limit = 10) => {
+const getAll = async (filter = {}, offset = 0, limit = 10,searchText=null) => {
   try {
     const contracts = await prisma.contract.findMany({
       where: filter,
       skip: offset,
       take: limit,
       include: {
-        User: true,
+        User: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            email: true,
+          },
+        },
+
         SessionFormation: {
           include: {
             Formation: true,
           },
         },
+        interventions: {
+          select: {
+            id: true,
+            dateIntervention: true,
+            hours: true,
+            validatedByAdmin: true,
+            validatedByFormateur: true,
+          }
+        },
+      },
+      where: searchText ? {
+        OR: [
+          {
+            User: {
+              email: {
+                contains: searchText,
+                mode: "insensitive",
+              },
+            },
+          },
+          {
+            User: {
+              firstName: {
+                contains: searchText,
+                mode: "insensitive",
+              },
+            },
+          },
+          {
+            User: {
+              lastName: {
+                contains: searchText,
+                mode: "insensitive",
+              },
+            },
+          },
+          {
+            SessionFormation: {
+              Formation: {
+                name: {
+                  contains: searchText,
+                  mode: "insensitive",
+                },
+              },
+            },
+          }
+        ],
+      } : {},
+      orderBy: {
+        startDate: "desc",
       },
       orderBy: {
         endDate: "desc",
