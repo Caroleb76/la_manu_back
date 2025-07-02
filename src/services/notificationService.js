@@ -67,6 +67,8 @@ const updateNotification = async (id, data) => {
 
 const createNotification = async (data) => {
   try {
+    data.startDate = new Date(data.startDate);
+    data.endDate = new Date(data.endDate);
     const notification = await prisma.notification.create({
       data,
     });
