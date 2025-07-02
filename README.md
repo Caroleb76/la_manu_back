@@ -1,8 +1,9 @@
-# Projet la Manu Backend API
+# 🏫 Projet la manu : 🧠 BACKEND (API) 
 
 ## Stack
-- NodeJS
-- Express
-- Postgres
-- Prisma ORM
-- CSS modules
+- ⬢ NodeJS
+- ⏩ Express
+- 🐘 Postgres
+- ✅ Zod (validation)
+- 📖 Swagger (DOCS)
+- 🔎 ESLint (linting)
