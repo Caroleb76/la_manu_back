@@ -5,8 +5,13 @@ import { ROLES } from "../utils/constants.js";
 
 const prisma = new PrismaClient();
 
-const getUsers = async (offset = 0, limit = 10,searchText=null) => {
+const getUsers = async (offset = 0, limit = 10,searchText=null, role=null) => {
   try {
+    if(role){
+      if (!ROLES.includes(role)){
+        throw new Error("Rôle invalide")
+      }
+    }
     const users = await prisma.user.findMany({
       skip: offset,
       take: limit,
@@ -44,6 +49,8 @@ const getUsers = async (offset = 0, limit = 10,searchText=null) => {
     throw error;
   }
 };
+
+
 
 const getUserById = async (id) => {
   try {
@@ -191,6 +198,7 @@ export default {
   getUsers,
   getUserById,
   getUserByEmail,
+  getUsersByRole,
   createUser,
   deleteUserById,
   updateUserById,
