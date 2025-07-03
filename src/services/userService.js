@@ -8,44 +8,35 @@ const prisma = new PrismaClient();
 const getUsers = async (offset = 0, limit = 10, searchText = null, role = null) => {
   try {
     if (role) {
-      if (!ROLES.includes(role)) {
+      if (role!==ROLES.FORMATEUR && role!==ROLES.ADMIN && role!==ROLES.SUPER_ADMIN  ) {
         throw new Error("Rôle invalide");
       }
     }
 
-    // On construit le where de manière dynamique
-    const where = {};
+    // Start with an empty array of filters
+    const filters = [];
 
-    // On ajoute le filtre de recherche 
     if (searchText) {
-      where.OR = [
-        {
-          email: {
-            contains: searchText,
-            mode: "insensitive",
-          },
-        },
-        {
-          firstName: {
-            contains: searchText,
-            mode: "insensitive",
-          },
-        },
-        {
-          lastName: {
-            contains: searchText,
-            mode: "insensitive",
-          },
-        },
-      ];
+      filters.push({
+        OR: [
+          { email: { contains: searchText, mode: "insensitive" } },
+          { firstName: { contains: searchText, mode: "insensitive" } },
+          { lastName: { contains: searchText, mode: "insensitive" } },
+        ],
+      });
     }
 
-    // On ajoute le filtre de rôle si il est fourni
     if (role) {
-      where.role = {
-        name: role,
-      };
+      filters.push({
+        role: {
+         is :{ name: role,
+        },
+      },
+      });
     }
+
+    // Combine filters with AND if any exist
+    const where = filters.length > 0 ? { AND: filters } : {};
 
     const users = await prisma.user.findMany({
       skip: offset,
@@ -56,16 +47,14 @@ const getUsers = async (offset = 0, limit = 10, searchText = null, role = null) 
       where,
     });
 
-    
     const total = await prisma.user.count({ where });
-
+console.log(users)
     return { users, total };
   } catch (error) {
     console.error(error);
     throw error;
   }
 };
-
 
 
 const getUserById = async (id) => {
