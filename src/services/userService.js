@@ -5,45 +5,61 @@ import { ROLES } from "../utils/constants.js";
 
 const prisma = new PrismaClient();
 
-const getUsers = async (offset = 0, limit = 10,searchText=null, role=null) => {
+const getUsers = async (offset = 0, limit = 10, searchText = null, role = null) => {
   try {
-    if(role){
-      if (!ROLES.includes(role)){
-        throw new Error("Rôle invalide")
+    if (role) {
+      if (!ROLES.includes(role)) {
+        throw new Error("Rôle invalide");
       }
     }
+
+    // On construit le where de manière dynamique
+    const where = {};
+
+    // On ajoute le filtre de recherche 
+    if (searchText) {
+      where.OR = [
+        {
+          email: {
+            contains: searchText,
+            mode: "insensitive",
+          },
+        },
+        {
+          firstName: {
+            contains: searchText,
+            mode: "insensitive",
+          },
+        },
+        {
+          lastName: {
+            contains: searchText,
+            mode: "insensitive",
+          },
+        },
+      ];
+    }
+
+    // On ajoute le filtre de rôle si il est fourni
+    if (role) {
+      where.role = {
+        name: role,
+      };
+    }
+
     const users = await prisma.user.findMany({
       skip: offset,
       take: limit,
       include: {
         role: true,
       },
-      where: searchText ? {
-        OR: [
-          {
-            email: {
-              contains: searchText,
-              mode: "insensitive",
-            },
-          },
-          {
-            firstName: {
-              contains: searchText,
-              mode: "insensitive",
-            },
-          },
-          {
-            lastName: {
-              contains: searchText,
-              mode: "insensitive",
-            },
-          },
-        ],
-      } : {},
-    })
-    const total = await  prisma.user.count()
+      where,
+    });
 
-    return {users, total};
+    
+    const total = await prisma.user.count({ where });
+
+    return { users, total };
   } catch (error) {
     console.error(error);
     throw error;
