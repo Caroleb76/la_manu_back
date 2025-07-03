@@ -16,7 +16,7 @@ const getUsers = async (offset = 0, limit = 10, searchText = null, role = null) 
     // Start with an empty array of filters
     const filters = [];
 
-    if (searchText) {
+    if (searchText && searchText !== "null") {
       filters.push({
         OR: [
           { email: { contains: searchText, mode: "insensitive" } },
