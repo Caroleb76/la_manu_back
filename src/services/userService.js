@@ -214,7 +214,6 @@ export default {
   getUsers,
   getUserById,
   getUserByEmail,
-  getUsersByRole,
   createUser,
   deleteUserById,
   updateUserById,
