@@ -6,6 +6,7 @@ import getById from "./getById.js";
 import { Router } from "express";
 import authMiddleware from "../../middlewares/authMiddleware.js";
 import block from "./block.js";
+import upload from "../../middlewares/storageMiddleware.js";
 
 const router = Router();
 
@@ -129,7 +130,7 @@ router.post("/", create);
  *       500:
  *         description: Internal Server Error
  */
-router.put("/:id", authMiddleware, update);
+router.post("/:id", authMiddleware, upload.any(), update);
 
 /**
  * @swagger

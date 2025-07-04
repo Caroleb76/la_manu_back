@@ -1,4 +1,6 @@
 import { PrismaClient } from "@prisma/client";
+import fs from "fs";
+import path from "path";
 
 const prisma = new PrismaClient();
 
@@ -77,8 +79,13 @@ const updateFileById = async (id, data) => {
 
 const createFile = async (data) => {
   try {
+
     const file = await prisma.file.create({
-      data,
+      data:{
+        userId: data.userId,
+        name: data.name,
+        url: data.path
+      },
     });
 
     console.log(file);
@@ -88,6 +95,14 @@ const createFile = async (data) => {
     throw error;
   }
 };
+
+const createFilesInBulk = async (files) => {
+  for ( const file of files) {
+    await createFile(file);
+  }
+};
+
+
 
 const deleteFileById = async (id) => {
   try {
@@ -112,4 +127,5 @@ export default {
   updateFileById,
   createFile,
   deleteFileById,
+  createFilesInBulk
 };

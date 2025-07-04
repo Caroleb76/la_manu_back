@@ -6,8 +6,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "node --watch server.js",
-        "lint" : "eslint . --ext .js",
-        "lint:fix" : "eslint . --ext .js --fix"
+        "lint": "eslint . --ext .js",
+        "lint:fix": "eslint . --ext .js --fix"
     },
     "keywords": [],
     "author": "",
@@ -31,6 +31,7 @@
         "dotenv": "^16.5.0",
         "express": "^5.1.0",
         "jsonwebtoken": "^9.0.2",
+        "multer": "^2.0.1",
         "swagger-jsdoc": "^6.2.8",
         "swagger-ui-express": "^5.0.1"
     }

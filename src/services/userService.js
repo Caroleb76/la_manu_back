@@ -2,16 +2,17 @@ import { PrismaClient } from "@prisma/client";
 import passwordUtils from "../utils/utils.js";
 import RoleService from "./roleService.js";
 import { ROLES } from "../utils/constants.js";
+import fileService from "./fileService.js";
 
 const prisma = new PrismaClient();
 
 const getUsers = async (offset = 0, limit = 10, searchText = null, role = null) => {
   try {
     console.log(typeof role);
-    
-    if (role!=null) {
+
+    if (role != null) {
       console.log("from the inside the service");
-      if (role!==ROLES.FORMATEUR && role!==ROLES.ADMIN && role!==ROLES.SUPER_ADMIN  ) {
+      if (role !== ROLES.FORMATEUR && role !== ROLES.ADMIN && role !== ROLES.SUPER_ADMIN) {
         throw new Error("Rôle invalide");
       }
     }
@@ -32,9 +33,10 @@ const getUsers = async (offset = 0, limit = 10, searchText = null, role = null) 
     if (role) {
       filters.push({
         role: {
-         is :{ name: role,
+          is: {
+            name: role,
+          },
         },
-      },
       });
     }
 
@@ -51,7 +53,7 @@ const getUsers = async (offset = 0, limit = 10, searchText = null, role = null) 
     });
 
     const total = await prisma.user.count({ where });
-console.log(users)
+    console.log(users)
     return { users, total };
   } catch (error) {
     console.error(error);
@@ -157,17 +159,43 @@ const deleteUserById = async (id) => {
 
 const updateUserById = async (id, data) => {
   try {
-    if (!data.password) {
-      throw new Error("mot de passe manquant");
+
+    if (data.files && data.files.length > 0) {
+      for (const file of data.files) {
+        const savedFile = await fileService.createFile({
+          userId: id,
+          name: file.fieldname, 
+          path : file.path
+        });
+
+        
+        if (file.fieldname === "profilePicture") {
+          data.profilePicture = savedFile.url.replaceAll("\\", "/");
+        }
+      }
     }
-    const hashedPassword = passwordUtils.hashPassword(data.password);
+
     const user = await prisma.user.update({
       where: {
         id: id,
       },
       data: {
         email: data.email,
-        password: hashedPassword,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        birthDate: data.birthDate ? new Date(data.birthDate) : null,
+        birthName: data.birthName,
+        birthPlace: data.birthPlace,
+        permisB: data.permisB,
+        mutuelle: data.mutuelle,
+        employer: data.employer,
+        occupation: data.occupation,
+        phone: data.phone,
+        socialSecurity: data.socialSecurity,
+        gender: data.gender,
+        diploma: data.diploma,
+        profilePicture: data.profilePicture
+       
       },
     });
     if (!user) {
@@ -183,13 +211,13 @@ const updateUserById = async (id, data) => {
 
 const blockUserById = async (id, data) => {
   try {
-    
+
     const user = await prisma.user.update({
       where: {
         id: id,
       },
       data: {
-        blocked : data.blocked
+        blocked: data.blocked
       },
     });
     if (!user) {

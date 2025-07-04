@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import swaggerSpec from "./src/docs/swagger.js";
 import swaggerUi from "swagger-ui-express";
 import cors from "cors";
+import path from "path";
 
 dotenv.config({ path: ".env" });
 // initialisation de l'appli express
@@ -15,7 +16,7 @@ const router = Router(); // initialisation du router
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
-
+app.use("/files", express.static(path.join(path.resolve(), "files")));
 //Test route
 app.get("/", (req, res) => {
     res.send("The api is running");
