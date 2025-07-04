@@ -148,6 +148,6 @@ router.post("/", authMiddleware, create);
  *         description: Internal Server Error
  */
 // put = remplacer tous les champs et patch = modifier un seul champ
-router.put("/", authMiddleware, update);
+router.put("/:id", authMiddleware, update);
 
 export default router;

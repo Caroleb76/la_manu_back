@@ -81,12 +81,15 @@ const update = async (id, data) => {
     const {serialNumber,formationId, ...dataToUpdate} = data
     dataToUpdate.startDate = new Date(dataToUpdate.startDate);
     dataToUpdate.endDate = new Date(dataToUpdate.endDate);
-    console.log(dataToUpdate, id);
+    console.log("the data to update are",dataToUpdate);
     const session = await prisma.sessionFormation.update({
       where: {
         id: id,
       },
-      data: dataToUpdate,
+      data: {
+        addressId: dataToUpdate.addressId,
+        endDate: dataToUpdate.endDate,
+      }
     });
     return session;
   } catch (error) {
