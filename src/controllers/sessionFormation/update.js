@@ -4,6 +4,7 @@ export default async (req, res) => {
     try {
         const data = req.body;
         const id = req.params.id;
+        console.log(req.params);
         const session = await sessionFormationService.update(id, data);
         ApiResponse.success(res,session, "Resource updated");
     } catch (error) {

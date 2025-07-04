@@ -5,9 +5,9 @@ const prisma = new PrismaClient();
 const getFormations = async () => {
   try {
     const formations = await prisma.formation.findMany();
-
-    console.log(formations);
-    return formations;
+    const total = await prisma.formation.count();
+   
+    return {formations, total};
   } catch (error) {
     console.error(error);
     throw error;

@@ -79,6 +79,9 @@ const getById = async (id) => {
 const update = async (id, data) => {
   try {
     const {serialNumber,formationId, ...dataToUpdate} = data
+    dataToUpdate.startDate = new Date(dataToUpdate.startDate);
+    dataToUpdate.endDate = new Date(dataToUpdate.endDate);
+    console.log(dataToUpdate, id);
     const session = await prisma.sessionFormation.update({
       where: {
         id: id,
