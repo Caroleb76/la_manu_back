@@ -1,6 +1,6 @@
 model SessionFormation {
   id            String     @id @default(uuid())
-  serialNumber  String
+  serialNumber  String @unique
   startDate     DateTime?
   endDate       DateTime?
 

@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 const getFormations = async () => {
   try {
-    const formations = await prisma.formations.findMany();
+    const formations = await prisma.formation.findMany();
 
     console.log(formations);
     return formations;

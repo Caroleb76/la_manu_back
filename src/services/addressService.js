@@ -2,9 +2,30 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const getAddresses = async () => {
+const getAddresses = async (limit = 10, offset = 0, searchText = null) => {
   try {
-    const addresses = await prisma.address.findMany();
+    const addresses = await prisma.address.findMany(
+      {
+        skip: offset,
+        take: limit,
+        where: searchText ? {
+          OR: [
+            {
+              city: {
+                contains: searchText,
+                mode: "insensitive",
+              },
+            },
+            {
+              address: {
+                contains: searchText,
+                mode: "insensitive",
+              },
+            },
+          ],
+        } : {},
+      }
+    );
 
     console.log(addresses);
     return addresses;
@@ -45,6 +66,8 @@ const updateAddressById = async (id, data) => {
 
 const createAddress = async (data) => {
   try {
+    console.log(data);
+
     const address = await prisma.address.create({
       data,
     });
@@ -52,6 +75,11 @@ const createAddress = async (data) => {
     console.log(address);
     return address;
   } catch (error) {
+    if (error.code === "P2002") {
+      if (error.message.includes("address")) {
+        throw new Error("l'adresse existe deja dans la base de données");
+      }
+    }
     console.error(error);
     throw error;
   }

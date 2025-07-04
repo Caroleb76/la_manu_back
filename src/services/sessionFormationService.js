@@ -23,6 +23,8 @@ const getSessions = async (offset=0,limit=10) => {
 };
 const create = async (data) => {
   try {
+    console.log("creating sessionFormation" ,data);
+    
     validateSessionFormation(data);
     const sessionFormation = await prisma.sessionFormation.create({
       data,
@@ -30,6 +32,12 @@ const create = async (data) => {
     return sessionFormation;
   } catch (error) {
     console.error(error);
+    if(error.code === "P2002") {
+      if(error.message.includes("serialNumber")) {
+        throw new Error("le Numero de dossier doit être unique");
+      }
+
+    }
     throw error;
   }
 };
@@ -70,11 +78,12 @@ const getById = async (id) => {
 
 const update = async (id, data) => {
   try {
+    const {serialNumber,formationId, ...dataToUpdate} = data
     const session = await prisma.sessionFormation.update({
       where: {
         id: id,
       },
-      data,
+      data: dataToUpdate,
     });
     return session;
   } catch (error) {
