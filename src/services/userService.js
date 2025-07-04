@@ -5,45 +5,60 @@ import { ROLES } from "../utils/constants.js";
 
 const prisma = new PrismaClient();
 
-const getUsers = async (offset = 0, limit = 10,searchText=null) => {
+const getUsers = async (offset = 0, limit = 10, searchText = null, role = null) => {
   try {
+    console.log(typeof role);
+    
+    if (role!=null) {
+      console.log("from the inside the service");
+      if (role!==ROLES.FORMATEUR && role!==ROLES.ADMIN && role!==ROLES.SUPER_ADMIN  ) {
+        throw new Error("Rôle invalide");
+      }
+    }
+
+    // Start with an empty array of filters
+    const filters = [];
+
+    if (searchText && searchText !== "null") {
+      filters.push({
+        OR: [
+          { email: { contains: searchText, mode: "insensitive" } },
+          { firstName: { contains: searchText, mode: "insensitive" } },
+          { lastName: { contains: searchText, mode: "insensitive" } },
+        ],
+      });
+    }
+
+    if (role) {
+      filters.push({
+        role: {
+         is :{ name: role,
+        },
+      },
+      });
+    }
+
+    // Combine filters with AND if any exist
+    const where = filters.length > 0 ? { AND: filters } : {};
+
     const users = await prisma.user.findMany({
       skip: offset,
       take: limit,
       include: {
         role: true,
       },
-      where: searchText ? {
-        OR: [
-          {
-            email: {
-              contains: searchText,
-              mode: "insensitive",
-            },
-          },
-          {
-            firstName: {
-              contains: searchText,
-              mode: "insensitive",
-            },
-          },
-          {
-            lastName: {
-              contains: searchText,
-              mode: "insensitive",
-            },
-          },
-        ],
-      } : {},
-    })
-    const total = await  prisma.user.count()
+      where,
+    });
 
-    return {users, total};
+    const total = await prisma.user.count({ where });
+console.log(users)
+    return { users, total };
   } catch (error) {
     console.error(error);
     throw error;
   }
 };
+
 
 const getUserById = async (id) => {
   try {

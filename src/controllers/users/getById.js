@@ -6,7 +6,7 @@ export default async (req, res) => {
         console.log(id);
         
         const user = await userService.getUserById(id);
-        ApiResponse.success(res,user, "Resource created");
+        ApiResponse.success(res,user, "user found");
     } catch (error) {
         return ApiResponse.error(res, error);
     }
