@@ -2,11 +2,10 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const getmoduleFormations = async () => {
+const getModuleFormations = async () => {
   try {
-    const moduleFormations = await prisma.moduleFormations.findMany();
+    const moduleFormations = await prisma.moduleFormation.findMany();
 
-    console.log(moduleFormations);
     return moduleFormations;
   } catch (error) {
     console.error(error);
@@ -14,7 +13,7 @@ const getmoduleFormations = async () => {
   }
 };
 
-const getmoduleFormationById = async (id) => {
+const getModuleFormationById = async (id) => {
   try {
     const moduleFormation = await prisma.moduleFormation.findUnique({
       where: {
@@ -24,7 +23,6 @@ const getmoduleFormationById = async (id) => {
     if (!moduleFormation) {
       throw new Error("aucun moduleFormation trouvé");
     }
-    console.log(moduleFormation);
     return moduleFormation;
   } catch (error) {
     console.error(error);
@@ -32,7 +30,7 @@ const getmoduleFormationById = async (id) => {
   }
 };
 
-const updatemoduleFormation = async (id, data) => {
+const updateModuleFormation = async (id, data) => {
   try {
     const updated = await prisma.moduleFormation.update({
       where: { id },
@@ -46,7 +44,7 @@ const updatemoduleFormation = async (id, data) => {
   }
 };
 
-const createmoduleFormation = async (data) => {
+const createModuleFormation = async (data) => {
   try {
     const moduleFormation = await prisma.moduleFormation.create({
       data,
@@ -60,7 +58,7 @@ const createmoduleFormation = async (data) => {
   }
 };
 
-const deletemoduleFormationById = async (id) => {
+const deleteModuleFormationById = async (id) => {
   try {
     const moduleFormation = await prisma.moduleFormation.destroy({
       where: {
@@ -76,9 +74,9 @@ const deletemoduleFormationById = async (id) => {
 };
 
 export default {
-  getmoduleFormations,
-  getmoduleFormationById,
-  updatemoduleFormation,
-  createmoduleFormation,
-  deletemoduleFormationById,
+  getModuleFormations,
+  getModuleFormationById,
+  updateModuleFormation,
+  createModuleFormation,
+  deleteModuleFormationById,
 };

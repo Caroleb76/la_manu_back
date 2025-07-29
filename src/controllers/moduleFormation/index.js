@@ -13,7 +13,7 @@ const router = Router();
 
 /**
  * @swagger
- * /moduleFormations:
+ * /moduleFormation:
  *   get:
  *     tags : [ModuleFormations]
  *     summary: Get all module formations
