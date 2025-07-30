@@ -1,17 +1,17 @@
 import { PrismaClient } from "@prisma/client";
 import passwordUtils from "../utils/utils.js";
 import RoleService from "./roleService.js";
-import { ROLES } from "../utils/constants.js";
+import { PROFILE_PICTURE_KEY, ROLES } from "../utils/constants.js";
 import fileService from "./fileService.js";
 
 const prisma = new PrismaClient();
 
 const getUsers = async (offset = 0, limit = 10, searchText = null, role = null) => {
   try {
-    console.log(typeof role);
+    //console.log(typeof role);
 
     if (role != null) {
-      console.log("from the inside the service");
+      //console.log("from the inside the service");
       if (role !== ROLES.FORMATEUR && role !== ROLES.ADMIN && role !== ROLES.SUPER_ADMIN) {
         throw new Error("Rôle invalide");
       }
@@ -53,10 +53,10 @@ const getUsers = async (offset = 0, limit = 10, searchText = null, role = null) 
     });
 
     const total = await prisma.user.count({ where });
-    console.log(users)
+    //console.log(users)
     return { users, total };
   } catch (error) {
-    console.error(error);
+    //console.error(error);
     throw error;
   }
 };
@@ -76,10 +76,10 @@ const getUserById = async (id) => {
     if (!user) {
       throw new Error("aucun utilisateur trouvé");
     }
-    // console.log("BY ID");
+    // //console.log("BY ID");
     return user;
   } catch (error) {
-    console.error(error);
+    //console.error(error);
     throw error;
   }
 };
@@ -97,10 +97,10 @@ const getUserByEmail = async (email) => {
     if (!user) {
       throw new Error("aucun utilisateur trouvé");
     }
-    // console.log(user);
+    // //console.log(user);
     return user;
   } catch (error) {
-    console.error(error);
+    //console.error(error);
     throw error;
   }
 };
@@ -119,7 +119,7 @@ const createUser = async (data) => {
       throw new Error("mot de passe manquant");
     }
     const hashedPassword = await passwordUtils.hashPassword(data.password);
-    console.log("We have got ", hashedPassword);
+    //console.log("We have got ", hashedPassword);
 
     const user = await prisma.user.create({
       data: {
@@ -131,10 +131,10 @@ const createUser = async (data) => {
       },
     });
 
-    console.log(user);
+    //console.log(user);
     return user;
   } catch (error) {
-    console.error(error);
+    //console.error(error);
     throw error;
   }
 };
@@ -149,10 +149,10 @@ const deleteUserById = async (id) => {
     if (!deleted) {
       throw new Error("aucun utilisateur trouvé");
     }
-    console.log(deleted);
+    //console.log(deleted);
     return deleted;
   } catch (error) {
-    console.error(error);
+    //console.error(error);
     throw error;
   }
 };
@@ -169,7 +169,7 @@ const updateUserById = async (id, data) => {
         });
 
         
-        if (file.fieldname === "profilePicture") {
+        if (file.fieldname === PROFILE_PICTURE_KEY) {
           data.profilePicture = savedFile.url.replaceAll("\\", "/");
         }
       }
@@ -201,10 +201,11 @@ const updateUserById = async (id, data) => {
     if (!user) {
       throw new Error("aucun utilisateur trouvé");
     }
-    console.log(user);
-    return user;
+    // console.log("after updating user by id", user);
+    const {password, roleId, ...rest} = user;
+    return rest;
   } catch (error) {
-    console.error(error);
+    //console.error(error);
     throw error;
   }
 };
@@ -223,10 +224,10 @@ const blockUserById = async (id, data) => {
     if (!user) {
       throw new Error("aucun utilisateur trouvé");
     }
-    console.log(user);
+    // //console.log(user);
     return user;
   } catch (error) {
-    console.error(error);
+    //console.error(error);
     throw error;
   }
 };

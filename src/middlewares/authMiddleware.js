@@ -13,6 +13,7 @@ export default async (req, res, next) => {
         const decoded = jwt.verify(token, secretKey);
         if(!decoded) throw new Error("Unauthorized");
         const user = await userService.getUserById(decoded.userId);
+        user.token = token
         if(!user) throw new Error("Unauthorized");
         req.currentUser = user;
         next();

@@ -5,7 +5,7 @@ import update from "./update.js";
 import getById from "./getById.js";
 import { Router } from "express";
 import authMiddleware from "../../middlewares/authMiddleware.js";
-
+import upload from "../../middlewares/storageMiddleware.js";
 const router = Router();
 
 /**
@@ -30,7 +30,7 @@ const router = Router();
  *       500:
  *         description: Internal Server Error
  */
-router.get("/", authMiddleware, getAll);
+router.get("/:userId/getAll", authMiddleware, getAll);
 
 /**
  * @swagger
@@ -61,7 +61,7 @@ router.get("/", authMiddleware, getAll);
  *       500:
  *         description: Internal Server Error
  */
-router.get("/:id", authMiddleware, getById);
+router.get("/files/:userId/download/:filename", authMiddleware, getById);
 
 /**
  * @swagger
@@ -89,7 +89,7 @@ router.get("/:id", authMiddleware, getById);
  *       500:
  *         description: Internal Server Error
  */
-router.post("/", authMiddleware, create);
+router.post("/", authMiddleware, upload.single("file"), create);
 
 /**
  * @swagger

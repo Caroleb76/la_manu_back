@@ -10,7 +10,7 @@ export default async (req, res) => {
     console.log("Files:", files);
     
     const payload = await userService.updateUserById(id, {...user, files});
-    return ApiResponse.success(res, {}, "Resource created");
+    return ApiResponse.success(res, payload, "Resource created");
   } catch (error) {
     console.log(error);
     return ApiResponse.error(res, error);

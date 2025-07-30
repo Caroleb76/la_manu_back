@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import fs from "fs";
 import path from "path";
+import { PROFILE_PICTURE_KEY } from "../utils/constants.js";
 
 const prisma = new PrismaClient();
 
@@ -18,12 +19,12 @@ const getFiles = async () => {
 
 const getFilesByUserId = async (userId) => {
   try {
-    const files = await prisma.file.findMany({
+    let files = await prisma.file.findMany({
       where: {
         userId: userId,
       },
     });
-
+    files= files.filter(it => it.name!= PROFILE_PICTURE_KEY);
     console.log(files);
     return files;
   } catch (error) {
@@ -79,7 +80,21 @@ const updateFileById = async (id, data) => {
 
 const createFile = async (data) => {
   try {
+    // console.log(data);
+    
+    const existingFile = await prisma.file.findFirst({
+      where: {
+        name: data.name,
+        userId: data.userId
+      }
+    });
 
+    // console.log("[+] Looking for the file with name ", data.name);
+    if (existingFile) {
+      const deleteFromDisk = existingFile.name != PROFILE_PICTURE_KEY;
+      await deleteFileById(existingFile.id,deleteFromDisk);
+      // console.log("File deleted");
+    }
     const file = await prisma.file.create({
       data:{
         userId: data.userId,
@@ -104,17 +119,36 @@ const createFilesInBulk = async (files) => {
 
 
 
-const deleteFileById = async (id) => {
+const deleteFileById = async (id,deleteFromDisk=false) => {
   try {
-    const file = await prisma.file.destroy({
-      where: {
-        id: id,
-      },
+
+    const file = await prisma.file.findUnique({
+      where: { id },
     });
-    console.log(file);
+
+    if (!file) {
+      throw new Error("File not found in database");
+    }
+
+
+    await prisma.file.delete({ where: { id } });
+// I made this optional because when updating the profile picture we do not need to delete the file manually
+// since the middlleware does this
+    if(deleteFromDisk){
+
+      const filePath = path.resolve(file.url); 
+  
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath); 
+        console.log("File deleted from disk:", filePath);
+      } else {
+        console.warn("File not found on disk:", filePath);
+      }
+    }
+
     return file;
   } catch (error) {
-    console.error(error);
+    console.error("Error deleting file:", error);
     throw error;
   }
 };
