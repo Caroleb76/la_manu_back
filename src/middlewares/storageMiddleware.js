@@ -8,6 +8,7 @@ const storage = multer.diskStorage({
         // console.log(user);
 
         if (!user) return
+        if(!fs.existsSync('files')) fs.mkdirSync('files')
         if (!fs.existsSync('files/' + user.id)) {
             fs.mkdirSync('files/' + user.id)
         }
