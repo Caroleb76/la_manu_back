@@ -7,12 +7,12 @@ export const defaultModuleFormations = [
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam modi atque soluta porro placeat vero, ad deserunt earum dolore neque voluptatum. Nostrum autem quas corporis eligendi, eaque consequuntur dolores cumque!",
     },
     {
-        name: "Formation Dévelopement Web",
+        name: "Formation Web Design",
         description:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam modi atque soluta porro placeat vero, ad deserunt earum dolore neque voluptatum. Nostrum autem quas corporis eligendi, eaque consequuntur dolores cumque!",
     },
     {
-        name: "Formation Dévelopement Web",
+        name: "Formation Management",
         description:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam modi atque soluta porro placeat vero, ad deserunt earum dolore neque voluptatum. Nostrum autem quas corporis eligendi, eaque consequuntur dolores cumque!",
     },
