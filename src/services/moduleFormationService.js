@@ -30,6 +30,23 @@ const getModuleFormationById = async (id) => {
   }
 };
 
+const getModuleFormationByFormationId = async (formationId) => {
+  try {
+    const modules = await prisma.moduleFormation.findMany({
+      where: {
+        formationId: formationId,
+      },
+    })
+    if (!modules) {
+      throw new Error("aucun moduleFormation trouvé");
+    }
+    return modules;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 const updateModuleFormation = async (id, data) => {
   try {
     const updated = await prisma.moduleFormation.update({
@@ -76,4 +93,5 @@ export default {
   updateModuleFormation,
   createModuleFormation,
   deleteModuleFormationById,
+  getModuleFormationByFormationId
 };

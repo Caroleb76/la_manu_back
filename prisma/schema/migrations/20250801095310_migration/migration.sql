@@ -11,8 +11,8 @@ CREATE TABLE "Address" (
 -- CreateTable
 CREATE TABLE "Contract" (
     "id" TEXT NOT NULL,
-    "startDate" TEXT NOT NULL,
-    "endDate" TEXT NOT NULL,
+    "startDate" TIMESTAMP(3) NOT NULL,
+    "endDate" TIMESTAMP(3) NOT NULL,
     "signed" BOOLEAN NOT NULL,
     "declared" BOOLEAN NOT NULL,
     "sessionFormationId" TEXT,
@@ -54,7 +54,7 @@ CREATE TABLE "Formation" (
 -- CreateTable
 CREATE TABLE "Intervention" (
     "id" TEXT NOT NULL,
-    "dateIntervention" TEXT NOT NULL,
+    "dateIntervention" TIMESTAMP(3) NOT NULL,
     "hours" DECIMAL(65,30) NOT NULL,
     "shift" TEXT NOT NULL,
     "description" TEXT,

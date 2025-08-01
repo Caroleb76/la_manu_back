@@ -2,8 +2,10 @@ model ModuleFormation {
   id          String   @id @default(uuid())
   name        String
   description String?
+  formationId String
 
   interventions Intervention[]
+  Formation     Formation @relation(fields: [formationId], references: [id])
 
   @@map("ModuleFormation") // Optional: maps to table name if needed
 }

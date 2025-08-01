@@ -128,6 +128,11 @@ const getAll = async (filter = {}, offset = 0, limit = 10, searchText = null) =>
         endDate: "desc",
       }
     });
+    for (let contract of contracts) {
+        const interventionTotalHoursStr = contract.interventions.reduce((total, intervention) => parseFloat(total) + parseFloat(intervention.hours), 0);
+        // const interventionTotalHours = parseFloat(interventionTotalHoursStr);
+        contract.totalHours = interventionTotalHoursStr
+    }
     const total = await prisma.contract.count({ where });
     return { contracts, total };
   } catch (error) {
@@ -142,9 +147,13 @@ const create = async (data) => {
     const contract = await prisma.contract.create({
       data,
     });
+    
+    console.log(`[+] contract created successfully`, contract);
+    
     return contract;
+
   } catch (error) {
-    console.error(error);
+    console.error(`[-] create contract error`, error);
     throw error;
   }
 };
@@ -205,7 +214,10 @@ const validateContract = (contractData) => {
   try {
     startDate = new Date(contractData.startDate);
     endDate = new Date(contractData.endDate);
-
+    contractData.startDate = startDate;
+    contractData.endDate = endDate;
+    console.log("from validate Contract",startDate, endDate);
+    
     // if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
     //   throw new Error("Format de date invalide");
     // }
@@ -216,6 +228,8 @@ const validateContract = (contractData) => {
   if (startDate > endDate) {
     throw new Error("La date de fin doit être supérieure a la date de début");
   }
+  console.log(`[+] contract validated successfully`);
+  
 };
 
 export default {

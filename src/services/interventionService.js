@@ -118,7 +118,7 @@ const validateCreation = (data) => {
     throw new Error(
       "c'est pas possible de créer une intervention sans contrat"
     );
-  if (!data.date)
+  if (!data.dateIntervention)
     throw new Error("c'est pas possible de créer une intervention sans date");
   if (!data.hours)
     throw new Error("c'est pas possible de créer une intervention sans heures");

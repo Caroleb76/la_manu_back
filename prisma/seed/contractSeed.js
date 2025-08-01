@@ -3,20 +3,20 @@ import prisma from "../../src/utils/prisma.js";
 
 export const defaultContracts = [
     {
-        startDate: "2025-06-01",
-        endDate: "2025-06-30",
+        startDate: new Date("2025-06-01"),
+        endDate: new Date ("2025-06-30"),
         signed: false,
         declared: false,
     },
     {
-        startDate: "2025-07-01",
-        endDate: "2025-07-31",
+        startDate: new Date("2025-07-01"),
+        endDate: new Date("2025-07-31"),
         signed: true,
         declared: false,
     },
     {
-        startDate: "2025-08-01",
-        endDate: "2025-08-31",
+        startDate: new Date("2025-08-01"),
+        endDate: new Date("2025-08-31"),
         signed: true,
         declared: true,
     },

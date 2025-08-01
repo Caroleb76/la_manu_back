@@ -67,11 +67,13 @@ async function main() {
             await createFormateurSeeds(defaultFormateurs[i], addresses[i])
         );
     }
-
+    let formationsIds = [];
     // Seed formations
     const formations = [];
     for (const formation of defaultFormations) {
-        formations.push(await createFormationSeeds(formation));
+        const createdFromation =await createFormationSeeds(formation);
+        formations.push(createdFromation);
+        formationsIds.push(createdFromation.id);
     }
 
     //Seed Sessionformation
@@ -101,8 +103,14 @@ async function main() {
 
     //Seed modules formations
     const modulesFormations = [];
-    for (const module of defaultModuleFormations) {
+
+    for (let i=0; i < defaultModuleFormations.length; i++) {
+        const curentFormation = formationsIds[i];
+        const module = defaultModuleFormations[i];
+        module.formationId = curentFormation;
+        
         modulesFormations.push(await createModuleFormationSeeds(module));
+
     }
 
     //Seed interventionCategories
@@ -113,12 +121,26 @@ async function main() {
         );
     }
 
+    //Seed extraCosts
+    // const extraCosts = [];
+    // for (let i = 0; i < defaultExtraCosts.length; i++) {
+    //     const extraCost = await createExtraCostSeeds(defaultExtraCosts[i]);
+    //     extraCosts.push(
+    //         extraCost
+    //     );
+    // }
+
     //Seed Interventions
     const interventions = [];
     for (let i = 0; i < defaultInterventions.length; i++) {
+        // console.log(extraCosts[i]);
+        
+        const currentExtraCostId = defaultExtraCosts[i];
+        const currentIntervention = defaultInterventions[i];
+        currentIntervention.extraCosts = [currentExtraCostId];
         interventions.push(
             await createInterventionSeeds(
-                defaultInterventions[i],
+                currentIntervention,
                 contracts[i],
                 interventionCategories[i],
                 modulesFormations[i]
@@ -126,13 +148,7 @@ async function main() {
         );
     }
 
-    //Seed extraCosts
-    const extraCosts = [];
-    for (let i = 0; i < defaultExtraCosts.length; i++) {
-        extraCosts.push(
-            await createExtraCostSeeds(defaultExtraCosts[i], interventions[i])
-        );
-    }
+
 }
 
 main()

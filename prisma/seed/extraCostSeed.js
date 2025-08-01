@@ -15,12 +15,11 @@ export const defaultExtraCosts = [
     },
 ];
 
-export async function createExtraCostSeeds(extraCost, intervention) {
+export async function createExtraCostSeeds(extraCost) {
     const createdExtraCost = await prisma.extraCost.create({
         data: {
             category : extraCost.category,
             val : extraCost.val,
-            interventionId : intervention.id
         },
     });
     return createdExtraCost;

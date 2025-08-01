@@ -2,7 +2,7 @@ import prisma from "../../src/utils/prisma.js";
 
 export const defaultInterventions = [
     {
-        dateIntervention: "2025-01-01",
+        dateIntervention: new Date("2025-01-01"),
         hours: 4.5,
         shift: "matin",
         description:
@@ -11,7 +11,7 @@ export const defaultInterventions = [
         validatedByAdmin: false,
     },
     {
-        dateIntervention: "2025-05-01",
+        dateIntervention: new Date("2025-05-01"),
         hours: 3.5,
         shift: "apres-midi",
         description:
@@ -20,7 +20,7 @@ export const defaultInterventions = [
         validatedByAdmin: true,
     },
     {
-        dateIntervention: "2025-09-01",
+        dateIntervention: new Date("2025-09-01"),
         hours: 7,
         shift: "journée",
         description:
@@ -36,6 +36,8 @@ export async function createInterventionSeeds(
     interventionCategory,
     moduleFormation
 ) {
+    console.log(`extra costs are `,intervention.extraCosts);
+    
     const createdIntervention = await prisma.intervention.create({
         data: {
             dateIntervention: intervention.dateIntervention,
@@ -44,10 +46,12 @@ export async function createInterventionSeeds(
             description: intervention.description,
             validatedByFormateur: intervention.validatedByFormateur,
             validatedByAdmin: intervention.validatedByAdmin,
-
             contractId: contract.id,
             interventionCategoryId: interventionCategory.id,
             moduleFormationId: moduleFormation.id,
+            extraCosts:{
+                create: intervention.extraCosts,
+            }
         },
     });
     return createdIntervention;

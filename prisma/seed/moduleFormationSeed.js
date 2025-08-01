@@ -20,10 +20,7 @@ export const defaultModuleFormations = [
 
 export async function createModuleFormationSeeds(moduleFormation) {
     const createdModuleFormation = await prisma.moduleFormation.create({
-        data: {
-            name: moduleFormation.name,
-            description: moduleFormation.description,
-        },
+        data: moduleFormation,
     });
     return createdModuleFormation;
 }

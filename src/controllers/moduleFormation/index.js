@@ -5,6 +5,7 @@ import getById from "./getById.js";
 import update from "./update.js";
 import { Router } from "express";
 import authMiddleware from "../../middlewares/authMiddleware.js";
+import getByFormationId from "./getByFormationId.js";
 
 //récupération du routeur pour lui associer les différentes routes
 const router = Router();
@@ -54,6 +55,34 @@ router.get("/", authMiddleware, getAll);
  *         description: Internal Server Error
  */
 router.get("/:id", authMiddleware, getById);
+
+
+
+/**
+ * @swagger
+ * /moduleFormations/{formationId}:
+ *   get:
+ *     tags : [ModuleFormations]
+ *     summary: Get a module formation by Formation ID
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Success
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: Not Found
+ *       500:
+ *         description: Internal Server Error
+ */
+router.get("/formation/:formationId", authMiddleware, getByFormationId);
 
 /**
  * @swagger
