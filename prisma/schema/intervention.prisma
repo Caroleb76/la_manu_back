@@ -1,6 +1,6 @@
 model Intervention {
   id                   String   @id @default(uuid())
-  dateIntervention     String
+  dateIntervention     DateTime
   hours                Decimal
   shift                String
   description          String?
