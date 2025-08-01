@@ -199,9 +199,9 @@ const validateContract = (contractData) => {
     startDate = new Date(contractData.startDate);
     endDate = new Date(contractData.endDate);
 
-    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
-      throw new Error("Format de date invalide");
-    }
+    // if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+    //   throw new Error("Format de date invalide");
+    // }
   } catch (error) {
     throw new Error("La date est incorrecte: " + error.message);
   }

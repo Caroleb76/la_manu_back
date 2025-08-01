@@ -14,7 +14,6 @@ const getSessions = async (offset=0,limit=10) => {
       }
     });
     const total = await prisma.sessionFormation.count();
-    console.log(`[+] Got the formations sessiosn length ${sessionFormations.length} total ${total}`);
     return { sessionFormations, total };
   } catch (error) {
     console.error(error);
@@ -23,7 +22,6 @@ const getSessions = async (offset=0,limit=10) => {
 };
 const create = async (data) => {
   try {
-    console.log("creating sessionFormation" ,data);
     
     validateSessionFormation(data);
     const sessionFormation = await prisma.sessionFormation.create({
@@ -81,7 +79,6 @@ const update = async (id, data) => {
     const {serialNumber,formationId, ...dataToUpdate} = data
     dataToUpdate.startDate = new Date(dataToUpdate.startDate);
     dataToUpdate.endDate = new Date(dataToUpdate.endDate);
-    console.log("the data to update are",dataToUpdate);
     const session = await prisma.sessionFormation.update({
       where: {
         id: id,

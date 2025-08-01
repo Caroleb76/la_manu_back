@@ -10,10 +10,7 @@ const create = async (data) => {
       data,
     });
 
-    console.log(
-      `[+] A new interventionCategory has been created: ${interventionCategory}`
-    );
-
+    
     return interventionCategory;
   } catch (error) {
     console.error(error);
@@ -28,9 +25,7 @@ const destroy = async (id) => {
         id: id,
       },
     });
-    console.log(
-      `[+] A interventionCategory has been deleted: ${interventionCategory}`
-    );
+ 
     return interventionCategory;
   } catch (error) {
     console.error(error);
@@ -42,7 +37,6 @@ const getAll = async () => {
   try {
     const interventionCategories = await prisma.interventionCategory.findMany();
 
-    console.log(interventionCategories);
     return interventionCategories;
   } catch (error) {
     console.error(error);

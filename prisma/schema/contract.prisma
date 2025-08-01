@@ -1,7 +1,7 @@
 model Contract {
   id                  String            @id @default(uuid())
-  startDate           DateTime
-  endDate             DateTime
+  startDate           String
+  endDate             String
   signed              Boolean
   declared            Boolean
 

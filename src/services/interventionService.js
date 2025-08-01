@@ -25,6 +25,20 @@ const create = async (data) => {
   }
 };
 
+const createMany = async (data) => {
+  try {
+    // todo validate with ZOD
+    const createdInterventions = await prisma.intervention.createMany({
+      data,
+    });
+    return createdInterventions;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+
 const update = async (id, data) => {
   try {
     const exists = await prisma.intervention.findUnique({
@@ -118,4 +132,5 @@ export default {
   update,
   destroy,
   validateIntervention,
+  createMany,
 };

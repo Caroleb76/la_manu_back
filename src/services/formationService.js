@@ -24,7 +24,6 @@ const getFormationById = async (id) => {
     if (!formation) {
       throw new Error("aucune formation trouvée");
     }
-    console.log(formation);
     return formation;
   } catch (error) {
     console.error(error);
@@ -38,7 +37,6 @@ const updateFormation = async (id, data) => {
       where: { id },
       data,
     });
-    console.log("formation mise à jour :", updated);
     return updated;
   } catch (error) {
     console.error("Erreur lors de la mise à jour :", error);
@@ -52,7 +50,6 @@ const createFormation = async (data) => {
       data,
     });
 
-    console.log(formation);
     return formation;
   } catch (error) {
     console.error(error);
@@ -67,7 +64,6 @@ const deleteFormationById = async (id) => {
         id: id,
       },
     });
-    console.log(formation);
     return formation;
   } catch (error) {
     console.error(error);

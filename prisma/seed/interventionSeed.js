@@ -2,7 +2,7 @@ import prisma from "../../src/utils/prisma.js";
 
 export const defaultInterventions = [
     {
-        dateIntervention: new Date("2025-01-01"),
+        dateIntervention: "2025-01-01",
         hours: 4.5,
         shift: "matin",
         description:
@@ -11,7 +11,7 @@ export const defaultInterventions = [
         validatedByAdmin: false,
     },
     {
-        dateIntervention: new Date("2025-05-01"),
+        dateIntervention: "2025-05-01",
         hours: 3.5,
         shift: "apres-midi",
         description:
@@ -20,7 +20,7 @@ export const defaultInterventions = [
         validatedByAdmin: true,
     },
     {
-        dateIntervention: new Date("2025-09-01"),
+        dateIntervention: "2025-09-01",
         hours: 7,
         shift: "journée",
         description:

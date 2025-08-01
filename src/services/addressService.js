@@ -27,7 +27,6 @@ const getAddresses = async (limit = 10, offset = 0, searchText = null) => {
       }
     );
 
-    console.log(addresses);
     return addresses;
   } catch (error) {
     console.error(error);
@@ -42,7 +41,7 @@ const getAddressById = async (id) => {
         id: id,
       },
     });
-    console.log(address);
+
     return address;
   } catch (error) {
     console.error(error);
@@ -56,7 +55,7 @@ const updateAddressById = async (id, data) => {
       where: { id },
       data,
     });
-    console.log("Adresse mise à jour :", updated);
+   
     return updated;
   } catch (error) {
     console.error("Erreur lors de la mise à jour :", error);
@@ -66,13 +65,13 @@ const updateAddressById = async (id, data) => {
 
 const createAddress = async (data) => {
   try {
-    console.log(data);
+ ;
 
     const address = await prisma.address.create({
       data,
     });
 
-    console.log(address);
+
     return address;
   } catch (error) {
     if (error.code === "P2002") {
@@ -92,7 +91,7 @@ const deleteAddressById = async (id) => {
         id: id,
       },
     });
-    console.log(address);
+   
     return address;
   } catch (error) {
     console.error(error);

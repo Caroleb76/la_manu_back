@@ -6,7 +6,7 @@ export default async (req, res) => {
     const payload = await addressService.createAddress(data);
     return ApiResponse.success(res, payload, "Resource created");
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return ApiResponse.error(res, error);
   }
 };

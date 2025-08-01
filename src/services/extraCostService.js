@@ -6,7 +6,7 @@ const getExtraCosts = async () => {
   try {
     const extraCosts = await prisma.extraCost.findMany();
 
-    console.log(extraCosts);
+  
     return extraCosts;
   } catch (error) {
     console.error(error);
@@ -22,7 +22,7 @@ const getExtraCostsByInterventionId = async (interventionId) => {
       },
     });
 
-    console.log(extraCosts);
+
     return extraCosts;
   } catch (error) {
     console.error(error);
@@ -37,7 +37,6 @@ const getExtraCostById = async (id) => {
         id: id,
       },
     });
-    console.log(extraCost);
     return extraCost;
   } catch (error) {
     console.error(error);
@@ -51,7 +50,6 @@ const updateExtraCostById = async (id, data) => {
       where: { id },
       data,
     });
-    console.log("extraCost mise à jour :", updated);
     return updated;
   } catch (error) {
     console.error("Erreur lors de la mise à jour :", error);
@@ -65,7 +63,6 @@ const createExtraCost = async (data) => {
       data,
     });
 
-    console.log(extraCost);
     return extraCost;
   } catch (error) {
     console.error(error);
@@ -80,7 +77,6 @@ const deleteExtraCostById = async (id) => {
         id: id,
       },
     });
-    console.log(extraCost);
     return extraCost;
   } catch (error) {
     console.error(error);
