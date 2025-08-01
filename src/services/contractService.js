@@ -45,8 +45,52 @@ const getAllContractsBySessionId = async (id) => {
   }
 };
 
-const getAll = async (filter = {}, offset = 0, limit = 10,searchText=null) => {
+const getAll = async (filter = {}, offset = 0, limit = 10, searchText = null) => {
   try {
+    let where = {};
+    if (searchText) {
+      where.OR = [
+        {
+          User: {
+            email: {
+              contains: searchText,
+              mode: "insensitive",
+            },
+          },
+        },
+        {
+          User: {
+            firstName: {
+              contains: searchText,
+              mode: "insensitive",
+            },
+          },
+        },
+        {
+          User: {
+            lastName: {
+              contains: searchText,
+              mode: "insensitive",
+            },
+          },
+        },
+        {
+          SessionFormation: {
+            Formation: {
+              name: {
+                contains: searchText,
+                mode: "insensitive",
+              },
+            },
+          },
+        }
+      ]
+    }
+    if(filter){
+      if(filter.userId){     
+        where.userId = filter.userId
+      }
+    }
     const contracts = await prisma.contract.findMany({
       where: filter,
       skip: offset,
@@ -76,44 +120,7 @@ const getAll = async (filter = {}, offset = 0, limit = 10,searchText=null) => {
           }
         },
       },
-      where: searchText ? {
-        OR: [
-          {
-            User: {
-              email: {
-                contains: searchText,
-                mode: "insensitive",
-              },
-            },
-          },
-          {
-            User: {
-              firstName: {
-                contains: searchText,
-                mode: "insensitive",
-              },
-            },
-          },
-          {
-            User: {
-              lastName: {
-                contains: searchText,
-                mode: "insensitive",
-              },
-            },
-          },
-          {
-            SessionFormation: {
-              Formation: {
-                name: {
-                  contains: searchText,
-                  mode: "insensitive",
-                },
-              },
-            },
-          }
-        ],
-      } : {},
+      where: where,
       orderBy: {
         startDate: "desc",
       },
@@ -121,7 +128,7 @@ const getAll = async (filter = {}, offset = 0, limit = 10,searchText=null) => {
         endDate: "desc",
       }
     });
-    const total= await prisma.contract.count();
+    const total = await prisma.contract.count({ where });
     return { contracts, total };
   } catch (error) {
     console.error(error);

@@ -3,9 +3,9 @@ import fileService from "../../services/fileService.js";
 export default async (req, res) => {
   try {
     const uploadedFile = req.file; 
-    const { filename } = req.body;
-    const userId = req.currentUser?.id;
-
+    const { filename,userId } = req.body;
+    console.log(filename,userId);
+    
     if (!uploadedFile || !userId || !filename) {
       return ApiResponse.error(res, "Missing file, user or filename", 400);
     }

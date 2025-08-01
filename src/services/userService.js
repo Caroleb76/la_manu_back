@@ -76,7 +76,7 @@ const getUserById = async (id) => {
     if (!user) {
       throw new Error("aucun utilisateur trouvé");
     }
-    // //console.log("BY ID");
+    // console.log("BY ID" , user);
     return user;
   } catch (error) {
     //console.error(error);

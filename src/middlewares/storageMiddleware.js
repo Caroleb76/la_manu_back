@@ -16,6 +16,8 @@ const storage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
         console.log(file);
+        const userId = file.userId;
+        if(userId && !fs.existsSync('files/' + userId)) fs.mkdirSync('files/' + userId)
         const isProfilePicture = file.fieldname == PROFILE_PICTURE_KEY;
         const user = req.currentUser;
 
