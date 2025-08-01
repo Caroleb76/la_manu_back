@@ -36,7 +36,6 @@ const updateModuleFormation = async (id, data) => {
       where: { id },
       data,
     });
-    console.log("moduleFormation mise à jour :", updated);
     return updated;
   } catch (error) {
     console.error("Erreur lors de la mise à jour :", error);
@@ -50,7 +49,6 @@ const createModuleFormation = async (data) => {
       data,
     });
 
-    console.log(moduleFormation);
     return moduleFormation;
   } catch (error) {
     console.error(error);
@@ -65,7 +63,6 @@ const deleteModuleFormationById = async (id) => {
         id: id,
       },
     });
-    console.log(moduleFormation);
     return moduleFormation;
   } catch (error) {
     console.error(error);

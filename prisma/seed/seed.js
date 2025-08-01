@@ -4,7 +4,7 @@ import {
     createNotificationSeed,
 } from "./notificationSeed.js";
 import { defaultRoles, createRoleSeeds } from "./roleSeed.js";
-import { defaultUsers, createUserSeeds } from "./userSeed.js";
+import { defaultUsers, createUserSeeds, createSuperAdminSeeds, createAdminSeeds, createFormateurSeeds, defaultSuperAdmins, defaultAdmins, defaultFormateurs } from "./userSeed.js";
 import {
     defaultSessionFormations,
     createSessionFormationSeeds,
@@ -47,8 +47,25 @@ async function main() {
 
     //Seed Users
     const users = [];
-    for (let i = 0; i < defaultUsers.length; i++) {
-        users.push(await createUserSeeds(defaultUsers[i], roles[i], addresses[i]));
+
+    //Ajouter les superAdmins
+    for (let i = 0; i < defaultSuperAdmins.length; i++) {
+        users.push(
+            await createSuperAdminSeeds(defaultSuperAdmins[i], addresses[i])
+        );
+    }
+    //Ajouter les admins
+    for (let i = 0; i < defaultAdmins.length; i++) {
+        users.push(
+            await createAdminSeeds(defaultAdmins[i], addresses[i])
+        );
+    }
+
+    //Ajouter les formateurs
+    for (let i = 0; i < defaultFormateurs.length; i++) {
+        users.push(
+            await createFormateurSeeds(defaultFormateurs[i], addresses[i])
+        );
     }
 
     // Seed formations
@@ -76,7 +93,8 @@ async function main() {
             await createContractSeeds(
                 defaultContracts[i],
                 sessionFormations[i],
-                users[i]
+                //Les seeds "formateurs" ont les id 7 à 9, donc j'ajouter 6
+                users[i+6]
             )
         );
     }
@@ -111,7 +129,9 @@ async function main() {
     //Seed extraCosts
     const extraCosts = [];
     for (let i = 0; i < defaultExtraCosts.length; i++) {
-        extraCosts.push(await createExtraCostSeeds(defaultExtraCosts[i], interventions[i]));
+        extraCosts.push(
+            await createExtraCostSeeds(defaultExtraCosts[i], interventions[i])
+        );
     }
 }
 

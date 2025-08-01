@@ -3,7 +3,7 @@ export default async (req, res) => {
   try {
     return ApiResponse.success(res, req.currentUser, "User Validated");
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return ApiResponse.error(res, error);
   }
 };

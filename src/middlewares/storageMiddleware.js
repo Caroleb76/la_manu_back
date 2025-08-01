@@ -5,7 +5,7 @@ import { PROFILE_PICTURE_KEY } from "../utils/constants.js";
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         const user = req.currentUser
-        // console.log(user);
+   
 
         if (!user) return
         if(!fs.existsSync('files')) fs.mkdirSync('files')

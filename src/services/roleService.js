@@ -5,7 +5,6 @@ const getRoles = async () => {
   try {
     const roles = await prisma.role.findMany();
 
-    console.log(roles);
     return roles;
   } catch (error) {
     console.error(error);
@@ -20,7 +19,6 @@ const getRoleById = async (id) => {
         id: id,
       },
     });
-    console.log(role);
     return role;
   } catch (error) {
     console.error(error);
@@ -35,7 +33,6 @@ const getRoleByName = async (roleName) => {
         name: roleName,
       },
     });
-    console.log(role);
     return role;
   } catch (error) {
     console.error(error);
@@ -49,7 +46,6 @@ const updateRole = async (id, data) => {
       where: { id },
       data,
     });
-    console.log("Role mise à jour :", updated);
     return updated;
   } catch (error) {
     console.error("Erreur lors de la mise à jour :", error);
@@ -63,7 +59,6 @@ const createRole = async (data) => {
       data,
     });
 
-    console.log(role);
     return role;
   } catch (error) {
     console.error(error);
@@ -78,7 +73,6 @@ const deleteRoleById = async (id) => {
         id: id,
       },
     });
-    console.log(role);
     return role;
   } catch (error) {
     console.error(error);

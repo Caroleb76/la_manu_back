@@ -25,7 +25,6 @@ const getNotifications = async (offset=0,limit=10,searchText=null) => {
       }: {},
     });
     const total = await prisma.notification.count();
-    // console.log(notifications);
     return { notifications, total };
   } catch (error) {
     console.error(error);
@@ -43,7 +42,6 @@ const getNotificationById = async (id) => {
     if (!notification) {
       throw new Error("aucune notification trouvée");
     }
-    console.log(notification);
     return notification;
   } catch (error) {
     console.error(error);
@@ -57,7 +55,6 @@ const updateNotification = async (id, data) => {
       where: { id },
       data,
     });
-    console.log("Notification mise à jour :", updated);
     return updated;
   } catch (error) {
     console.error("Erreur lors de la mise à jour :", error);
@@ -73,7 +70,6 @@ const createNotification = async (data) => {
       data,
     });
 
-    console.log(notification);
     return notification;
   } catch (error) {
     console.error(error);
@@ -88,7 +84,6 @@ const deleteNotificationById = async (id) => {
         id: id,
       },
     });
-    console.log(notification);
     return notification;
   } catch (error) {
     console.error(error);

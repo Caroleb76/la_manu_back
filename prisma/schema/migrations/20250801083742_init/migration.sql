@@ -11,8 +11,8 @@ CREATE TABLE "Address" (
 -- CreateTable
 CREATE TABLE "Contract" (
     "id" TEXT NOT NULL,
-    "startDate" TIMESTAMP(3) NOT NULL,
-    "endDate" TIMESTAMP(3) NOT NULL,
+    "startDate" TEXT NOT NULL,
+    "endDate" TEXT NOT NULL,
     "signed" BOOLEAN NOT NULL,
     "declared" BOOLEAN NOT NULL,
     "sessionFormationId" TEXT,
@@ -54,7 +54,7 @@ CREATE TABLE "Formation" (
 -- CreateTable
 CREATE TABLE "Intervention" (
     "id" TEXT NOT NULL,
-    "dateIntervention" TIMESTAMP(3) NOT NULL,
+    "dateIntervention" TEXT NOT NULL,
     "hours" DECIMAL(65,30) NOT NULL,
     "shift" TEXT NOT NULL,
     "description" TEXT,
@@ -134,6 +134,8 @@ CREATE TABLE "Users" (
     "phone" TEXT,
     "gender" TEXT,
     "diploma" TEXT,
+    "profilePicture" TEXT,
+    "socialSecurity" TEXT,
     "blocked" BOOLEAN NOT NULL DEFAULT false,
     "roleId" TEXT NOT NULL,
     "addressId" TEXT,
@@ -146,6 +148,9 @@ CREATE UNIQUE INDEX "Address_address_key" ON "Address"("address");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Role_name_key" ON "Role"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "SessionFormation_serialNumber_key" ON "SessionFormation"("serialNumber");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Users_email_key" ON "Users"("email");

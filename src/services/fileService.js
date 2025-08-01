@@ -9,7 +9,6 @@ const getFiles = async () => {
   try {
     const files = await prisma.file.findMany();
 
-    console.log(files);
     return files;
   } catch (error) {
     console.error(error);
@@ -25,7 +24,6 @@ const getFilesByUserId = async (userId) => {
       },
     });
     files= files.filter(it => it.name!= PROFILE_PICTURE_KEY);
-    console.log(files);
     return files;
   } catch (error) {
     console.error(error);
@@ -41,7 +39,6 @@ const getFilesByExtraCostId = async (extraCostId) => {
       },
     });
 
-    console.log(files);
     return files;
   } catch (error) {
     console.error(error);
@@ -56,7 +53,6 @@ const getFileById = async (id) => {
         id: id,
       },
     });
-    console.log(file);
     return file;
   } catch (error) {
     console.error(error);
@@ -70,7 +66,6 @@ const updateFileById = async (id, data) => {
       where: { id },
       data,
     });
-    console.log("Fichier mis à jour :", updated);
     return updated;
   } catch (error) {
     console.error("Erreur lors de la mise à jour :", error);
@@ -80,7 +75,6 @@ const updateFileById = async (id, data) => {
 
 const createFile = async (data) => {
   try {
-    // console.log(data);
     
     const existingFile = await prisma.file.findFirst({
       where: {
@@ -89,11 +83,9 @@ const createFile = async (data) => {
       }
     });
 
-    // console.log("[+] Looking for the file with name ", data.name);
     if (existingFile) {
       const deleteFromDisk = existingFile.name != PROFILE_PICTURE_KEY;
       await deleteFileById(existingFile.id,deleteFromDisk);
-      // console.log("File deleted");
     }
     const file = await prisma.file.create({
       data:{
@@ -103,7 +95,6 @@ const createFile = async (data) => {
       },
     });
 
-    console.log(file);
     return file;
   } catch (error) {
     console.error(error);
@@ -140,7 +131,6 @@ const deleteFileById = async (id,deleteFromDisk=false) => {
   
       if (fs.existsSync(filePath)) {
         fs.unlinkSync(filePath); 
-        console.log("File deleted from disk:", filePath);
       } else {
         console.warn("File not found on disk:", filePath);
       }
