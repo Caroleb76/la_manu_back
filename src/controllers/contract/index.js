@@ -6,6 +6,8 @@ import update from "./update.js";
 import destroy from "./destroy.js";
 import getAll from "./getAll.js";
 import getBySessionId from "./getBySessionId.js";
+import sign from "./sign.js";
+import getByUserId from "./getByUserId.js";
 
 const router = Router();
 
@@ -140,6 +142,36 @@ router.get("/session/:id", authMiddleware, getBySessionId);
  */
 router.get("/session/:id", authMiddleware, getBySessionId);
 
+
+/**
+ * @swagger
+ * /contracts/user/{id}:
+ *   get:
+ *     summary: Get all contracts by user ID
+ *     tags: [Contracts]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     responses:
+ *       200:
+ *         description: List of contracts
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Contract'
+ *       401:
+ *         description: Unauthorized
+ */
+router.get("/user/:id", authMiddleware, getByUserId);
+
 /**
  * @swagger
  * /contracts:
@@ -167,6 +199,35 @@ router.get("/session/:id", authMiddleware, getBySessionId);
  *         description: Unauthorized
  */
 router.post("/", authMiddleware, create);
+
+
+/**
+ * @swagger
+ * /contracts:
+ *   post:
+ *     summary: Sign a contract
+ *     tags: [Contracts]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Contract'
+ *     responses:
+ *       201:
+ *         description: Contract created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Contract'
+ *       400:
+ *         description: Bad request
+ *       401:
+ *         description: Unauthorized
+ */
+router.put("/sign/:contractId", authMiddleware, sign);
 
 /**
  * @swagger

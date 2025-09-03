@@ -5,8 +5,35 @@ import create from "./create.js";
 import update from "./update.js";
 import destroy from "./destroy.js";
 import createMany from "./createMany.js";
+import getAll from "./getAll.js";
 
 const router = Router();
+
+
+/**
+ * @swagger
+ * /interventions/contract/{id}:
+ *   get:
+ *     summary: Get interventions by contract ID
+ *     tags: [Interventions]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of interventions for the specified contract
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Intervention'
+ *       404:
+ *         description: No interventions found
+ *       401:
+ *         description: Unauthorized
+ */
+router.get("/", authMiddleware, getAll);
+
 
 /**
  * @swagger

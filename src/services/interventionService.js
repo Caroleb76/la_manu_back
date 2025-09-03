@@ -3,6 +3,21 @@ import userService from "./userService.js";
 import { ROLES } from "../utils/constants.js";
 const prisma = new PrismaClient();
 
+const getAll = async () => {
+  const interventions = await prisma.intervention.findMany({
+    include: {
+      Contract: {
+        include: {
+          User: true,
+        },
+      },
+      ModuleFormation: true,
+      InterventionCategory: true,
+    },
+  });
+  return interventions || [];
+};
+
 const getByContractId = async (contractId) => {
   const interventions = await prisma.intervention.findMany({
     where: {
@@ -133,4 +148,5 @@ export default {
   destroy,
   validateIntervention,
   createMany,
+  getAll
 };
