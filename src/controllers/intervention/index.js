@@ -65,7 +65,7 @@ router.get("/", authMiddleware, getAll);
  *       401:
  *         description: Unauthorized
  */
-router.get("contract/:id", authMiddleware, getByContractId);
+router.get("/contract/:id", authMiddleware, getByContractId);
 
 /**
  * @swagger
