@@ -27,6 +27,35 @@ const getByContractId = async (contractId) => {
   return interventions || [];
 };
 
+const getByUserId = async (userId) => {
+
+  //Get all user contract
+  const contracts = await prisma.contract.findMany({
+    where: {
+      userId: userId,
+    },
+  });
+  const interventions = await prisma.intervention.findMany({
+    where: {
+      contractId: {
+        in: contracts.map((contract) => contract.id),
+      },
+    },
+    include: {
+      Contract: {
+        include: {
+          User: true,
+        },
+      },
+      ModuleFormation: true,
+      InterventionCategory: true,
+    },
+  });
+
+ 
+  return interventions || [];
+};
+
 const create = async (data) => {
   try {
     validateCreation(data);
@@ -148,5 +177,6 @@ export default {
   destroy,
   validateIntervention,
   createMany,
-  getAll
+  getAll,
+  getByUserId
 };

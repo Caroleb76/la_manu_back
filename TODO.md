@@ -7,16 +7,11 @@
 
 ## Fonctionalités
 ### Priorité haute
-
-- modifications de contrats (au moins si non signé) 
-- notifications de contrat à signer quand le formateur se connecte
-- signature des contrats par les formateurs et admin
-- filtrer les contrats terminés 
-
-- vérifier l'interface des rôle
-- masquer les infos des autres formateurs depuis l'admin formateur
-
-- pdf du contrat
+- rajouter colonne tarif dans le formulaire contrat (section "interventions")
+- pdf du contrat (en cours)
+- css widget formateur
+- css export contrat WEB
+- css export contrat PDF
 
 - écrire tests
 
@@ -28,6 +23,11 @@
 
 - Terminer edition contrat
 
+- vérifier l'interface des rôle
+- masquer les infos des autres formateurs depuis l'admin formateur
+
+
+
 ### Priorité moyenne
 - implémenter modification/suppression de contrat
 - Calendrier
@@ -36,6 +36,8 @@
 - mettre à jour le Swagger
 
 ### Priorité basse
+- filtrer les contrats terminés 
+- validation des contrats par les admin 
 - ajouter l'action pour déclarer un contrat
 - export des interventions en excel
 - simulation email

@@ -29,12 +29,7 @@ const getByContractId = async (contractId) => {
                                 name: true,
                             },
                         },
-                        InterventionCategory: {
-                            select: {
-                                id: true,
-                                name: true,
-                            },
-                        },
+                        InterventionCategory: true
                     },
                 },
             },
