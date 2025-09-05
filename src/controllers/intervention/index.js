@@ -5,9 +5,37 @@ import create from "./create.js";
 import update from "./update.js";
 import destroy from "./destroy.js";
 import createMany from "./createMany.js";
+import getAll from "./getAll.js";
+import getByUserId from "./getByUserId.js";
 import validate from "./validate.js";
 
 const router = Router();
+
+
+/**
+ * @swagger
+ * /interventions/contract/{id}:
+ *   get:
+ *     summary: Get interventions by contract ID
+ *     tags: [Interventions]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of interventions for the specified contract
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Intervention'
+ *       404:
+ *         description: No interventions found
+ *       401:
+ *         description: Unauthorized
+ */
+router.get("/", authMiddleware, getAll);
+
 
 /**
  * @swagger
@@ -40,6 +68,38 @@ const router = Router();
  *         description: Unauthorized
  */
 router.get("/contract/:id", authMiddleware, getByContractId);
+
+/**
+ * @swagger
+ * /interventions/user/{id}:
+ *   get:
+ *     summary: Get interventions by user ID
+ *     tags: [Interventions]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: ID of the contract
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     responses:
+ *       200:
+ *         description: List of interventions for the specified contract
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Intervention'
+ *       404:
+ *         description: No interventions found
+ *       401:
+ *         description: Unauthorized
+ */
+router.get("/user/:id", authMiddleware, getByUserId);
 
 /**
  * @swagger
