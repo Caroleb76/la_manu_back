@@ -5,26 +5,40 @@ import { PROFILE_PICTURE_KEY } from "../utils/constants.js";
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         const user = req.currentUser
-   
+        const { extraCostId, interventionId } = req.body;
+        const isIntervention = interventionId && extraCostId;
+        console.log("file before", file);
 
         if (!user) return
-        if(!fs.existsSync('files')) fs.mkdirSync('files')
+        if (!fs.existsSync('files')) fs.mkdirSync('files')
         if (!fs.existsSync('files/' + user.id)) {
             fs.mkdirSync('files/' + user.id)
         }
-        cb(null, 'files/' + user.id)
+        if (isIntervention && user) {
+
+            const dirPath = 'files/' + user.id + '/interventions/' + interventionId + '/' + extraCostId;
+            if (!fs.existsSync(dirPath)) {
+                console.log("creating intervention folder");
+                fs.mkdirSync(dirPath, { recursive: true });
+            }
+
+            cb(null, dirPath)
+        } else {
+
+            cb(null, 'files/' + user.id)
+        }
     },
     filename: function (req, file, cb) {
-        console.log(file);
-        const userId = file.userId;
-        if(userId && !fs.existsSync('files/' + userId)) fs.mkdirSync('files/' + userId)
+        // console.log(file);
+        const { extraCostId, interventionId } = req.body;
         const isProfilePicture = file.fieldname == PROFILE_PICTURE_KEY;
+        const isIntervention = interventionId && extraCostId;
         const user = req.currentUser;
 
         if (isProfilePicture && user) {
             const dirPath = 'files/' + user.id;
             const ext = file.mimetype.split("/")[1];
-            
+
 
             // Delete old profile picture if it exists
             const files = fs.readdirSync(dirPath);
@@ -34,6 +48,7 @@ const storage = multer.diskStorage({
                 }
             }
         }
+
 
         cb(null, isProfilePicture ? `${PROFILE_PICTURE_KEY}.${file.mimetype.split("/")[1]}` : file.originalname);
     }

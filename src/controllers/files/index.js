@@ -6,6 +6,7 @@ import getById from "./getById.js";
 import { Router } from "express";
 import authMiddleware from "../../middlewares/authMiddleware.js";
 import upload from "../../middlewares/storageMiddleware.js";
+import getAllByExtraCostId from "./getAllByExtraCostsId.js";
 const router = Router();
 
 /**
@@ -31,6 +32,30 @@ const router = Router();
  *         description: Internal Server Error
  */
 router.get("/:userId/getAll", authMiddleware, getAll);
+
+/**
+ * @swagger
+ * /files:
+ *   get:
+ *     summary: Get all files of an intervention
+ *     tags: [Files]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of files of intervention
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/File'
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Internal Server Error
+ */
+router.get("/:userId/:extraCostId/getAll", authMiddleware, getAllByExtraCostId);
 
 /**
  * @swagger

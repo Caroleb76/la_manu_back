@@ -1,8 +1,8 @@
 # TODO
 
 ## Bugs
-- ajout adresse dans la création de session 
-- image de profil
+- ajout adresse dans la création de session  DONE
+- image de profil DONE
 
 ## Fonctionalités
 ### Priorité haute

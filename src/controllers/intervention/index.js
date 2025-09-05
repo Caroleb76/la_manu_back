@@ -5,6 +5,7 @@ import create from "./create.js";
 import update from "./update.js";
 import destroy from "./destroy.js";
 import createMany from "./createMany.js";
+import validate from "./validate.js";
 
 const router = Router();
 
@@ -38,7 +39,7 @@ const router = Router();
  *       401:
  *         description: Unauthorized
  */
-router.get("contract/:id", authMiddleware, getByContractId);
+router.get("/contract/:id", authMiddleware, getByContractId);
 
 /**
  * @swagger
@@ -67,6 +68,34 @@ router.get("contract/:id", authMiddleware, getByContractId);
  *         description: Unauthorized
  */
 router.post("/", authMiddleware, create);
+
+/**
+ * @swagger
+ * /interventions/validate/{id}:
+ *   post:
+ *     summary: Create a new intervention
+ *     tags: [Interventions]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Intervention'
+ *     responses:
+ *       201:
+ *         description: Intervention created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Intervention'
+ *       400:
+ *         description: Invalid input
+ *       401:
+ *         description: Unauthorized
+ */
+router.post("/validate/:id", authMiddleware, validate);
 
 /**
  * @swagger
@@ -131,6 +160,8 @@ router.post("/many", authMiddleware, createMany);
  *         description: Unauthorized
  */
 router.put("/:id", authMiddleware, update);
+
+
 
 /**
  * @swagger

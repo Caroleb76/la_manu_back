@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import fileService from "./fileService.js";
 
 const prisma = new PrismaClient();
 
@@ -20,6 +21,9 @@ const getExtraCostsByInterventionId = async (interventionId) => {
       where: {
         interventionId: interventionId,
       },
+      include: {
+        files: true
+      }
     });
 
 
@@ -72,7 +76,9 @@ const createExtraCost = async (data) => {
 
 const deleteExtraCostById = async (id) => {
   try {
-    const extraCost = await prisma.extraCost.destroy({
+    const file= await prisma.file.findFirst({where:{extraCostId:id}});
+    await fileService.deleteFileById(file.id,true);
+    const extraCost = await prisma.extraCost.delete({
       where: {
         id: id,
       },

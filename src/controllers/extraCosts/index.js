@@ -5,6 +5,7 @@ import update from "./update.js";
 import getById from "./getById.js";
 import { Router } from "express";
 import authMiddleware from "../../middlewares/authMiddleware.js";
+import getByInterventionId from "./getByInterventionId.js";
 
 const router = Router();
 
@@ -62,6 +63,37 @@ router.get("/", authMiddleware, getAll);
  *         description: Internal Server Error
  */
 router.get("/:id", authMiddleware, getById);
+
+/**
+ * @swagger
+ * /extra-costs/{id}:
+ *   get:
+ *     summary: Get an extra cost by interventionId
+ *     tags: [ExtraCosts]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     responses:
+ *       200:
+ *         description: Extra cost found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ExtraCost'
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: Not Found
+ *       500:
+ *         description: Internal Server Error
+ */
+router.get("/intervention/:id", authMiddleware, getByInterventionId);
 
 /**
  * @swagger

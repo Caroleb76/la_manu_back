@@ -8,7 +8,12 @@ const getByContractId = async (contractId) => {
     where: {
       contractId: contractId,
     },
+    include: {
+      InterventionCategory: true,
+      ModuleFormation: true,
+    },
   });
+  
   return interventions || [];
 };
 
@@ -77,8 +82,12 @@ const destroy = async (id) => {
   }
 };
 
-const validateIntervention = async (interventionId, userId) => {
+const validateIntervention = async (interventionId, user) => {
   try {
+    console.log(interventionId, user);
+    
+    if(!interventionId || !user) throw new Error("il manque des champs");
+    const userRole=user.role.name;
     const intervention = await prisma.intervention.findUnique({
       where: {
         id: interventionId,
@@ -88,13 +97,12 @@ const validateIntervention = async (interventionId, userId) => {
       throw new Error(
         "C'est impossible de mettre à jour une intervention qui n'existe pas"
       );
-    const user = await userService.getUserById(userId);
-    if (user.role !== ROLES.ADMIN && user.role !== ROLES.FORMATEUR)
+    if ( userRole!== ROLES.ADMIN && userRole !== ROLES.FORMATEUR)
       throw new Error("vous n'avez pas les droits");
-    if (user.role == ROLES.ADMIN) {
-      intervention.validatedByAdmin = user.role == ROLES.ADMIN;
-    } else if (user.role == ROLES.FORMATEUR) {
-      intervention.validatedByFormateur = user.role == ROLES.FORMATEUR;
+    if (userRole == ROLES.ADMIN) {
+      intervention.validatedByAdmin = userRole == ROLES.ADMIN;
+    } else if (userRole == ROLES.FORMATEUR) {
+      intervention.validatedByFormateur = userRole == ROLES.FORMATEUR;
     }
     const interventionUpdated = await prisma.intervention.update({
       where: {

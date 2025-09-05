@@ -31,6 +31,8 @@ const getFilesByUserId = async (userId) => {
   }
 };
 
+
+
 const getFilesByExtraCostId = async (extraCostId) => {
   try {
     const files = await prisma.file.findMany({
@@ -79,7 +81,8 @@ const createFile = async (data) => {
     const existingFile = await prisma.file.findFirst({
       where: {
         name: data.name,
-        userId: data.userId
+        userId: data.userId,
+        extraCostId: data.extraCostId
       }
     });
 
@@ -91,7 +94,8 @@ const createFile = async (data) => {
       data:{
         userId: data.userId,
         name: data.name,
-        url: data.path
+        url: data.path,
+        extraCostId: data.extraCostId
       },
     });
 

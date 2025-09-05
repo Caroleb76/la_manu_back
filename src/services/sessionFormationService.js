@@ -24,6 +24,8 @@ const create = async (data) => {
   try {
     
     validateSessionFormation(data);
+    console.log(data);
+    
     const sessionFormation = await prisma.sessionFormation.create({
       data,
     });
