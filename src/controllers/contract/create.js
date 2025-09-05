@@ -9,11 +9,10 @@ export default async (req, res) => {
         if (!data) {
             throw new Error("aucune donnée reçue")
         }
-        console.log(data)
+        console.log("Received contract data", data);
         // Expected ISO-8601 DateTime
         const formattedStartDate = toStandardDate(data.startDate)
         const formattedEndDate = toStandardDate(data.endDate)
-        console.log(formattedEndDate, formattedStartDate)
 
         // appeler le service de création des contrats et appeler les identifiants créés
         const formattedContract = {
@@ -48,8 +47,8 @@ export default async (req, res) => {
                 validatedByFormateur: false,
                 validatedByAdmin: false,
                 contractId: createdContract.id,
-                interventionCategoryId: intervention.interventionCategoryId,
-                moduleFormationId: intervention.moduleId,
+                interventionCategoryId: intervention.InterventionCategory.id,
+                moduleFormationId: intervention.ModuleFormation.id,
                extraCosts: {
                 connect: extraCostsArray
                }

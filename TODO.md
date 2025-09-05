@@ -2,16 +2,12 @@
 
 ## Bugs
 - ajout adresse dans la création de session 
-- image de profil
 - Les filtres ne fonctionnent plus (dataGrid)
 
 ## Fonctionalités
 ### Priorité haute
 - rajouter colonne tarif dans le formulaire contrat (section "interventions")
-- pdf du contrat (en cours)
-- css widget formateur
-- css export contrat WEB
-- css export contrat PDF
+- widget admin
 
 - écrire tests
 
@@ -21,19 +17,25 @@
 
 - réfléchir page validation par les admin
 
-- Terminer edition contrat
 
 - vérifier l'interface des rôle
 - masquer les infos des autres formateurs depuis l'admin formateur
 
+- ajouter création d'interventions(avec extracost) dans seeds
+
+- varifier la validation des données dans le backed
+
+- ajout de popup dans la liste d'intervention pour voir les extracosts associés
+
 
 
 ### Priorité moyenne
-- implémenter modification/suppression de contrat
-- Calendrier
 - vérification UX/UI
 - préparer déploiment docker
 - mettre à jour le Swagger
+- Fonction de modification de contrat 
+- Fonction de suppression de contrat 
+
 
 ### Priorité basse
 - filtrer les contrats terminés 
@@ -45,3 +47,11 @@
 
 ## Fonctionnalités optionelles
 - widget ??
+
+
+## Nettoyage code
+- nom des méthodes du backend 
+- nom des helpers du frontend
+- composants inutilisés
+- console.log inutiles
+- vérifier les schémas prisma (cohérence)
