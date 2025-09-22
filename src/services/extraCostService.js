@@ -22,7 +22,8 @@ const getExtraCostsByInterventionId = async (interventionId) => {
         interventionId: interventionId,
       },
       include: {
-        files: true
+        files: true,
+        category: true,
       }
     });
 
@@ -40,6 +41,10 @@ const getExtraCostById = async (id) => {
       where: {
         id: id,
       },
+      include: {
+        files: true,
+        category: true,
+      }
     });
     return extraCost;
   } catch (error) {
@@ -50,9 +55,12 @@ const getExtraCostById = async (id) => {
 
 const updateExtraCostById = async (id, data) => {
   try {
+    const {val,...rest} = data
     const updated = await prisma.extraCost.update({
       where: { id },
-      data,
+      data:{
+        val:val,
+      },
     });
     return updated;
   } catch (error) {
