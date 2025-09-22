@@ -1,0 +1,6 @@
+model ExtraCostCategory {
+  id         String      @id @default(uuid())
+  name       String      @unique
+  extraCosts ExtraCost[]       // 1 -> many relation back
+  @@map("ExtraCostCategory")
+}

@@ -6,16 +6,16 @@
 
 */
 -- DropForeignKey
-ALTER TABLE "_extraCostIntervention" DROP CONSTRAINT "_extraCostIntervention_A_fkey";
+ALTER TABLE IF EXISTS "_extraCostIntervention" DROP CONSTRAINT "_extraCostIntervention_A_fkey";
 
 -- DropForeignKey
-ALTER TABLE "_extraCostIntervention" DROP CONSTRAINT "_extraCostIntervention_B_fkey";
+ALTER TABLE IF EXISTS "_extraCostIntervention" DROP CONSTRAINT "_extraCostIntervention_B_fkey";
 
 -- AlterTable
-ALTER TABLE "ExtraCost" ADD COLUMN     "interventionId" TEXT NOT NULL;
+ALTER TABLE IF EXISTS "ExtraCost" ADD COLUMN     "interventionId" TEXT NOT NULL;
 
 -- DropTable
-DROP TABLE "_extraCostIntervention";
+DROP TABLE IF EXISTS "_extraCostIntervention";
 
 -- AddForeignKey
-ALTER TABLE "ExtraCost" ADD CONSTRAINT "ExtraCost_interventionId_fkey" FOREIGN KEY ("interventionId") REFERENCES "Intervention"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE IF EXISTS "ExtraCost" ADD CONSTRAINT "ExtraCost_interventionId_fkey" FOREIGN KEY ("interventionId") REFERENCES "Intervention"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

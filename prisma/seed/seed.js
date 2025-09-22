@@ -25,6 +25,8 @@ import {
     createInterventionSeeds,
 } from "./interventionSeed.js";
 import { defaultExtraCosts, createExtraCostSeeds } from "./extraCostSeed.js";
+import { createExtraCostCategorySeeds, defaultExtraCostsCategories } from "./extraCostCategorySeed.js";
+
 
 async function main() {
     //Seed Notifications
@@ -130,6 +132,16 @@ async function main() {
     //     );
     // }
 
+        // seed extraCostCategories
+        let i=0;
+   for (const extraCostCategory of defaultExtraCostsCategories) {
+    
+          const createdExtraCostCategory =  await createExtraCostCategorySeeds(extraCostCategory);
+        defaultExtraCosts[i].categoryId = createdExtraCostCategory.id;
+        i++;
+     
+    }
+
     //Seed Interventions
     const interventions = [];
     for (let i = 0; i < defaultInterventions.length; i++) {
@@ -147,6 +159,7 @@ async function main() {
             )
         );
     }
+
 
 
 }

@@ -2,15 +2,15 @@ import prisma from "../../src/utils/prisma.js";
 
 export const defaultExtraCosts = [
     {
-        category: "Carburant",
+ 
         val: "0.15/km",
     },
     {
-        category: "Repas",
+
         val: "12€/jour",
     },
     {
-        category: "Train",
+
         val: "15€/trajet",
     },
 ];

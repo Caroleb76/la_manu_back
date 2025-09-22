@@ -1,13 +1,14 @@
 model ExtraCost {
-  id             String       @id @default(uuid())
-  category       String
-  val            String?
+  id              String           @id @default(uuid())
+  categoryId      String                               // FK (required)
+  val             String?
+  interventionId  String
+
   // Relations
-  interventionId    String
+  category     ExtraCostCategory @relation(fields: [categoryId], references: [id])
+  intervention Intervention      @relation(fields: [interventionId], references: [id])
+  files        File[]
 
-
-  files File[]
-  intervention Intervention @relation(fields:[interventionId],references : [id])
-  @@map("ExtraCost") // Optional: match DB table name if needed
+  @@index([categoryId])
+  @@map("ExtraCost")
 }
-
