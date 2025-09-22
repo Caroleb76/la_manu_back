@@ -26,6 +26,7 @@ CREATE TABLE "ExtraCost" (
     "id" TEXT NOT NULL,
     "category" TEXT NOT NULL,
     "val" TEXT,
+    "interventionId" TEXT NOT NULL,
 
     CONSTRAINT "ExtraCost_pkey" PRIMARY KEY ("id")
 );
@@ -143,14 +144,6 @@ CREATE TABLE "Users" (
     CONSTRAINT "Users_pkey" PRIMARY KEY ("id")
 );
 
--- CreateTable
-CREATE TABLE "_extraCostIntervention" (
-    "A" TEXT NOT NULL,
-    "B" TEXT NOT NULL,
-
-    CONSTRAINT "_extraCostIntervention_AB_pkey" PRIMARY KEY ("A","B")
-);
-
 -- CreateIndex
 CREATE UNIQUE INDEX "Address_address_key" ON "Address"("address");
 
@@ -163,14 +156,14 @@ CREATE UNIQUE INDEX "SessionFormation_serialNumber_key" ON "SessionFormation"("s
 -- CreateIndex
 CREATE UNIQUE INDEX "Users_email_key" ON "Users"("email");
 
--- CreateIndex
-CREATE INDEX "_extraCostIntervention_B_index" ON "_extraCostIntervention"("B");
-
 -- AddForeignKey
 ALTER TABLE "Contract" ADD CONSTRAINT "Contract_sessionFormationId_fkey" FOREIGN KEY ("sessionFormationId") REFERENCES "SessionFormation"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Contract" ADD CONSTRAINT "Contract_userId_fkey" FOREIGN KEY ("userId") REFERENCES "Users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ExtraCost" ADD CONSTRAINT "ExtraCost_interventionId_fkey" FOREIGN KEY ("interventionId") REFERENCES "Intervention"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "File" ADD CONSTRAINT "File_extraCostId_fkey" FOREIGN KEY ("extraCostId") REFERENCES "ExtraCost"("id") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -201,9 +194,3 @@ ALTER TABLE "Users" ADD CONSTRAINT "Users_roleId_fkey" FOREIGN KEY ("roleId") RE
 
 -- AddForeignKey
 ALTER TABLE "Users" ADD CONSTRAINT "Users_addressId_fkey" FOREIGN KEY ("addressId") REFERENCES "Address"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_extraCostIntervention" ADD CONSTRAINT "_extraCostIntervention_A_fkey" FOREIGN KEY ("A") REFERENCES "ExtraCost"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_extraCostIntervention" ADD CONSTRAINT "_extraCostIntervention_B_fkey" FOREIGN KEY ("B") REFERENCES "Intervention"("id") ON DELETE CASCADE ON UPDATE CASCADE;
