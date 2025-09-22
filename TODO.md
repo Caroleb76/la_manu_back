@@ -3,6 +3,7 @@
 ## Bugs
 - ajout adresse dans la création de session 
 - Les filtres ne fonctionnent plus (dataGrid)
+- création de relation entre extracostCategory & extraCost
 
 ## Fonctionalités
 ### Priorité haute
