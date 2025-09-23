@@ -3,9 +3,11 @@
 ## Bugs
 - ajout adresse dans la création de session 
 - Les filtres ne fonctionnent plus (dataGrid)
+- création de relation entre extracostCategory & extraCost
 
 ## Fonctionalités
 ### Priorité haute
+- Label dans Adresse : "Sessions de formation" affiche l'ID de l'adresse au lieu du nom de la ville
 - rajouter colonne tarif dans le formulaire contrat (section "interventions")
 - widget admin
 
