@@ -8,6 +8,7 @@ import files from "./controllers/files/index.js";
 import addresses from "./controllers/addresses/index.js";
 import roles from "./controllers/roles/index.js";
 import extraCosts from "./controllers/extraCosts/index.js";
+import extraCostsCategory from "./controllers/extraCostCategory/index.js";
 import formation from "./controllers/formation/index.js";
 import notification from "./controllers/notification/index.js";
 import moduleFormation from "./controllers/moduleFormation/index.js";
@@ -23,6 +24,7 @@ export default (router) => {
   router.use("/addresses", addresses);
   router.use("/roles", roles);
   router.use("/extraCosts", extraCosts);
+  router.use("/extraCostsCategories", extraCostsCategory);
   router.use("/formation", formation);
   router.use("/notification", notification);
   router.use("/moduleFormation", moduleFormation);

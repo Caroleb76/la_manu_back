@@ -17,11 +17,11 @@ const storage = multer.diskStorage({
         if (isIntervention && user) {
 
             const dirPath = 'files/' + user.id + '/interventions/' + interventionId + '/' + extraCostId;
-            if (!fs.existsSync(dirPath)) {
-                console.log("creating intervention folder");
-                fs.mkdirSync(dirPath, { recursive: true });
+            if (fs.existsSync(dirPath)) {
+                fs.rmSync(dirPath, { recursive: true, force: true });
             }
-
+            console.log("creating intervention folder");
+            fs.mkdirSync(dirPath, { recursive: true });
             cb(null, dirPath)
         } else {
 

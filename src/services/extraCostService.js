@@ -16,15 +16,17 @@ const getExtraCosts = async () => {
 };
 
 const getExtraCostsByInterventionId = async (interventionId) => {
-    try {
-        const extraCosts = await prisma.extraCost.findMany({
-            where: {
-                interventionId: interventionId,
-            },
-            include: {
-                files: true,
-            },
-        });
+  try {
+    const extraCosts = await prisma.extraCost.findMany({
+      where: {
+        interventionId: interventionId,
+      },
+      include: {
+        files: true,
+        category: true,
+      }
+    });
+
 
         return extraCosts;
     } catch (error) {
@@ -34,30 +36,37 @@ const getExtraCostsByInterventionId = async (interventionId) => {
 };
 
 const getExtraCostById = async (id) => {
-    try {
-        const extraCost = await prisma.extraCost.findUnique({
-            where: {
-                id: id,
-            },
-        });
-        return extraCost;
-    } catch (error) {
-        console.error(error);
-        throw error;
-    }
+  try {
+    const extraCost = await prisma.extraCost.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        files: true,
+        category: true,
+      }
+    });
+    return extraCost;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
 const updateExtraCostById = async (id, data) => {
-    try {
-        const updated = await prisma.extraCost.update({
-            where: { id },
-            data,
-        });
-        return updated;
-    } catch (error) {
-        console.error("Erreur lors de la mise à jour :", error);
-        throw error;
-    }
+  try {
+    const {val,...rest} = data
+    const updated = await prisma.extraCost.update({
+      where: { id },
+      data:{
+        val:val,
+      },
+    });
+    return updated;
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour :", error);
+    throw error;
+  }
 };
 
 const createExtraCost = async (data) => {

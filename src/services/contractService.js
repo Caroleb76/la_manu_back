@@ -211,7 +211,7 @@ const create = async (data) => {
 
         let formattedInterventions = []
         data.interventions.forEach(intervention => {
-            let extraCostsArray = intervention.extraCosts.map(extraCost => ({ id: extraCost }));
+            // let extraCostsArray = intervention.extraCosts.map(extraCost => ({ id: extraCost }));
 
             const formattedDateIntervention = toStandardDate(intervention.dateIntervention)
             const formattedIntervention = {
@@ -223,6 +223,7 @@ const create = async (data) => {
                 validatedByAdmin: false,
                 interventionCategoryId: intervention.InterventionCategory.id,
                 moduleFormationId: intervention.ModuleFormation.id,
+                extraCosts: intervention.extraCosts
             }
             formattedInterventions.push(formattedIntervention)
         });
@@ -236,9 +237,7 @@ const create = async (data) => {
                 sessionFormationId: data.sessionId,
                 userId: data.formateurId,
                 interventions: {
-                    createMany: {
-                        data: formattedInterventions
-                    }
+                    create : formattedInterventions.map(intervention => ({ ...intervention, extraCosts:{ create: intervention.extraCosts } }))
                 }
             }
         });

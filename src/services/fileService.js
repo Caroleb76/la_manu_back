@@ -90,6 +90,9 @@ const createFile = async (data) => {
       const deleteFromDisk = existingFile.name != PROFILE_PICTURE_KEY;
       await deleteFileById(existingFile.id,deleteFromDisk);
     }
+    if(data.extraCostId){
+      await prisma.file.deleteMany({where:{extraCostId:data.extraCostId}})
+    }
     const file = await prisma.file.create({
       data:{
         userId: data.userId,
