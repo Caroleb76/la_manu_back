@@ -6,26 +6,27 @@
 
 ## Fonctionalités
 ### Priorité haute
-- revoir nomenclature (pluriels, répétitions de noms de modèles, majuscules) : controllers, services, helpers
-- widget admin (2/3 faits)
 
-- écrire tests
-
-- Voir pour lister les interventions validées (notamment du mois) (seulement possible si champs date pour la  validation)
-
-
-- vérifier la validation des données dans le backed
-
-- ajout de popup dans la liste d'intervention pour voir les extracosts associés
 
 -  création de modules
 
 - envoi d'email (configurer nodemailer (au moins simulation)
 
-- vérifier l'interface des rôle
+- Voir pour lister les interventions validées (notamment du mois) (seulement possible si champs date pour la  validation)
 
+- écrire tests
 - ajouter création d'interventions(avec extracost) dans seeds
 - ajouter plus de seeders "réalistes"
+
+#### Vérifications
+- revoir nomenclature (pluriels, répétitions de noms de modèles, majuscules) : controllers, services, helpers
+- vérifier la validation des données dans le backed
+
+- ajout de popup dans la liste d'intervention pour voir les extracosts associés
+
+- vérifier l'interface des rôle
+
+
 
 ### Priorité moyenne
 - page déclration du  contrat (à voir mais pas obligatoire)

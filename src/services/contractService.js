@@ -4,6 +4,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const getById = async (contractId) => {
+    console.log("GETBYID");
     try {
         const contract = await prisma.contract.findUnique({
             where: {
@@ -14,7 +15,6 @@ const getById = async (contractId) => {
                     include: {
                         address: true,
                     },
-                  
                 },
 
                 SessionFormation: {
@@ -30,7 +30,7 @@ const getById = async (contractId) => {
                                 name: true,
                             },
                         },
-                        InterventionCategory: true
+                        InterventionCategory: true,
                     },
                 },
             },
@@ -42,22 +42,25 @@ const getById = async (contractId) => {
     }
 };
 
-const getOneByUserId = async (userId) => {
-    try {
-        await userService.getUserById(userId);
-        const contract = await prisma.contract.findUnique({
-            where: {
-                userId: userId,
-            },
-        });
-        return contract || [];
-    } catch (error) {
-        console.error(error);
-        throw error;
-    }
-};
+// const getByUserId = async (userId) => {
+//      console.log("GETONEBYUSERID : userId", userId);
+//     try {
+//         // await userService.getUserById(userId);
+//         const contract = await prisma.contract.findMany({
+//             where: {
+//                 userId: userId,
+//             },
+//         });
+//         return contract || [];
+//     } catch (error) {
+//         console.error(error);
+//         throw error;
+//     }
+// };
 
 const getBySessionId = async (id) => {
+         console.log("GETBy_SESSION_ID");
+
     try {
         const contracts = await prisma.contract.findMany({
             where: {
@@ -72,6 +75,8 @@ const getBySessionId = async (id) => {
 };
 
 const getByUserId = async (id) => {
+             console.log("GET_BY_USER_ID");
+
     try {
         const contracts = await prisma.contract.findMany({
             where: {
@@ -144,7 +149,7 @@ const getAll = async (
             }
         }
         const contracts = await prisma.contract.findMany({
-            where: filter,
+            where: where,
             skip: offset,
             take: limit,
             include: {
@@ -172,12 +177,9 @@ const getAll = async (
                     },
                 },
             },
-            where: where,
+
             orderBy: {
                 startDate: "desc",
-            },
-            orderBy: {
-                endDate: "desc",
             },
         });
         for (let contract of contracts) {
@@ -200,20 +202,20 @@ const getAll = async (
 const create = async (data) => {
     try {
         // Expected ISO-8601 DateTime
-        const formattedStartDate = toStandardDate(data.startDate)
-        const formattedEndDate = toStandardDate(data.endDate)
+        const formattedStartDate = toStandardDate(data.startDate);
+        const formattedEndDate = toStandardDate(data.endDate);
         const isoStartDate = new Date(formattedStartDate).toISOString();
         const isoEndDate = new Date(formattedEndDate).toISOString();
 
-
         validateContract(data);
 
-
-        let formattedInterventions = []
-        data.interventions.forEach(intervention => {
+        let formattedInterventions = [];
+        data.interventions.forEach((intervention) => {
             // let extraCostsArray = intervention.extraCosts.map(extraCost => ({ id: extraCost }));
 
-            const formattedDateIntervention = toStandardDate(intervention.dateIntervention)
+            const formattedDateIntervention = toStandardDate(
+                intervention.dateIntervention
+            );
             const formattedIntervention = {
                 dateIntervention: new Date(formattedDateIntervention),
                 hours: intervention.hours,
@@ -223,13 +225,13 @@ const create = async (data) => {
                 validatedByAdmin: false,
                 interventionCategoryId: intervention.InterventionCategory.id,
                 moduleFormationId: intervention.ModuleFormation.id,
-                extraCosts: intervention.extraCosts
-            }
-            formattedInterventions.push(formattedIntervention)
+                extraCosts: intervention.extraCosts,
+            };
+            formattedInterventions.push(formattedIntervention);
         });
 
         const contract = await prisma.contract.create({
-            data:{
+            data: {
                 startDate: isoStartDate,
                 endDate: isoEndDate,
                 signed: false,
@@ -237,13 +239,13 @@ const create = async (data) => {
                 sessionFormationId: data.sessionId,
                 userId: data.formateurId,
                 interventions: {
-                    create : formattedInterventions.map(intervention => ({ ...intervention, extraCosts:{ create: intervention.extraCosts } }))
-                }
-            }
+                    create: formattedInterventions.map((intervention) => ({
+                        ...intervention,
+                        extraCosts: { create: intervention.extraCosts },
+                    })),
+                },
+            },
         });
-
-
-
 
         console.log(`[+] contract created successfully`, contract);
 
@@ -354,7 +356,6 @@ const sign = async (id) => {
     }
 };
 
-
 export default {
     getById,
     getBySessionId,
@@ -363,7 +364,6 @@ export default {
     create,
     update,
     destroy,
-    getOneByUserId,
     sign,
-    validate
+    validate,
 };

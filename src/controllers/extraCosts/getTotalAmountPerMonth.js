@@ -3,8 +3,9 @@ import ApiResponse  from "../../utils/apiResponse.js";
 export default async (req, res) => {
     try {
         const date = req.params.date;
-        const user = await extraCostService.totalMonthly(date);
-        ApiResponse.success(res,user);
+        
+        const total = await extraCostService.getTotalAmountPerMonth(date);
+        ApiResponse.success(res,total);
     } catch (error) {
         return ApiResponse.error(res, error);
     }

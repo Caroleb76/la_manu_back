@@ -28,4 +28,10 @@ export default (router) => {
   router.use("/formation", formation);
   router.use("/notification", notification);
   router.use("/moduleFormation", moduleFormation);
+  router.get("/test", (req, res) => {
+    res.json({
+      success: true,
+      message: "Hello World",
+    });
+  })
 };

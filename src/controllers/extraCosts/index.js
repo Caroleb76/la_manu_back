@@ -6,6 +6,7 @@ import getById from "./getById.js";
 import { Router } from "express";
 import authMiddleware from "../../middlewares/authMiddleware.js";
 import getByInterventionId from "./getByInterventionId.js";
+import getTotalAmountPerMonth from "./getTotalAmountPerMonth.js";
 
 const router = Router();
 
@@ -95,6 +96,9 @@ router.get("/:id", authMiddleware, getById);
  */
 router.get("/intervention/:id", authMiddleware, getByInterventionId);
 
+
+
+
 /**
  * @swagger
  * /extra-costs/{id}:
@@ -124,8 +128,7 @@ router.get("/intervention/:id", authMiddleware, getByInterventionId);
  *       500:
  *         description: Internal Server Error
  */
-router.get("/totalMonthly/:date", authMiddleware, getByInterventionId);
-
+router.get("/monthlyAmount/:date", authMiddleware, getTotalAmountPerMonth);
 
 /**
  * @swagger
