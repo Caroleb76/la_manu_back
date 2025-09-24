@@ -5,7 +5,7 @@ export default async (req, res) => {
         const id = req.params.id;
      
         
-        const user = await addressService.getAddressById(id);
+        const user = await addressService.getById(id);
         ApiResponse.success(res,user);
     } catch (error) {
         return ApiResponse.error(res, error);

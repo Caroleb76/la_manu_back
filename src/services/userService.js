@@ -221,6 +221,25 @@ const blockUserById = async (id, data) => {
     throw error;
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export default {
   getUsers,
   getUserById,

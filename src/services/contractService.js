@@ -3,7 +3,8 @@ import userService from "./userService.js";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
-const getByContractId = async (contractId) => {
+const getById = async (contractId) => {
+    console.log("GETBYID");
     try {
         const contract = await prisma.contract.findUnique({
             where: {
@@ -14,7 +15,6 @@ const getByContractId = async (contractId) => {
                     include: {
                         address: true,
                     },
-                  
                 },
 
                 SessionFormation: {
@@ -30,7 +30,7 @@ const getByContractId = async (contractId) => {
                                 name: true,
                             },
                         },
-                        InterventionCategory: true
+                        InterventionCategory: true,
                     },
                 },
             },
@@ -42,22 +42,25 @@ const getByContractId = async (contractId) => {
     }
 };
 
-const getContractByUserId = async (userId) => {
-    try {
-        await userService.getUserById(userId);
-        const contract = await prisma.contract.findUnique({
-            where: {
-                userId: userId,
-            },
-        });
-        return contract || [];
-    } catch (error) {
-        console.error(error);
-        throw error;
-    }
-};
+// const getByUserId = async (userId) => {
+//      console.log("GETONEBYUSERID : userId", userId);
+//     try {
+//         // await userService.getUserById(userId);
+//         const contract = await prisma.contract.findMany({
+//             where: {
+//                 userId: userId,
+//             },
+//         });
+//         return contract || [];
+//     } catch (error) {
+//         console.error(error);
+//         throw error;
+//     }
+// };
 
-const getAllContractsBySessionId = async (id) => {
+const getBySessionId = async (id) => {
+    console.log("GETBy_SESSION_ID");
+
     try {
         const contracts = await prisma.contract.findMany({
             where: {
@@ -71,7 +74,9 @@ const getAllContractsBySessionId = async (id) => {
     }
 };
 
-const getAllContractsByUserId = async (id) => {
+const getByUserId = async (id) => {
+    console.log("GET_BY_USER_ID");
+
     try {
         const contracts = await prisma.contract.findMany({
             where: {
@@ -144,7 +149,7 @@ const getAll = async (
             }
         }
         const contracts = await prisma.contract.findMany({
-            where: filter,
+            where: where,
             skip: offset,
             take: limit,
             include: {
@@ -172,12 +177,9 @@ const getAll = async (
                     },
                 },
             },
-            where: where,
+
             orderBy: {
                 startDate: "desc",
-            },
-            orderBy: {
-                endDate: "desc",
             },
         });
         for (let contract of contracts) {
@@ -200,20 +202,20 @@ const getAll = async (
 const create = async (data) => {
     try {
         // Expected ISO-8601 DateTime
-        const formattedStartDate = toStandardDate(data.startDate)
-        const formattedEndDate = toStandardDate(data.endDate)
+        const formattedStartDate = toStandardDate(data.startDate);
+        const formattedEndDate = toStandardDate(data.endDate);
         const isoStartDate = new Date(formattedStartDate).toISOString();
         const isoEndDate = new Date(formattedEndDate).toISOString();
 
+        validate(data);
 
-        validateContract(data);
-
-
-        let formattedInterventions = []
-        data.interventions.forEach(intervention => {
+        let formattedInterventions = [];
+        data.interventions.forEach((intervention) => {
             // let extraCostsArray = intervention.extraCosts.map(extraCost => ({ id: extraCost }));
 
-            const formattedDateIntervention = toStandardDate(intervention.dateIntervention)
+            const formattedDateIntervention = toStandardDate(
+                intervention.dateIntervention
+            );
             const formattedIntervention = {
                 dateIntervention: new Date(formattedDateIntervention),
                 hours: intervention.hours,
@@ -223,13 +225,13 @@ const create = async (data) => {
                 validatedByAdmin: false,
                 interventionCategoryId: intervention.InterventionCategory.id,
                 moduleFormationId: intervention.ModuleFormation.id,
-                extraCosts: intervention.extraCosts
-            }
-            formattedInterventions.push(formattedIntervention)
+                extraCosts: intervention.extraCosts,
+            };
+            formattedInterventions.push(formattedIntervention);
         });
 
         const contract = await prisma.contract.create({
-            data:{
+            data: {
                 startDate: isoStartDate,
                 endDate: isoEndDate,
                 signed: false,
@@ -237,13 +239,18 @@ const create = async (data) => {
                 sessionFormationId: data.sessionId,
                 userId: data.formateurId,
                 interventions: {
-                    create : formattedInterventions.map(intervention => ({ ...intervention, extraCosts:{ create: intervention.extraCosts } }))
-                }
-            }
+                    create: formattedInterventions.map((intervention) => ({
+                        ...intervention,
+                        extraCosts: {
+                            create: intervention.extraCosts.map((cost) => ({
+                                ...cost,
+                                val: parseInt(cost.val, 10), // conversion explicite en int
+                            })),
+                        },
+                    })),
+                },
+            },
         });
-
-
-
 
         console.log(`[+] contract created successfully`, contract);
 
@@ -299,7 +306,7 @@ const destroy = async (id) => {
     }
 };
 
-const validateContract = (contractData) => {
+const validate = (contractData) => {
     if (!contractData.formateurId)
         throw new Error("Il faut renseigner un utilisateur");
     if (!contractData.startDate)
@@ -354,15 +361,14 @@ const sign = async (id) => {
     }
 };
 
-
 export default {
-    getByContractId,
-    getAllContractsBySessionId,
-    getAllContractsByUserId,
+    getById,
+    getBySessionId,
+    getByUserId,
     getAll,
     create,
     update,
     destroy,
-    getContractByUserId,
-    sign
+    sign,
+    validate,
 };

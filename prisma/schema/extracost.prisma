@@ -1,7 +1,7 @@
 model ExtraCost {
   id              String           @id @default(uuid())
   categoryId      String                               // FK (required)
-  val             String?
+  val             Int?
   interventionId  String
 
   // Relations

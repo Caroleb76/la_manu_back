@@ -3,15 +3,15 @@ import prisma from "../../src/utils/prisma.js";
 export const defaultExtraCosts = [
     {
  
-        val: "0.15/km",
+        val: 0.15,
     },
     {
 
-        val: "12€/jour",
+        val: 12,
     },
     {
 
-        val: "15€/trajet",
+        val: 15,
     },
 ];
 

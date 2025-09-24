@@ -44,6 +44,9 @@ const getAll = async () => {
   }
 };
 
+
+
+
 export default {
   create,
   destroy,

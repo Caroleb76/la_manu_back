@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const getAddresses = async (limit = 10, offset = 0, searchText = null) => {
+const getAll = async (limit = 10, offset = 0, searchText = null) => {
   try {
     const addresses = await prisma.address.findMany(
       {
@@ -34,7 +34,7 @@ const getAddresses = async (limit = 10, offset = 0, searchText = null) => {
   }
 };
 
-const getAddressById = async (id) => {
+const getById = async (id) => {
   try {
     const address = await prisma.address.findUnique({
       where: {
@@ -49,7 +49,7 @@ const getAddressById = async (id) => {
   }
 };
 
-const updateAddressById = async (id, data) => {
+const update = async (id, data) => {
   try {
     const updated = await prisma.address.update({
       where: { id },
@@ -63,7 +63,7 @@ const updateAddressById = async (id, data) => {
   }
 };
 
-const createAddress = async (data) => {
+const create = async (data) => {
   try {
  ;
 
@@ -84,7 +84,7 @@ const createAddress = async (data) => {
   }
 };
 
-const deleteAddressById = async (id) => {
+const destroy = async (id) => {
   try {
     const address = await prisma.address.destroy({
       where: {
@@ -100,9 +100,9 @@ const deleteAddressById = async (id) => {
 };
 
 export default {
-  getAddresses,
-  getAddressById,
-  updateAddressById,
-  createAddress,
-  deleteAddressById,
+  getAll,
+  getById,
+  update,
+  create,
+  destroy,
 };

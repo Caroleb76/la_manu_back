@@ -22,10 +22,18 @@ CREATE TABLE "Contract" (
 );
 
 -- CreateTable
+CREATE TABLE "ExtraCostCategory" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+
+    CONSTRAINT "ExtraCostCategory_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "ExtraCost" (
     "id" TEXT NOT NULL,
-    "category" TEXT NOT NULL,
-    "val" TEXT,
+    "categoryId" TEXT NOT NULL,
+    "val" INTEGER,
     "interventionId" TEXT NOT NULL,
 
     CONSTRAINT "ExtraCost_pkey" PRIMARY KEY ("id")
@@ -148,6 +156,12 @@ CREATE TABLE "Users" (
 CREATE UNIQUE INDEX "Address_address_key" ON "Address"("address");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "ExtraCostCategory_name_key" ON "ExtraCostCategory"("name");
+
+-- CreateIndex
+CREATE INDEX "ExtraCost_categoryId_idx" ON "ExtraCost"("categoryId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Role_name_key" ON "Role"("name");
 
 -- CreateIndex
@@ -161,6 +175,9 @@ ALTER TABLE "Contract" ADD CONSTRAINT "Contract_sessionFormationId_fkey" FOREIGN
 
 -- AddForeignKey
 ALTER TABLE "Contract" ADD CONSTRAINT "Contract_userId_fkey" FOREIGN KEY ("userId") REFERENCES "Users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ExtraCost" ADD CONSTRAINT "ExtraCost_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "ExtraCostCategory"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ExtraCost" ADD CONSTRAINT "ExtraCost_interventionId_fkey" FOREIGN KEY ("interventionId") REFERENCES "Intervention"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
