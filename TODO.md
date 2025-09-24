@@ -3,14 +3,16 @@
 ## Bugs
 - Les filtres ne fonctionnent plus (dataGrid) 
 - création de relation entre extracostCategory & extraCost
+- date des internventions manquante / mal formattée
 
 ## Fonctionalités
 ### Priorité haute
-
+- ajuster css boutons
+- ne pas pouvoir payer une intervention si pas validées
+- email quand utilisateur créé avec mdp généré
+- message deconfirmation quand valide intervention
 
 -  création de modules
-
-- envoi d'email (configurer nodemailer (au moins simulation)
 
 - Voir pour lister les interventions validées (notamment du mois) (seulement possible si champs date pour la  validation)
 
@@ -21,7 +23,7 @@
 #### Vérifications
 - revoir nomenclature (pluriels, répétitions de noms de modèles, majuscules) : controllers, services, helpers
 - vérifier la validation des données dans le backed
-
+- mettre à jour le Swagger
 - ajout de popup dans la liste d'intervention pour voir les extracosts associés
 
 - vérifier l'interface des rôle
@@ -29,10 +31,7 @@
 
 
 ### Priorité moyenne
-- page déclration du  contrat (à voir mais pas obligatoire)
-- vérification UX/UI
 - préparer déploiment docker
-- mettre à jour le Swagger
 - Fonction de modification de contrat 
 - Fonction de suppression de contrat 
 - converir "signed" et "verified" en champs date pour connaitre la date de signature et vérification

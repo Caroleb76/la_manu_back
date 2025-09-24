@@ -4,7 +4,13 @@ const prisma = new PrismaClient();
 
 const getModuleFormations = async () => {
   try {
-    const moduleFormations = await prisma.moduleFormation.findMany();
+    const moduleFormations = await prisma.moduleFormation.findMany(
+      {
+        include : {
+         Formation : true
+        }
+      }
+    );
 
     return moduleFormations;
   } catch (error) {
