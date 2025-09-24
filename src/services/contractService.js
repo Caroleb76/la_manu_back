@@ -59,7 +59,7 @@ const getById = async (contractId) => {
 // };
 
 const getBySessionId = async (id) => {
-         console.log("GETBy_SESSION_ID");
+    console.log("GETBy_SESSION_ID");
 
     try {
         const contracts = await prisma.contract.findMany({
@@ -75,7 +75,7 @@ const getBySessionId = async (id) => {
 };
 
 const getByUserId = async (id) => {
-             console.log("GET_BY_USER_ID");
+    console.log("GET_BY_USER_ID");
 
     try {
         const contracts = await prisma.contract.findMany({
@@ -207,7 +207,7 @@ const create = async (data) => {
         const isoStartDate = new Date(formattedStartDate).toISOString();
         const isoEndDate = new Date(formattedEndDate).toISOString();
 
-        validateContract(data);
+        validate(data);
 
         let formattedInterventions = [];
         data.interventions.forEach((intervention) => {
@@ -241,7 +241,12 @@ const create = async (data) => {
                 interventions: {
                     create: formattedInterventions.map((intervention) => ({
                         ...intervention,
-                        extraCosts: { create: intervention.extraCosts },
+                        extraCosts: {
+                            create: intervention.extraCosts.map((cost) => ({
+                                ...cost,
+                                val: parseInt(cost.val, 10), // conversion explicite en int
+                            })),
+                        },
                     })),
                 },
             },
