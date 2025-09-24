@@ -8,6 +8,7 @@ import createMany from "./createMany.js";
 import getAll from "./getAll.js";
 import getByUserId from "./getByUserId.js";
 import validate from "./validate.js";
+import getByFormationAndUserId from "./getByFormationAndUserId.js";
 
 const router = Router();
 
@@ -68,6 +69,38 @@ router.get("/", authMiddleware, getAll);
  *         description: Unauthorized
  */
 router.get("/contract/:id", authMiddleware, getByContractId);
+
+/**
+ * @swagger
+ * /interventions/user/{userId}/formation/{formationId}:
+ *   get:
+ *     summary: Get interventions by user ID and formation ID
+ *     tags: [Interventions]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: ID of the contract
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     responses:
+ *       200:
+ *         description: List of interventions for the specified contract
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Intervention'
+ *       404:
+ *         description: No interventions found
+ *       401:
+ *         description: Unauthorized
+ */
+router.get("/user/:userId/formation/:formationId", authMiddleware, getByFormationAndUserId);
 
 /**
  * @swagger

@@ -28,7 +28,7 @@ const getByContractId = async (contractId) => {
       ModuleFormation: true,
     },
   });
-  
+
   return interventions || [];
 };
 
@@ -57,7 +57,7 @@ const getByUserId = async (userId) => {
     },
   });
 
- 
+
   return interventions || [];
 };
 
@@ -87,6 +87,32 @@ const createMany = async (data) => {
   }
 };
 
+
+const getByFormationandUserId = async (formationId, userId) => {
+  try {
+    const interventions = await prisma.intervention.findMany({
+      where: {
+        Contract: {
+          userId: userId,
+          SessionFormation: {
+            Formation: {
+              id: formationId,
+            },
+          },
+        },
+
+      },
+      include: {
+        InterventionCategory: true,
+        ModuleFormation: true,
+      },
+    });
+    return interventions || [];
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 
 const update = async (id, data) => {
   try {
@@ -129,9 +155,9 @@ const destroy = async (id) => {
 const validateIntervention = async (interventionId, user) => {
   try {
     console.log(interventionId, user);
-    
-    if(!interventionId || !user) throw new Error("il manque des champs");
-    const userRole=user.role.name;
+
+    if (!interventionId || !user) throw new Error("il manque des champs");
+    const userRole = user.role.name;
     const intervention = await prisma.intervention.findUnique({
       where: {
         id: interventionId,
@@ -141,7 +167,7 @@ const validateIntervention = async (interventionId, user) => {
       throw new Error(
         "C'est impossible de mettre à jour une intervention qui n'existe pas"
       );
-    if ( userRole!== ROLES.ADMIN && userRole !== ROLES.FORMATEUR)
+    if (userRole !== ROLES.ADMIN && userRole !== ROLES.FORMATEUR)
       throw new Error("vous n'avez pas les droits");
     if (userRole == ROLES.ADMIN) {
       intervention.validatedByAdmin = userRole == ROLES.ADMIN;
@@ -186,5 +212,6 @@ export default {
   validateIntervention,
   createMany,
   getAll,
-  getByUserId
+  getByUserId,
+  getByFormationandUserId
 };

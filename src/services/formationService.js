@@ -71,10 +71,37 @@ const deleteFormationById = async (id) => {
   }
 };
 
+const allFormationByFormateurId = async (userId) => {
+    try {
+        const contracts = await prisma.contract.findMany({
+            where: {
+                userId: userId,
+            },
+            include: {
+                SessionFormation: {
+                    include: {
+                        Formation: true,
+                    },
+                },
+            },
+        });
+        const formations = contracts.map((contract) => contract.SessionFormation.Formation);
+        const uniqueFormations = Array.from(
+          new Map(formations.map((f)=>[f.id, f])).values()
+        );
+        
+        return uniqueFormations;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
 export default {
   getFormations,
   getFormationById,
   updateFormation,
   createFormation,
   deleteFormationById,
+  allFormationByFormateurId
 };

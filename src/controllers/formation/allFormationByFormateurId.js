@@ -1,0 +1,11 @@
+import formationService from "../../services/formationService.js";
+import ApiResponse from "../../utils/apiResponse.js";
+export default async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const formations = await formationService.allFormationByFormateurId(userId);
+        ApiResponse.success(res, formations);
+  } catch (error) {
+    return ApiResponse.error(res, error);
+  }
+};
