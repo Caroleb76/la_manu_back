@@ -3,7 +3,7 @@ import userService from "./userService.js";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
-const getByContractId = async (contractId) => {
+const getById = async (contractId) => {
     try {
         const contract = await prisma.contract.findUnique({
             where: {
@@ -42,7 +42,7 @@ const getByContractId = async (contractId) => {
     }
 };
 
-const getContractByUserId = async (userId) => {
+const getOneByUserId = async (userId) => {
     try {
         await userService.getUserById(userId);
         const contract = await prisma.contract.findUnique({
@@ -57,7 +57,7 @@ const getContractByUserId = async (userId) => {
     }
 };
 
-const getAllContractsBySessionId = async (id) => {
+const getBySessionId = async (id) => {
     try {
         const contracts = await prisma.contract.findMany({
             where: {
@@ -71,7 +71,7 @@ const getAllContractsBySessionId = async (id) => {
     }
 };
 
-const getAllContractsByUserId = async (id) => {
+const getByUserId = async (id) => {
     try {
         const contracts = await prisma.contract.findMany({
             where: {
@@ -300,7 +300,7 @@ const destroy = async (id) => {
     }
 };
 
-const validateContract = (contractData) => {
+const validate = (contractData) => {
     if (!contractData.formateurId)
         throw new Error("Il faut renseigner un utilisateur");
     if (!contractData.startDate)
@@ -357,13 +357,14 @@ const sign = async (id) => {
 
 
 export default {
-    getByContractId,
-    getAllContractsBySessionId,
-    getAllContractsByUserId,
+    getById,
+    getBySessionId,
+    getByUserId,
     getAll,
     create,
     update,
     destroy,
-    getContractByUserId,
-    sign
+    getOneByUserId,
+    sign,
+    validate
 };

@@ -4,7 +4,7 @@ export default async (req, res) => {
   try {
     const id = req.params.id;
     const data = req.body;
-    const payload = await addressService.updateAddressById(id, data);
+    const payload = await addressService.update(id, data);
     return ApiResponse.success(res, payload, "Resource created");
   } catch (error) {
     console.error(error);

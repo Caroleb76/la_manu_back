@@ -3,7 +3,7 @@ import addressService from "../../services/addressService.js";
 export default async (req, res) => {
   try {
     const data = req.body;
-    const payload = await addressService.createAddress(data);
+    const payload = await addressService.create(data);
     return ApiResponse.success(res, payload, "Resource created");
   } catch (error) {
     console.error(error);

@@ -5,7 +5,7 @@ export default async (req, res) => {
       const offset= parseInt(req.query?.offset) || 0;
       const limit= parseInt(req.query?.limit) || 10;
       const searchText= req.query?.searchText || null;
-      const users= await addressService.getAddresses(limit,offset,searchText);
+      const users= await addressService.getAll(limit,offset,searchText);
       ApiResponse.success(res,users);
     } catch (error) {
       return ApiResponse.error(res, error);

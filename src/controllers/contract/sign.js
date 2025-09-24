@@ -3,7 +3,6 @@ import ApiResponse from "../../utils/apiResponse.js";
 export default async (req, res) => {
     try {
         const id = req.params.contractId;
-        console.log("contract id",id);
         const contract = await contractService.sign(id);
 
         ApiResponse.success(res,contract);

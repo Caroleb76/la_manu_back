@@ -8,6 +8,9 @@ import createMany from "./createMany.js";
 import getAll from "./getAll.js";
 import getByUserId from "./getByUserId.js";
 import validate from "./validate.js";
+import getTotalHoursPerCategory from "./getTotalHoursPerCategory.js";
+import getTotalAmountPerMonth from "./getTotalAmountPerMonth.js";
+import validatePayment from "./validatePayment.js";
 
 const router = Router();
 
@@ -101,6 +104,71 @@ router.get("/contract/:id", authMiddleware, getByContractId);
  */
 router.get("/user/:id", authMiddleware, getByUserId);
 
+
+/**
+ * @swagger
+ * /interventions/user/{id}:
+ *   get:
+ *     summary: Get interventions by user ID
+ *     tags: [Interventions]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: ID of the contract
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     responses:
+ *       200:
+ *         description: List of interventions for the specified contract
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Intervention'
+ *       404:
+ *         description: No interventions found
+ *       401:
+ *         description: Unauthorized
+ */
+router.get("/categories/hours", authMiddleware, getTotalHoursPerCategory);
+
+/**
+ * @swagger
+ * /interventions/user/{id}:
+ *   get:
+ *     summary: Get interventions by user ID
+ *     tags: [Interventions]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: ID of the contract
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     responses:
+ *       200:
+ *         description: List of interventions for the specified contract
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Intervention'
+ *       404:
+ *         description: No interventions found
+ *       401:
+ *         description: Unauthorized
+ */
+router.get("/monthlyAmount/:date", authMiddleware, getTotalAmountPerMonth);
+
 /**
  * @swagger
  * /interventions:
@@ -156,6 +224,38 @@ router.post("/", authMiddleware, create);
  *         description: Unauthorized
  */
 router.post("/validate/:id", authMiddleware, validate);
+
+
+/**
+ * @swagger
+ * /interventions/validate/{id}:
+ *   post:
+ *     summary: Create a new intervention
+ *     tags: [Interventions]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Intervention'
+ *     responses:
+ *       201:
+ *         description: Intervention created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Intervention'
+ *       400:
+ *         description: Invalid input
+ *       401:
+ *         description: Unauthorized
+ */
+router.put("/validatePayment/:id", authMiddleware, validatePayment);
+
+
+
 
 /**
  * @swagger
