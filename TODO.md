@@ -4,15 +4,19 @@
 - Les filtres ne fonctionnent plus (dataGrid) 
 - création de relation entre extracostCategory & extraCost
 - date des internventions manquante / mal formattée
+- ajout de justificatif : problème de type pour "val" (était un string, maintenant INT)
+
 
 ## Fonctionalités
 ### Priorité haute
 - ajuster css boutons
-- ne pas pouvoir payer une intervention si pas validées
+
+
 - email quand utilisateur créé avec mdp généré
+
 - message deconfirmation quand valide intervention
 
--  création de modules
+-  edition de modules
 
 - Voir pour lister les interventions validées (notamment du mois) (seulement possible si champs date pour la  validation)
 
