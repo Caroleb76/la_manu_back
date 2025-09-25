@@ -201,6 +201,29 @@ const updateUserById = async (id, data) => {
   }
 };
 
+// change password
+const updatePassword = async (id, password) => {
+  try {
+    const hashedPassword = await passwordUtils.hashPassword(password);
+    const user = await prisma.user.update({
+      where: {
+        id: id,
+      },
+      data: {
+        password: hashedPassword
+      },
+    });
+    if (!user) {
+      throw new Error("aucun utilisateur trouvé");
+    }
+    return user;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+  
+}
+
 const blockUserById = async (id, data) => {
   try {
 
@@ -226,20 +249,6 @@ const blockUserById = async (id, data) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export default {
   getUsers,
   getUserById,
@@ -248,4 +257,5 @@ export default {
   deleteUserById,
   updateUserById,
   blockUserById,
+  updatePassword
 };

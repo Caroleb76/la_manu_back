@@ -2,21 +2,13 @@
 
 ## Bugs
 - Les filtres ne fonctionnent plus (dataGrid) 
-- création de relation entre extracostCategory & extraCost
-- date des internventions manquante / mal formattée
 - ajout de justificatif : problème de type pour "val" (était un string, maintenant INT)
 
 
 ## Fonctionalités
 ### Priorité haute
-- ajuster css boutons
+- pourvoir consulter les extracost et fichiers justif depuis la liste des interventions (admin)
 
-
-- email quand utilisateur créé avec mdp généré
-
-- message deconfirmation quand valide intervention
-
--  edition de modules
 
 - Voir pour lister les interventions validées (notamment du mois) (seulement possible si champs date pour la  validation)
 
@@ -35,10 +27,13 @@
 
 
 ### Priorité moyenne
+- edition de modules
+
 - préparer déploiment docker
 - Fonction de modification de contrat 
 - Fonction de suppression de contrat 
 - converir "signed" et "verified" en champs date pour connaitre la date de signature et vérification
+- superadmin peuvent choisir le rôle des utilisateurs, pas les admin. Idem pour le mot de passe (peut être défini manuellement par le superadmin pas par l'admin)
 
 
 ### Priorité basse

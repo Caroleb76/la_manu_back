@@ -16,8 +16,31 @@ const getAll = async () => {
             InterventionCategory: true,
         },
     });
+    console.log(interventions);
     return interventions || [];
 };
+
+const getById= async (id) => {
+    return prisma.intervention.findUnique({
+        where: {
+            id,
+        },
+        include: {
+            Contract: {
+                include: {
+                    User: true,
+                },
+            },
+            ModuleFormation: true,
+            InterventionCategory: true,
+            extraCosts: {
+                include: {
+                    files: true,
+                },
+            },
+        },
+    });
+}
 
 const getByContractId = async (contractId) => {
     const interventions = await prisma.intervention.findMany({
@@ -235,12 +258,12 @@ const getTotalHoursPerCategory = async () => {
                         (intervention) =>
                             intervention.interventionCategoryId === category.id
                     )
-                    .reduce((acc, intervention) => acc + intervention.hours, 0);
+                    .reduce((total, intervention) => parseFloat(total) + parseFloat(intervention.hours), 0);
                 return {
                     id: category.id,
                     name: category.name,
                     rate: category.rate,
-                    hours: parseFloat(categoryHours).toFixed(1),
+                    hours: categoryHours.toFixed(1),
                 };
             }
         );
@@ -335,6 +358,7 @@ const validatePayment = async (interventionId) => {
     
 export default {
     getByContractId,
+    getById,
     create,
     update,
     destroy,

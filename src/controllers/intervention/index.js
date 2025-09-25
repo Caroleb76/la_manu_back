@@ -12,6 +12,7 @@ import getByFormationAndUserId from "./getByFormationAndUserId.js";
 import getTotalHoursPerCategory from "./getTotalHoursPerCategory.js";
 import getTotalAmountPerMonth from "./getTotalAmountPerMonth.js";
 import validatePayment from "./validatePayment.js";
+import getById from "./getById.js";
 
 const router = Router();
 
@@ -39,6 +40,30 @@ const router = Router();
  *         description: Unauthorized
  */
 router.get("/", authMiddleware, getAll);
+
+/**
+ * @swagger
+ * /interventions/contract/{id}:
+ *   get:
+ *     summary: Get interventions by contract ID
+ *     tags: [Interventions]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of interventions for the specified contract
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Intervention'
+ *       404:
+ *         description: No interventions found
+ *       401:
+ *         description: Unauthorized
+ */
+router.get("/id/:id", authMiddleware, getById);
 
 
 /**
