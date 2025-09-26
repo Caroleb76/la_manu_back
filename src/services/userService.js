@@ -42,8 +42,8 @@ const getUsers = async (offset = 0, limit = 10, searchText = null, role = null) 
     const where = filters.length > 0 ? { AND: filters } : {};
 
     const users = await prisma.user.findMany({
-      skip: offset,
-      take: limit,
+      // skip: offset,
+      // take: limit,
       include: {
         role: true,
       },

@@ -6,8 +6,8 @@ const prisma = new PrismaClient();
 const getSessions = async (offset=0,limit=10) => {
   try {
     const sessionFormations = await prisma.sessionFormation.findMany({
-      skip: offset,
-      take: limit,
+      // skip: offset,
+      // take: limit,
       include:{
         Address: true,
         Formation: true

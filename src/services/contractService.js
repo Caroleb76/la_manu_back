@@ -150,8 +150,8 @@ const getAll = async (
         }
         const contracts = await prisma.contract.findMany({
             where: where,
-            skip: offset,
-            take: limit,
+            // skip: offset,
+            // take: limit,
             include: {
                 User: {
                     select: {
