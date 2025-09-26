@@ -149,6 +149,23 @@ const deleteUserById = async (id) => {
   }
 };
 
+const deleteByEmail = async (email) => {
+  try {
+    const deleted = await prisma.user.delete({
+      where: {
+        email: email,
+      },
+    });
+    if (!deleted) {
+      throw new Error("aucun utilisateur trouvé");
+    }
+    return deleted;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 const updateUserById = async (id, data) => {
   try {
 
@@ -255,6 +272,7 @@ export default {
   getUserByEmail,
   createUser,
   deleteUserById,
+  deleteByEmail,
   updateUserById,
   blockUserById,
   updatePassword

@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const getById = async (contractId) => {
-    console.log("GETBYID");
+   
     try {
         const contract = await prisma.contract.findUnique({
             where: {
@@ -42,24 +42,10 @@ const getById = async (contractId) => {
     }
 };
 
-// const getByUserId = async (userId) => {
-//      console.log("GETONEBYUSERID : userId", userId);
-//     try {
-//         // await userService.getUserById(userId);
-//         const contract = await prisma.contract.findMany({
-//             where: {
-//                 userId: userId,
-//             },
-//         });
-//         return contract || [];
-//     } catch (error) {
-//         console.error(error);
-//         throw error;
-//     }
-// };
+
 
 const getBySessionId = async (id) => {
-    console.log("GETBy_SESSION_ID");
+   
 
     try {
         const contracts = await prisma.contract.findMany({
@@ -75,7 +61,7 @@ const getBySessionId = async (id) => {
 };
 
 const getByUserId = async (id) => {
-    console.log("GET_BY_USER_ID");
+  
 
     try {
         const contracts = await prisma.contract.findMany({
@@ -252,7 +238,7 @@ const create = async (data) => {
             },
         });
 
-        console.log(`[+] contract created successfully`, contract);
+        
 
         return contract;
     } catch (error) {
@@ -319,7 +305,7 @@ const validate = (contractData) => {
         endDate = new Date(contractData.endDate);
         contractData.startDate = startDate;
         contractData.endDate = endDate;
-        console.log("from validate Contract", startDate, endDate);
+     
 
         // if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
         //   throw new Error("Format de date invalide");
@@ -333,7 +319,7 @@ const validate = (contractData) => {
             "La date de fin doit être supérieure a la date de début"
         );
     }
-    console.log(`[+] contract validated successfully`);
+ 
 };
 
 const sign = async (id) => {

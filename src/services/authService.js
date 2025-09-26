@@ -1,7 +1,7 @@
 import passwordUtils from "../utils/utils.js";
 import userService from "./userService.js";
 import jsonwebtoken from "jsonwebtoken";
-import { generateRandomPassword } from "../utils/password.js";
+
 const login = async (email, password) => {
     try {
         const user = await userService.getUserByEmail(email);
@@ -39,9 +39,16 @@ const resetPassword = async (email, randomPassword) => {
         throw error;
     }
 };
-
+const validateToken = async(token)=>{
+const secretKey = process.env.JWT_SECRET_KEY;
+        const decoded = jsonwebtoken.verify(token, secretKey);
+        if(!decoded) throw new Error("Unauthorized");
+        return decoded
+       
+}
 export default {
     login,
     resetPassword,
+    validateToken
     // authMe user:{name:"Pedrito",lastName:"Escobar"}
 };

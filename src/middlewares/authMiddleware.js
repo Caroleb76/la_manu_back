@@ -1,20 +1,20 @@
 import ApiResponse from "../utils/apiResponse.js";
+import authService from "../services/authService.js";
 import userService from "../services/userService.js";
-import jwt from "jsonwebtoken";
+
 
 export default async (req, res, next) => {
     try {
         const token = req.headers.authorization?.split(" ")[1];
         // authorization : Bearer token [Bearer, token]// null
-        if(!token){
+        if (!token) {
             throw new Error("Unauthorized");
         }
-        const secretKey = process.env.JWT_SECRET_KEY;
-        const decoded = jwt.verify(token, secretKey);
-        if(!decoded) throw new Error("Unauthorized");
+        const decoded = await authService.validateToken(token);
         const user = await userService.getUserById(decoded.userId);
+     
         user.token = token
-        if(!user) throw new Error("Unauthorized");
+        if (!user) throw new Error("Unauthorized");
         req.currentUser = user;
         next();
 

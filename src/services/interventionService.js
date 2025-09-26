@@ -16,7 +16,7 @@ const getAll = async () => {
             InterventionCategory: true,
         },
     });
-    console.log(interventions);
+
     return interventions || [];
 };
 
@@ -176,7 +176,7 @@ const destroy = async (id) => {
 
 const validateIntervention = async (interventionId, user) => {
     try {
-        console.log(interventionId, user);
+      
 
         if (!interventionId || !user) throw new Error("il manque des champs");
         const userRole = user.role.name;

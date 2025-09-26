@@ -35,7 +35,7 @@ const info = await transporter.sendMail({
     throw new Error("email not sent")
   }
 
-  console.log("Message sent:", info.messageId);
+
   return info
 }
 

@@ -19,7 +19,7 @@ export default async (req, res) => {
     return ApiResponse.success(res, payload, "Resource created");
 
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return ApiResponse.error(res, error);
   }
 };

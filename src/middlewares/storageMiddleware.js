@@ -7,7 +7,7 @@ const storage = multer.diskStorage({
         const user = req.currentUser
         const { extraCostId, interventionId } = req.body;
         const isIntervention = interventionId && extraCostId;
-        console.log("file before", file);
+     
 
         if (!user) return
         if (!fs.existsSync('files')) fs.mkdirSync('files')
@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
             if (fs.existsSync(dirPath)) {
                 fs.rmSync(dirPath, { recursive: true, force: true });
             }
-            console.log("creating intervention folder");
+         
             fs.mkdirSync(dirPath, { recursive: true });
             cb(null, dirPath)
         } else {
@@ -29,7 +29,7 @@ const storage = multer.diskStorage({
         }
     },
     filename: function (req, file, cb) {
-        // console.log(file);
+      
         const { extraCostId, interventionId } = req.body;
         const isProfilePicture = file.fieldname == PROFILE_PICTURE_KEY;
         const isIntervention = interventionId && extraCostId;
