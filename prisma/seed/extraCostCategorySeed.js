@@ -7,11 +7,11 @@ export const defaultExtraCostsCategories = [
     },
     {
 
-        name: "Trajet",
+        name: "Indemnité véhicule personnel",
     },
     {
 
-        name: "Category",
+        name: "Indemnité sncf",
     },
 ];
 
