@@ -33,7 +33,7 @@ CREATE TABLE "ExtraCostCategory" (
 CREATE TABLE "ExtraCost" (
     "id" TEXT NOT NULL,
     "categoryId" TEXT NOT NULL,
-    "val" INTEGER,
+    "val" DECIMAL(65,30),
     "interventionId" TEXT NOT NULL,
 
     CONSTRAINT "ExtraCost_pkey" PRIMARY KEY ("id")

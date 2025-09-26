@@ -128,6 +128,7 @@ const getTotalAmountPerMonth = async (date) => {
         for (const extraCost of extraCosts) {
             total += parseInt(extraCost.val);
         }
+       
         return {
             totalAmount : total,
             count : extraCosts.length

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import login from "./login.js";
 import authMe from "./authMe.js";
+import resetPassword from "./resetPassword.js";
 import authMiddleware from "../../middlewares/authMiddleware.js";
 
 const router = Router();
@@ -55,5 +56,24 @@ router.post("/login", login);
  *         description: Internal Server Error
  */
 router.get("/authMe", authMiddleware, authMe);
+
+
+/**
+ * @swagger
+ * /auth:
+ *   get:
+ *     summary: Authenticate a user
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Success
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Internal Server Error
+ */
+router.post("/resetPassword", resetPassword);
 
 export default router;
