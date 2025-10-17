@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const getById = async (contractId) => {
-   
+
     try {
         const contract = await prisma.contract.findUnique({
             where: {
@@ -45,7 +45,7 @@ const getById = async (contractId) => {
 
 
 const getBySessionId = async (id) => {
-   
+
 
     try {
         const contracts = await prisma.contract.findMany({
@@ -61,7 +61,7 @@ const getBySessionId = async (id) => {
 };
 
 const getByUserId = async (id) => {
-  
+
 
     try {
         const contracts = await prisma.contract.findMany({
@@ -225,20 +225,35 @@ const create = async (data) => {
                 sessionFormationId: data.sessionId,
                 userId: data.formateurId,
                 interventions: {
-                    create: formattedInterventions.map((intervention) => ({
-                        ...intervention,
-                        extraCosts: {
-                            create: intervention.extraCosts.map((cost) => ({
-                                ...cost,
-                                val: parseInt(cost.val, 10), // conversion explicite en int
-                            })),
-                        },
-                    })),
+                    create: formattedInterventions.map((intervention) => {
+                        const costs = intervention.extraCosts ?? [];
+
+                        // on garde uniquement ceux qui ont une categoryId non vide
+                        const validCosts = costs.filter(c => c?.categoryId);
+
+                        return {
+                            ...intervention,
+                            extraCosts:
+                                validCosts.length > 0
+                                    ? {
+                                        create: validCosts.map((cost) => ({
+                                            // ne PAS passer categoryId directement, on connecte la relation
+                                            category: { connect: { id: cost.categoryId } },
+                                            // Prisma.Decimal accepte string/number ; garde undefined si vide
+                                            val:
+                                                cost.val === undefined || cost.val === null || cost.val === ''
+                                                    ? undefined
+                                                    : cost.val,
+                                        })),
+                                    }
+                                    : undefined, // rien à créer si liste vide
+                        };
+                    }),
                 },
             },
         });
 
-        
+
 
         return contract;
     } catch (error) {
@@ -305,7 +320,7 @@ const validate = (contractData) => {
         endDate = new Date(contractData.endDate);
         contractData.startDate = startDate;
         contractData.endDate = endDate;
-     
+
 
         // if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
         //   throw new Error("Format de date invalide");
@@ -319,7 +334,7 @@ const validate = (contractData) => {
             "La date de fin doit être supérieure a la date de début"
         );
     }
- 
+
 };
 
 const sign = async (id) => {

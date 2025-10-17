@@ -167,6 +167,7 @@ const deleteByEmail = async (email) => {
 };
 
 const updateUserById = async (id, data) => {
+  console.log(data)
   try {
 
     if (data.files && data.files.length > 0) {
@@ -203,7 +204,14 @@ const updateUserById = async (id, data) => {
         socialSecurity: data.socialSecurity,
         gender: data.gender,
         diploma: data.diploma,
-        profilePicture: data.profilePicture
+        profilePicture: data.profilePicture,
+        address: {
+          update:{
+            address: data.address,
+            postalCode: data.postalCode,
+            city: data.city,
+          }
+        }
        
       },
     });

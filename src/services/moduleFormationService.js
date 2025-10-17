@@ -54,12 +54,13 @@ const getModuleFormationByFormationId = async (formationId) => {
 };
 
 const updateModuleFormation = async (id, data) => {
+  console.log("updateModule")
   try {
     const updated = await prisma.moduleFormation.update({
       where: { id },
       data,
     });
-    return updated;
+    return updated; 
   } catch (error) {
     console.error("Erreur lors de la mise à jour :", error);
     throw error;
