@@ -1,8 +1,6 @@
 # TODO
 
 ## Bugs
-- INTERVENTION lors le paiement d'une intervention il ne faut pas changer l'ordre du grid 
-- INTERVENTION apres d'avoir payer pour une intervention il faut changer l'icon  
 - USER_PROFILE apres d'actualiser l'address d'un utilisateur l'address ca actualise pas automatiquement 
 
 
