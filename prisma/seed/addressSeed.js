@@ -17,6 +17,11 @@ export const defaultAddresses = [
         postalCode : "14000",
         city : "Caen"
     },
+        {
+        address : "19 Rue vert",
+        postalCode : "76000",
+        city : "Rouen"
+    },
 ];
 
 export async function createAddressSeeds(address) {

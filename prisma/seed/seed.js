@@ -81,6 +81,8 @@ async function main() {
     //Seed Sessionformation
     const sessionFormations = [];
     for (let i = 0; i < defaultSessionFormations.length; i++) {
+        console.log(addresses);
+        
         sessionFormations.push(
             await createSessionFormationSeeds(
                 defaultSessionFormations[i],
@@ -107,8 +109,8 @@ async function main() {
     const modulesFormations = [];
 
     for (let i=0; i < defaultModuleFormations.length; i++) {
-        const curentFormation = formationsIds[i];
-        const module = defaultModuleFormations[i];
+        const {tag,...module} = defaultModuleFormations[i];
+        const curentFormation = formationsIds[tag];
         module.formationId = curentFormation;
         
         modulesFormations.push(await createModuleFormationSeeds(module));
