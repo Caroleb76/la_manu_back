@@ -3,19 +3,24 @@ const prisma = new PrismaClient();
 
 export const defaultFormations = [
     {
-        name: "Formation Dévelopement Web",
+        name: "Accompagnement Social Professionnel",
         description:
-            "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit fugiat ipsa, quos ipsam porro, reiciendis itaque eos dolore iste nisi incidunt in aspernatur inventore architecto? Veniam voluptate placeat deleniti optio.",
+            "Programme dédié au développement des compétences d’accompagnement socio-professionnel, incluant l’analyse de situations, la construction de projets personnalisés et la coordination avec les partenaires sociaux.",
     },
     {
-        name: "Formation Design",
+        name: "Techniques d’Intervention Éducative",
         description:
-            "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit fugiat ipsa, quos ipsam porro, reiciendis itaque eos dolore iste nisi incidunt in aspernatur inventore architecto? Veniam voluptate placeat deleniti optio.",
+            "Formation axée sur les méthodes d’intervention auprès de différents publics, comprenant la gestion de conflits, les approches éducatives innovantes et les outils d’observation.",
     },
     {
-        name: "Formation Management",
+        name: "Gestion et Organisation des Établissements Sociaux",
         description:
-            "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit fugiat ipsa, quos ipsam porro, reiciendis itaque eos dolore iste nisi incidunt in aspernatur inventore architecto? Veniam voluptate placeat deleniti optio.",
+            "Module destiné aux futurs responsables et coordinateurs, couvrant la gestion administrative, la réglementation du secteur social et la conduite de projets institutionnels.",
+    },
+    {
+        name: "Communication et Relations Professionnelles",
+        description:
+            "Développe les compétences en communication interpersonnelle, animation de réunions, rédaction professionnelle et gestion des situations difficiles dans un cadre éducatif.",
     },
 ];
 

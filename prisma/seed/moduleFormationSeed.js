@@ -1,22 +1,75 @@
 import prisma from "../../src/utils/prisma.js";
 
+const socialProfessionalAccompanimentFormationId = 0;
+const techniquedInterventionEducativeFormationId = 1;
+const gestionOrganisationFormationId = 2;
+const communicationFormationId = 3;
 export const defaultModuleFormations = [
+    // -------------------------------
+    // Accompagnement Social Professionnel
+    // -------------------------------
     {
-        name: "Formation Dévelopement Web",
+        tag: socialProfessionalAccompanimentFormationId,
+        name: "Analyse des Situations Professionnelles",
         description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam modi atque soluta porro placeat vero, ad deserunt earum dolore neque voluptatum. Nostrum autem quas corporis eligendi, eaque consequuntur dolores cumque!",
+            "Méthodes d’analyse de situations rencontrées dans l’accompagnement socio-professionnel, identification des besoins et construction d’actions adaptées.",
     },
     {
-        name: "Formation Web Design",
+        tag: socialProfessionalAccompanimentFormationId,
+        name: "Construction du Projet d’Accompagnement",
         description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam modi atque soluta porro placeat vero, ad deserunt earum dolore neque voluptatum. Nostrum autem quas corporis eligendi, eaque consequuntur dolores cumque!",
+            "Techniques pour élaborer des projets personnalisés, suivi d’évolution, coordination avec les partenaires et institutions sociales.",
+    },
+
+    // -------------------------------
+    // Techniques d’Intervention Éducative
+    // -------------------------------
+    {
+        tag: techniquedInterventionEducativeFormationId,
+        name: "Méthodes et Outils d’Intervention",
+        description:
+            "Découverte et mise en pratique des techniques éducatives, observation, évaluation et gestion des situations complexes.",
     },
     {
-        name: "Formation Management",
+        tag: techniquedInterventionEducativeFormationId,
+        name: "Gestion des Conflits",
         description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam modi atque soluta porro placeat vero, ad deserunt earum dolore neque voluptatum. Nostrum autem quas corporis eligendi, eaque consequuntur dolores cumque!",
+            "Stratégies d’écoute active, médiation, communication non violente et résolution de conflits auprès de différents publics.",
+    },
+
+    // -------------------------------
+    // Gestion et Organisation des Établissements Sociaux
+    // -------------------------------
+    {
+        tag: gestionOrganisationFormationId,
+        name: "Réglementation du Secteur Social",
+        description:
+            "Étude de la législation et des obligations réglementaires applicables aux établissements sociaux et médico-sociaux.",
+    },
+    {
+        tag: gestionOrganisationFormationId,
+        name: "Conduite de Projets Institutionnels",
+        description:
+            "Outils et méthodes pour piloter des projets dans une structure sociale : planification, gestion d’équipe, évaluation et reporting.",
+    },
+
+    // -------------------------------
+    // Communication et Relations Professionnelles
+    // -------------------------------
+    {
+        tag: communicationFormationId,
+        name: "Communication Interpersonnelle",
+        description:
+            "Bases de la communication efficace, écoute active, gestion des émotions, posture professionnelle et relations de confiance.",
+    },
+    {
+        tag: communicationFormationId,
+        name: "Rédaction et Communication Professionnelle",
+        description:
+            "Techniques de rédaction de rapports, comptes rendus, notes professionnelles et animation de réunions.",
     },
 ];
+
 
 export async function createModuleFormationSeeds(moduleFormation) {
     const createdModuleFormation = await prisma.moduleFormation.create({

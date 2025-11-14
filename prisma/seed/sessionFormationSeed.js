@@ -16,6 +16,11 @@ export const defaultSessionFormations = [
         startDate: new Date("2025-08-01"),
         endDate: new Date("2025-12-31"),
     },
+        {
+        serialNumber: "12304628",
+        startDate: new Date("2025-08-01"),
+        endDate: new Date("2025-12-31"),
+    },
 ];
 
 export async function createSessionFormationSeeds(sessionFormation, formation, address) {
