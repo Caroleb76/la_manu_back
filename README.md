@@ -57,7 +57,7 @@ Commande	Description
 npm run dev	Lance le serveur de développement
 npm run lint	Analyse le code avec ESLint
 npm run lint:fix	Corrige automatiquement les erreurs
-docker-compose up	Lance la base de données via Docker
+npm run dockerdev	Lance la base de données via Docker
 
 🔐 Sécurité
 Données sensibles stockées dans .env (non versionné)

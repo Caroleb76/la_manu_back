@@ -219,6 +219,9 @@ const updateUserById = async (id, data) => {
       throw new Error("aucun utilisateur trouvé");
     }
     const {password, roleId, ...rest} = user;
+    rest.address={address: data.address,
+            postalCode: data.postalCode,
+            city: data.city,}
     return rest;
   } catch (error) {
     console.error(error);

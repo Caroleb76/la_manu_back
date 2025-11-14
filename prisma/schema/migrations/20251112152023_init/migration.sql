@@ -153,9 +153,6 @@ CREATE TABLE "Users" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Address_address_key" ON "Address"("address");
-
--- CreateIndex
 CREATE UNIQUE INDEX "ExtraCostCategory_name_key" ON "ExtraCostCategory"("name");
 
 -- CreateIndex
