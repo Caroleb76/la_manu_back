@@ -96,9 +96,6 @@ router.get("/:id", authMiddleware, getById);
  */
 router.get("/intervention/:id", authMiddleware, getByInterventionId);
 
-
-
-
 /**
  * @swagger
  * /extra-costs/{id}:

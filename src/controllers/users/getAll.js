@@ -1,18 +1,15 @@
 import userService from "../../services/userService.js";
-import ApiResponse  from "../../utils/apiResponse.js";
+import ApiResponse from "../../utils/apiResponse.js";
 export default async (req, res) => {
-    try {
-    
-      
-      const offset= parseInt(req.query?.offset) || 0;
-      const limit= parseInt(req.query?.limit) || 0;
-      const searchText= req.query?.searchText || null;
-      const role= req.query?.role || null;
-      const users= await userService.getUsers(offset,limit,searchText,role);
+  try {
+    const offset = parseInt(req.query?.offset) || 0;
+    const limit = parseInt(req.query?.limit) || 0;
+    const searchText = req.query?.searchText || null;
+    const role = req.query?.role || null;
+    const users = await userService.getUsers(offset, limit, searchText, role);
 
-      
-      return ApiResponse.success(res,users);
-    } catch (error) {
-      return ApiResponse.error(res, error);
-    }
-  };
+    return ApiResponse.success(res, users);
+  } catch (error) {
+    return ApiResponse.error(res, error);
+  }
+};

@@ -4,13 +4,11 @@ const prisma = new PrismaClient();
 
 const getModuleFormations = async () => {
   try {
-    const moduleFormations = await prisma.moduleFormation.findMany(
-      {
-        include : {
-         Formation : true
-        }
-      }
-    );
+    const moduleFormations = await prisma.moduleFormation.findMany({
+      include: {
+        Formation: true,
+      },
+    });
 
     return moduleFormations;
   } catch (error) {
@@ -42,7 +40,7 @@ const getModuleFormationByFormationId = async (formationId) => {
       where: {
         formationId: formationId,
       },
-    })
+    });
     if (!modules) {
       throw new Error("aucun moduleFormation trouvé");
     }
@@ -54,13 +52,13 @@ const getModuleFormationByFormationId = async (formationId) => {
 };
 
 const updateModuleFormation = async (id, data) => {
-  console.log("updateModule")
+  console.log("updateModule");
   try {
     const updated = await prisma.moduleFormation.update({
       where: { id },
       data,
     });
-    return updated; 
+    return updated;
   } catch (error) {
     console.error("Erreur lors de la mise à jour :", error);
     throw error;
@@ -100,5 +98,5 @@ export default {
   updateModuleFormation,
   createModuleFormation,
   deleteModuleFormationById,
-  getModuleFormationByFormationId
+  getModuleFormationByFormationId,
 };

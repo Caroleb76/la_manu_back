@@ -2,27 +2,27 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const getNotifications = async (offset=0,limit=10,searchText=null) => {
+const getNotifications = async (offset = 0, limit = 10, searchText = null) => {
   try {
-   const today = new Date();
-today.setHours(0, 0, 0, 0); // optionnel: comparer à la date du jour sans l'heure
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // optionnel: comparer à la date du jour sans l'heure
 
-const notifications = await prisma.notification.findMany({
-  skip: offset,
-  take: limit,
-  orderBy: [{ priority: "asc" }, { endDate: "desc" }],
-  where: {
-    endDate: { gte: today },             // toujours appliqué
-    ...(searchText
-      ? {
-          OR: [
-            { title:   { contains: searchText, mode: "insensitive" } },
-            { content: { contains: searchText, mode: "insensitive" } },
-          ],
-        }
-      : {}),
-  },
-});
+    const notifications = await prisma.notification.findMany({
+      skip: offset,
+      take: limit,
+      orderBy: [{ priority: "asc" }, { endDate: "desc" }],
+      where: {
+        endDate: { gte: today }, // toujours appliqué
+        ...(searchText
+          ? {
+              OR: [
+                { title: { contains: searchText, mode: "insensitive" } },
+                { content: { contains: searchText, mode: "insensitive" } },
+              ],
+            }
+          : {}),
+      },
+    });
 
     const total = await prisma.notification.count();
     return { notifications, total };

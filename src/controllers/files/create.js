@@ -2,22 +2,21 @@ import ApiResponse from "../../utils/apiResponse.js";
 import fileService from "../../services/fileService.js";
 export default async (req, res) => {
   try {
-    const uploadedFile = req.file; 
-    const { filename,userId, extraCostId } = req.body;
+    const uploadedFile = req.file;
+    const { filename, userId, extraCostId } = req.body;
 
     if (!uploadedFile || !userId || !filename) {
       return ApiResponse.error(res, "Missing file, user or filename", 400);
     }
-    
+
     const payload = await fileService.createFile({
       userId,
       name: filename,
       path: uploadedFile.path,
-      extraCostId
+      extraCostId,
     });
 
     return ApiResponse.success(res, payload, "Resource created");
-
   } catch (error) {
     console.error(error);
     return ApiResponse.error(res, error);

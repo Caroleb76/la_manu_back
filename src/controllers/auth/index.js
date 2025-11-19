@@ -16,7 +16,7 @@ const router = Router();
  *       required: true
  *       content:
  *         application/json:
- *           schema:                
+ *           schema:
  *             $ref: '#/components/schemas/Login'
  *     responses:
  *       200:
@@ -56,7 +56,6 @@ router.post("/login", login);
  *         description: Internal Server Error
  */
 router.get("/authMe", authMiddleware, authMe);
-
 
 /**
  * @swagger

@@ -5,7 +5,7 @@ import { createNotificationSchema } from "../../validators/createNotificationSch
 export default async (req, res) => {
   try {
     const data = req.body;
-    const validated = createNotificationSchema.parse(data)
+    const validated = createNotificationSchema.parse(data);
     const payload = await notificationService.createNotification(validated);
     return ApiResponse.success(res, payload, "Resource created");
   } catch (error) {
@@ -13,4 +13,3 @@ export default async (req, res) => {
     return ApiResponse.error(res, error);
   }
 };
-

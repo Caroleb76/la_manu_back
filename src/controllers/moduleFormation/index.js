@@ -56,8 +56,6 @@ router.get("/", authMiddleware, getAll);
  */
 router.get("/:id", authMiddleware, getById);
 
-
-
 /**
  * @swagger
  * /moduleFormations/{formationId}:

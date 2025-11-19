@@ -6,11 +6,19 @@ import fileService from "./fileService.js";
 
 const prisma = new PrismaClient();
 
-const getUsers = async (offset = 0, limit = 10, searchText = null, role = null) => {
+const getUsers = async (
+  offset = 0,
+  limit = 10,
+  searchText = null,
+  role = null,
+) => {
   try {
-
     if (role != null) {
-      if (role !== ROLES.FORMATEUR && role !== ROLES.ADMIN && role !== ROLES.SUPER_ADMIN) {
+      if (
+        role !== ROLES.FORMATEUR &&
+        role !== ROLES.ADMIN &&
+        role !== ROLES.SUPER_ADMIN
+      ) {
         throw new Error("Rôle invalide");
       }
     }
@@ -57,7 +65,6 @@ const getUsers = async (offset = 0, limit = 10, searchText = null, role = null) 
     throw error;
   }
 };
-
 
 const getUserById = async (id) => {
   try {
@@ -121,7 +128,7 @@ const createUser = async (data) => {
         password: hashedPassword,
         firstName: data.firstName,
         lastName: data.lastName,
-        roleId: data.role
+        roleId: data.role,
       },
     });
 
@@ -167,18 +174,16 @@ const deleteByEmail = async (email) => {
 };
 
 const updateUserById = async (id, data) => {
-  console.log(data)
+  console.log(data);
   try {
-
     if (data.files && data.files.length > 0) {
       for (const file of data.files) {
         const savedFile = await fileService.createFile({
           userId: id,
-          name: file.fieldname, 
-          path : file.path
+          name: file.fieldname,
+          path: file.path,
         });
 
-        
         if (file.fieldname === PROFILE_PICTURE_KEY) {
           data.profilePicture = savedFile.url.replaceAll("\\", "/");
         }
@@ -206,22 +211,23 @@ const updateUserById = async (id, data) => {
         diploma: data.diploma,
         profilePicture: data.profilePicture,
         address: {
-          update:{
+          update: {
             address: data.address,
             postalCode: data.postalCode,
             city: data.city,
-          }
-        }
-       
+          },
+        },
       },
     });
     if (!user) {
       throw new Error("aucun utilisateur trouvé");
     }
-    const {password, roleId, ...rest} = user;
-    rest.address={address: data.address,
-            postalCode: data.postalCode,
-            city: data.city,}
+    const { password, roleId, ...rest } = user;
+    rest.address = {
+      address: data.address,
+      postalCode: data.postalCode,
+      city: data.city,
+    };
     return rest;
   } catch (error) {
     console.error(error);
@@ -238,29 +244,7 @@ const updatePassword = async (id, password) => {
         id: id,
       },
       data: {
-        password: hashedPassword
-      },
-    });
-    if (!user) {
-      throw new Error("aucun utilisateur trouvé");
-    }
-    return user;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-  
-}
-
-const blockUserById = async (id, data) => {
-  try {
-
-    const user = await prisma.user.update({
-      where: {
-        id: id,
-      },
-      data: {
-        blocked: data.blocked
+        password: hashedPassword,
       },
     });
     if (!user) {
@@ -273,9 +257,25 @@ const blockUserById = async (id, data) => {
   }
 };
 
-
-
-
+const blockUserById = async (id, data) => {
+  try {
+    const user = await prisma.user.update({
+      where: {
+        id: id,
+      },
+      data: {
+        blocked: data.blocked,
+      },
+    });
+    if (!user) {
+      throw new Error("aucun utilisateur trouvé");
+    }
+    return user;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
 
 export default {
   getUsers,
@@ -286,5 +286,5 @@ export default {
   deleteByEmail,
   updateUserById,
   blockUserById,
-  updatePassword
+  updatePassword,
 };

@@ -6,30 +6,29 @@ import { toStandardDate } from "../../utils/date.js";
 import userService from "../../services/userService.js";
 
 export default async (req, res) => {
-    try {
-        const data = req.body;
-        if (!data) {
-            throw new Error("aucune donnée reçue");
-        }
+  try {
+    const data = req.body;
+    if (!data) {
+      throw new Error("aucune donnée reçue");
+    }
 
-        //Create contract
-        const createdContract = await contractService.create(data);
+    //Create contract
+    const createdContract = await contractService.create(data);
 
-        if (!createdContract) {
-            throw new Error("contract not created");
-        }
+    if (!createdContract) {
+      throw new Error("contract not created");
+    }
 
-        //Récupérer l'email de l'utilisateur
-        const user = await userService.getUserById(createdContract.userId);
+    //Récupérer l'email de l'utilisateur
+    const user = await userService.getUserById(createdContract.userId);
 
-        //if contract created send email
-        const emailReponse = await emailService.sendEmail({
-            from: "Ifen Le Havre <ifen-le-havre@demo.com>",
-            to: user.email,
-            subject: "Nouveau contrat à signer",
-            text: `Nouveau contrat à signer - Bonjour,${user.firstName} ${user.lastName} Un nouveau contrat a été créé dans votre espace. Vous devez à présent le signer en vous rendant sur l'onglet "contrat" de votre espace. Cordialement. L'équipe IFEN. Ceci est un email automatique, merci de ne pas y répondre`, // plain text body
-            html: 
-            `<h1>Nouveau contrat à signer</h1>
+    //if contract created send email
+    const emailReponse = await emailService.sendEmail({
+      from: "Ifen Le Havre <ifen-le-havre@demo.com>",
+      to: user.email,
+      subject: "Nouveau contrat à signer",
+      text: `Nouveau contrat à signer - Bonjour,${user.firstName} ${user.lastName} Un nouveau contrat a été créé dans votre espace. Vous devez à présent le signer en vous rendant sur l'onglet "contrat" de votre espace. Cordialement. L'équipe IFEN. Ceci est un email automatique, merci de ne pas y répondre`, // plain text body
+      html: `<h1>Nouveau contrat à signer</h1>
             <h2>Bonjour, ${user.firstName} ${user.lastName}</h2>
             <p>Un nouveau contrat a été créé dans votre espace. Vous devez à présent le signer en vous rendant sur l'onglet "contrat" de votre espace.</p>
             <p>Cordialement</p>
@@ -38,22 +37,22 @@ export default async (req, res) => {
             <br>
             <p>Ceci est un email automatique, merci de ne pas y répondre</p>
             `, // html body
-        });
+    });
 
-        if (!emailReponse) {
-            throw new Error("email not sent");
-        }
-
-        const response = {
-            emailReponse,
-            createdContract
-        }
-
-        ApiResponse.success(res, response, "Resource created");
-    } catch (error) {
-        console.error(error);
-        return ApiResponse.error(res, error);
+    if (!emailReponse) {
+      throw new Error("email not sent");
     }
+
+    const response = {
+      emailReponse,
+      createdContract,
+    };
+
+    ApiResponse.success(res, response, "Resource created");
+  } catch (error) {
+    console.error(error);
+    return ApiResponse.error(res, error);
+  }
 };
 
 // dateIntervention: "2025-07-19"

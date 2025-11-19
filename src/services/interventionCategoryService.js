@@ -10,7 +10,6 @@ const create = async (data) => {
       data,
     });
 
-    
     return interventionCategory;
   } catch (error) {
     console.error(error);
@@ -25,7 +24,7 @@ const destroy = async (id) => {
         id: id,
       },
     });
- 
+
     return interventionCategory;
   } catch (error) {
     console.error(error);
@@ -43,9 +42,6 @@ const getAll = async () => {
     throw error;
   }
 };
-
-
-
 
 export default {
   create,

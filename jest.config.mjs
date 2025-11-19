@@ -3,9 +3,6 @@
  * https://jestjs.io/docs/configuration
  */
 
-
- export default  {
-      transform: { "^.+\.(js|jsx)$": "babel-jest" }
-    };
-
-
+export default {
+  transform: { "^.+\.(js|jsx)$": "babel-jest" },
+};

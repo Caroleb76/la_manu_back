@@ -142,7 +142,6 @@ router.get("/session/:id", authMiddleware, getBySessionId);
  */
 router.get("/session/:id", authMiddleware, getBySessionId);
 
-
 /**
  * @swagger
  * /contracts/user/{id}:
@@ -199,7 +198,6 @@ router.get("/user/:id", authMiddleware, getByUserId);
  *         description: Unauthorized
  */
 router.post("/", authMiddleware, create);
-
 
 /**
  * @swagger

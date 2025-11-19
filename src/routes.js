@@ -14,7 +14,6 @@ import notification from "./controllers/notification/index.js";
 import moduleFormation from "./controllers/moduleFormation/index.js";
 import emailService from "./services/emailService.js";
 
-
 export default (router) => {
   router.use("/users", users); // une route pour chaque répertoire ex users contrats ...
   router.use("/auth", auth);
@@ -31,14 +30,16 @@ export default (router) => {
   router.use("/notification", notification);
   router.use("/moduleFormation", moduleFormation);
 
-  router.get("/sendEmail", async(req, res) => {
-    const reponse = await emailService.sendEmail(emailService.defaultParameters)
-    res.json(reponse)
-  })
+  router.get("/sendEmail", async (req, res) => {
+    const reponse = await emailService.sendEmail(
+      emailService.defaultParameters,
+    );
+    res.json(reponse);
+  });
   router.get("/test", (req, res) => {
     res.json({
       success: true,
       message: "Hello World",
     });
-  })
+  });
 };

@@ -4,28 +4,28 @@ const prisma = new PrismaClient();
 
 const getAll = async (limit = 10, offset = 0, searchText = null) => {
   try {
-    const addresses = await prisma.address.findMany(
-      {
-        skip: offset,
-        take: limit,
-        where: searchText ? {
-          OR: [
-            {
-              city: {
-                contains: searchText,
-                mode: "insensitive",
+    const addresses = await prisma.address.findMany({
+      skip: offset,
+      take: limit,
+      where: searchText
+        ? {
+            OR: [
+              {
+                city: {
+                  contains: searchText,
+                  mode: "insensitive",
+                },
               },
-            },
-            {
-              address: {
-                contains: searchText,
-                mode: "insensitive",
+              {
+                address: {
+                  contains: searchText,
+                  mode: "insensitive",
+                },
               },
-            },
-          ],
-        } : {},
-      }
-    );
+            ],
+          }
+        : {},
+    });
 
     return addresses;
   } catch (error) {
@@ -55,7 +55,7 @@ const update = async (id, data) => {
       where: { id },
       data,
     });
-   
+
     return updated;
   } catch (error) {
     console.error("Erreur lors de la mise à jour :", error);
@@ -65,12 +65,9 @@ const update = async (id, data) => {
 
 const create = async (data) => {
   try {
- ;
-
     const address = await prisma.address.create({
       data,
     });
-
 
     return address;
   } catch (error) {
@@ -91,7 +88,7 @@ const destroy = async (id) => {
         id: id,
       },
     });
-   
+
     return address;
   } catch (error) {
     console.error(error);

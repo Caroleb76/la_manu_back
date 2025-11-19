@@ -1,21 +1,21 @@
 Address:
-    type: object
-    properties:
-        id:
-            type: string
-            format: uuid
-            description: Unique identifier for the address
-        address:
-            type: string
-            description: Street address
-        city:
-            type: string
-            description: City name
-        postalCode:
-            type: string
-            description: Postal code
-    required:
-        - id
-        - address
-        - city
-        - postalCode
+  type: object
+  properties:
+    id:
+      type: string
+      format: uuid
+      description: Unique identifier for the address
+    address:
+      type: string
+      description: Street address
+    city:
+      type: string
+      description: City name
+    postalCode:
+      type: string
+      description: Postal code
+  required:
+    - id
+    - address
+    - city
+    - postalCode

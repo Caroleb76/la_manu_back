@@ -8,8 +8,6 @@ import getById from "./getById.js";
 import getAll from "./getAll.js";
 const router = Router();
 
-
-
 /**
  * @swagger
  * /SessionFormation:

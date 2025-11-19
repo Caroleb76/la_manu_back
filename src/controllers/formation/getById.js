@@ -4,7 +4,6 @@ export default async (req, res) => {
   try {
     const id = req.params.id;
 
-
     const formation = await formationService.getFormationById(id);
     ApiResponse.success(res, formation, "Resource created");
   } catch (error) {

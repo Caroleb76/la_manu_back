@@ -23,15 +23,13 @@ const getFilesByUserId = async (userId) => {
         userId: userId,
       },
     });
-    files= files.filter(it => it.name!= PROFILE_PICTURE_KEY);
+    files = files.filter((it) => it.name != PROFILE_PICTURE_KEY);
     return files;
   } catch (error) {
     console.error(error);
     throw error;
   }
 };
-
-
 
 const getFilesByExtraCostId = async (extraCostId) => {
   try {
@@ -77,28 +75,29 @@ const updateFileById = async (id, data) => {
 
 const createFile = async (data) => {
   try {
-    
     const existingFile = await prisma.file.findFirst({
       where: {
         name: data.name,
         userId: data.userId,
-        extraCostId: data.extraCostId
-      }
+        extraCostId: data.extraCostId,
+      },
     });
 
     if (existingFile) {
       const deleteFromDisk = existingFile.name != PROFILE_PICTURE_KEY;
-      await deleteFileById(existingFile.id,deleteFromDisk);
+      await deleteFileById(existingFile.id, deleteFromDisk);
     }
-    if(data.extraCostId){
-      await prisma.file.deleteMany({where:{extraCostId:data.extraCostId}})
+    if (data.extraCostId) {
+      await prisma.file.deleteMany({
+        where: { extraCostId: data.extraCostId },
+      });
     }
     const file = await prisma.file.create({
-      data:{
+      data: {
         userId: data.userId,
         name: data.name,
         url: data.path,
-        extraCostId: data.extraCostId
+        extraCostId: data.extraCostId,
       },
     });
 
@@ -110,16 +109,13 @@ const createFile = async (data) => {
 };
 
 const createFilesInBulk = async (files) => {
-  for ( const file of files) {
+  for (const file of files) {
     await createFile(file);
   }
 };
 
-
-
-const deleteFileById = async (id,deleteFromDisk=false) => {
+const deleteFileById = async (id, deleteFromDisk = false) => {
   try {
-
     const file = await prisma.file.findUnique({
       where: { id },
     });
@@ -128,16 +124,14 @@ const deleteFileById = async (id,deleteFromDisk=false) => {
       throw new Error("File not found in database");
     }
 
-
     await prisma.file.delete({ where: { id } });
-// I made this optional because when updating the profile picture we do not need to delete the file manually
-// since the middlleware does this
-    if(deleteFromDisk){
+    // I made this optional because when updating the profile picture we do not need to delete the file manually
+    // since the middlleware does this
+    if (deleteFromDisk) {
+      const filePath = path.resolve(file.url);
 
-      const filePath = path.resolve(file.url); 
-  
       if (fs.existsSync(filePath)) {
-        fs.unlinkSync(filePath); 
+        fs.unlinkSync(filePath);
       } else {
         console.warn("File not found on disk:", filePath);
       }
@@ -158,5 +152,5 @@ export default {
   updateFileById,
   createFile,
   deleteFileById,
-  createFilesInBulk
+  createFilesInBulk,
 };

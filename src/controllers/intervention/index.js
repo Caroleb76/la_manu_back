@@ -16,7 +16,6 @@ import getById from "./getById.js";
 
 const router = Router();
 
-
 /**
  * @swagger
  * /interventions/contract/{id}:
@@ -64,7 +63,6 @@ router.get("/", authMiddleware, getAll);
  *         description: Unauthorized
  */
 router.get("/id/:id", authMiddleware, getById);
-
 
 /**
  * @swagger
@@ -128,7 +126,11 @@ router.get("/contract/:id", authMiddleware, getByContractId);
  *       401:
  *         description: Unauthorized
  */
-router.get("/user/:userId/formation/:formationId", authMiddleware, getByFormationAndUserId);
+router.get(
+  "/user/:userId/formation/:formationId",
+  authMiddleware,
+  getByFormationAndUserId,
+);
 
 /**
  * @swagger
@@ -161,7 +163,6 @@ router.get("/user/:userId/formation/:formationId", authMiddleware, getByFormatio
  *         description: Unauthorized
  */
 router.get("/user/:id", authMiddleware, getByUserId);
-
 
 /**
  * @swagger
@@ -283,7 +284,6 @@ router.post("/", authMiddleware, create);
  */
 router.post("/validate/:id", authMiddleware, validate);
 
-
 /**
  * @swagger
  * /interventions/validate/{id}:
@@ -311,9 +311,6 @@ router.post("/validate/:id", authMiddleware, validate);
  *         description: Unauthorized
  */
 router.put("/validatePayment/:id", authMiddleware, validatePayment);
-
-
-
 
 /**
  * @swagger
@@ -378,8 +375,6 @@ router.post("/many", authMiddleware, createMany);
  *         description: Unauthorized
  */
 router.put("/:id", authMiddleware, update);
-
-
 
 /**
  * @swagger

@@ -1,17 +1,15 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
-
-
-const getSessions = async (offset=0,limit=10) => {
+const getSessions = async (offset = 0, limit = 10) => {
   try {
     const sessionFormations = await prisma.sessionFormation.findMany({
       // skip: offset,
       // take: limit,
-      include:{
+      include: {
         Address: true,
-        Formation: true
-      }
+        Formation: true,
+      },
     });
     const total = await prisma.sessionFormation.count();
     return { sessionFormations, total };
@@ -22,21 +20,18 @@ const getSessions = async (offset=0,limit=10) => {
 };
 const create = async (data) => {
   try {
-    
     validateSessionFormation(data);
 
-    
     const sessionFormation = await prisma.sessionFormation.create({
       data,
     });
     return sessionFormation;
   } catch (error) {
     console.error(error);
-    if(error.code === "P2002") {
-      if(error.message.includes("serialNumber")) {
+    if (error.code === "P2002") {
+      if (error.message.includes("serialNumber")) {
         throw new Error("le Numero de dossier doit être unique");
       }
-
     }
     throw error;
   }
@@ -78,7 +73,7 @@ const getById = async (id) => {
 
 const update = async (id, data) => {
   try {
-    const {serialNumber,formationId, ...dataToUpdate} = data
+    const { serialNumber, formationId, ...dataToUpdate } = data;
     dataToUpdate.startDate = new Date(dataToUpdate.startDate);
     dataToUpdate.endDate = new Date(dataToUpdate.endDate);
     const session = await prisma.sessionFormation.update({
@@ -88,7 +83,7 @@ const update = async (id, data) => {
       data: {
         addressId: dataToUpdate.addressId,
         endDate: dataToUpdate.endDate,
-      }
+      },
     });
     return session;
   } catch (error) {

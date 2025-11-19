@@ -19,16 +19,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/files", express.static(path.join(path.resolve(), "files")));
 //Test route
 app.get("/", (req, res) => {
-    res.send("The api is running");
-})
+  res.send("The api is running");
+});
 
 // on passe le router dans les routes
 routes(router);
 //ajouter le prefixe /api/v1 à toutes les routes
 app.use("/api/v1", router);
 //swagger endpoint
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // associer le port à notre application
 app.listen(port, () => {
-    console.log(`listening on port http://localhost:${port}`);
+  console.log(`listening on port http://localhost:${port}`);
 });
