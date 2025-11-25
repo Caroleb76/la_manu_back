@@ -30,12 +30,25 @@ const options = {
         },
         components: {
             schemas,
+            securitySchemes: {
+                bearerAuth: {
+                    type: "http",
+                    scheme: "bearer",
+                    bearerFormat: "JWT",
+                    description: "Enter your JWT token"
+                }
+            }
         },
         servers: [
             {
                 url: "/api/v1",
             },
         ],
+        security: [
+            {
+                bearerAuth: []
+            }
+        ]
     },
     apis: [path.join(__dirname, "../../src/controllers/*/index.js"), path.join(__dirname, "../docs/schemas/*.yaml")],
 };

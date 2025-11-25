@@ -6,19 +6,18 @@ const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         const user = req.currentUser
         const { extraCostId, interventionId } = req.body;
-        const isIntervention = interventionId && extraCostId;
+        const isIntervention = interventionId && extraCostId; // here I am checking if the user is uploading a file for an intervention
      
 
-        if (!user) return
-        if (!fs.existsSync('files')) fs.mkdirSync('files')
-        if (!fs.existsSync('files/' + user.id)) {
-            fs.mkdirSync('files/' + user.id)
-        }
+        if (!user) return // if the user is not authenticated then return
+        if (!fs.existsSync('files')) fs.mkdirSync('files') // if the files directory does not exist then create it
+        if (!fs.existsSync('files/' + user.id)) fs.mkdirSync('files/' + user.id)  // if the user directory does not exist then create it
+
         if (isIntervention && user) {
 
-            const dirPath = 'files/' + user.id + '/interventions/' + interventionId + '/' + extraCostId;
+            const dirPath = 'files/' + user.id + '/interventions/' + interventionId + '/' + extraCostId; // here I am creating a directory for the extraCost (frais) of the intervention
             if (fs.existsSync(dirPath)) {
-                fs.rmSync(dirPath, { recursive: true, force: true });
+                fs.rmSync(dirPath, { recursive: true, force: true }); // if the directory already exists then delete it because it is only allowed one file per frais/extraCost
             }
          
             fs.mkdirSync(dirPath, { recursive: true });
@@ -32,7 +31,7 @@ const storage = multer.diskStorage({
       
         const { extraCostId, interventionId } = req.body;
         const isProfilePicture = file.fieldname == PROFILE_PICTURE_KEY;
-        const isIntervention = interventionId && extraCostId;
+
         const user = req.currentUser;
 
         if (isProfilePicture && user) {

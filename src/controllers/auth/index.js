@@ -41,9 +41,9 @@ router.post("/login", login);
 
 /**
  * @swagger
- * /auth:
+ * /auth/authMe:
  *   get:
- *     summary: Authenticate a user
+ *     summary: Get user information
  *     tags: [Auth]
  *     security:
  *       - bearerAuth: []
@@ -60,9 +60,9 @@ router.get("/authMe", authMiddleware, authMe);
 
 /**
  * @swagger
- * /auth:
+ * /auth/resetPassword:
  *   get:
- *     summary: Authenticate a user
+ *     summary: Reset password
  *     tags: [Auth]
  *     security:
  *       - bearerAuth: []

@@ -31,4 +31,6 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 // associer le port à notre application
 app.listen(port, () => {
     console.log(`listening on port http://localhost:${port}`);
+    console.log(`Swagger UI: http://localhost:${port}/api-docs`);
+    
 });

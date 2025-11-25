@@ -6,8 +6,8 @@ export default async (req, res) => {
         const {email, password} = req.body;
 
         if(!email || !password) throw new Error("Il manque des champs");
-        const user = await authService.login(email, password);
-        ApiResponse.success(res, {user});
+        const {token,...user} = await authService.login(email, password);
+        ApiResponse.success(res, {token});
     }catch (error) {
         ApiResponse.error(res, error);
     }
